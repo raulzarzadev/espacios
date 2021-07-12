@@ -1,0 +1,2 @@
+# espacios
+Administracón de espacios

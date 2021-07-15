@@ -30,8 +30,8 @@ export default function VisualGideView() {
   ]
   // comentario para nuevo commit 
   return (
-    <div className="">
-      <div className="flex flex-wrap bg-gray-100">
+    <div className="pt-6 sm:p-6">
+      <div className="flex flex-wrap bg-gray-100 p-6 md:p-8 sm:rounded-lg">
         {components.map(({ label, component }) => (
           <div
             key={label}

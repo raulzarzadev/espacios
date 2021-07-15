@@ -5,14 +5,15 @@ export default function Link({
   children = 'link',
   label = null,
   iconOnly = false,
+  size='regular',
   ...rest
 }) {
   return (
     <NextLink href={href}>
       <Button
-        color="lightBlue"
+        color="white"
         buttonType="link"
-        size="regular"
+        size={size}
         rounded={true}
         block={false}
         iconOnly={iconOnly}

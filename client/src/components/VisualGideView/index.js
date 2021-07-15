@@ -14,10 +14,21 @@ export default function VisualGideView() {
     },
     { label: 'Simple Button ', component: <Button> Button </Button> },
     { label: 'Input Text', component: <InputText Icon="person" /> },
-    { label: 'Input Select', component: <InputSelect   options={[{ label: 'Uno', value: '1' }, { label: 'Dos', value: '2' }]} /> },
-   /*  { label: 'Main Layout ', component: <Layaut /> }, */
+    {
+      label: 'Input Select',
+      component: (
+        <InputSelect
+          options={[
+            { label: 'Uno', value: '1' },
+            { label: 'Dos', value: '2' }
+          ]}
+        />
+      )
+    },
+    /*  { label: 'Main Layout ', component: <Layaut /> }, */
     { label: 'Home View link', component: <HomeView /> }
   ]
+  // comentario para nuevo commit 
   return (
     <div className="">
       <div className="flex flex-wrap bg-gray-100">
@@ -26,7 +37,7 @@ export default function VisualGideView() {
             key={label}
             className="relative w-full  sm:w-1/2 box-border p-2 pb-6"
           >
-            <div className=" bg-white flex justify-center pb-2">
+            <div className=" bg-white flex justify-center p-2 items-center h-16 min-h-full ">
               {component}
             </div>
             <div className="absolute bottom-0 left-2 font-extralight  ">

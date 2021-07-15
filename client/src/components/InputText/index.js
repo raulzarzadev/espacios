@@ -5,7 +5,7 @@ export default function Input({
   error = '',
   success = '',
   placeholder = 'label',
-  Icon = null, // Material Icon Library https://fonts.google.com/icons
+  Icon = '', // Material Icon Library https://fonts.google.com/icons
   ...rest
 }) {
   return (

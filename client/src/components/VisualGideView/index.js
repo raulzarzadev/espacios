@@ -28,6 +28,7 @@ export default function VisualGideView() {
     /*  { label: 'Main Layout ', component: <Layaut /> }, */
     { label: 'Home View link', component: <HomeView /> }
   ]
+  // comentario para nuevo commit 
   return (
     <div className="">
       <div className="flex flex-wrap bg-gray-100">

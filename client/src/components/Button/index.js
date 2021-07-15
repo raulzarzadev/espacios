@@ -7,14 +7,13 @@ export default function Button({
   children,
   block = false,
   iconOnly = false,
-  Icon = false, // Material Icon Library https://fonts.google.com/icons
+  Icon = false, // Icons from https://fonts.google.com/icons or https://fontawesome.com/v5.15/icons?d=gallery&p=2
   rounded = false,
   buttonType = 'filled',
   color = 'lightBlue',
   size = 'sm',
   ...rest
 }) {
-  
   return (
     <TWButton
       color={color}

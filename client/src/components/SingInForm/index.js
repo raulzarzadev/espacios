@@ -1,37 +1,24 @@
-/*
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ]
-  }
-  ```
-*/
 import InputText from '@comps/InputText'
 import Link from '@comps/Link'
 import { LockClosedIcon } from '@heroicons/react/solid'
+import Image from 'next/image'
 
 export default function SingInForm() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
-        <div>
-          <img
+        <div className="relative h-16 w-16 mx-auto">
+          <Image
+            layout="fill"
+            objectFit="fill"
             className="mx-auto h-12 w-auto"
             src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
             alt="Workflow"
           />
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Ingresa
-          </h2>
         </div>
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Ingresa
+        </h2>
         <form className="mt-8 space-y-6" action="#" method="POST">
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">

@@ -1,7 +1,5 @@
 import InputText from '@comps/InputText'
 import Link from '@comps/Link'
-import { LockClosedIcon } from '@heroicons/react/solid'
-import Image from 'next/image'
 import LoginLayout from '.'
 
 export default function Singup() {

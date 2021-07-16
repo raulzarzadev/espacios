@@ -3,12 +3,9 @@ import Navbar from './Navbar'
 import DefaultFooter from './DefaultFooter'
 import SimpleFooter from './SimpleFooter'
 const navigation = [
-  { label: 'Visual Gide', href: '/visualgide' }
-  /* 
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' } */
+  { label: 'Guia visual', href: '/visualgide' },
+  { label: 'Dashboard', href: '/dashboard' }
+
 ]
 
 export default function Layout({ children }) {

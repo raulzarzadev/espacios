@@ -1,16 +1,11 @@
 import Button from '@material-tailwind/react/Button'
 import Icon from '@material-tailwind/react/Icon'
 import NavbarInput from '@material-tailwind/react/NavbarInput'
-import Image from '@material-tailwind/react/Image'
-import Dropdown from '@material-tailwind/react/Dropdown'
-import DropdownItem from '@material-tailwind/react/DropdownItem'
 //import ProfilePicture from 'assets/img/team-1-800x800.jpg'
 import { useRouter } from 'next/dist/client/router'
 
 export default function AdminNavbar({ showSidebar, setShowSidebar }) {
   const location = useRouter().pathname
-  console.log('location', location)
-  
 
   return (
     <nav className="bg-light-blue-500 md:ml-64 py-6 px-3">

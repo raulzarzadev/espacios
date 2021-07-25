@@ -7,7 +7,8 @@ import Link from '@comps/Link'
 export default function Sidebar() {
   const SIDEBAR_LINKS = [
     { label: 'Home', href: '/dashboard', icon: 'home' },
-    { label: 'Espacios', href: '/dashboard/espacios', icon: 'archive' }
+    { label: 'Espacios', href: '/dashboard/espacios', icon: 'archive' },
+    { label: 'Nuevo Espacio', href: '/dashboard/espacios/new-espacio', icon: 'home' },
   ]
   const [showSidebar, setShowSidebar] = useState('-left-64')
   return (
@@ -23,7 +24,7 @@ export default function Sidebar() {
             rel="noreferrer"
             className="mt-2 text-center w-full inline-block"
           >
-            <H6 color="gray">Material Tailwind</H6>
+            <H6 color="gray">Espacios</H6>
           </a>
           <div className="flex flex-col">
             <hr className="my-4 min-w-full" />

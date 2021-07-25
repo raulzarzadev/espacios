@@ -55,6 +55,30 @@ const ITEMS = [
     category: ['consumible'],
     description: 'descripcion del jabon de trastes',
     icon: null
+  },
+  {
+    id: '14',
+    value: '14',
+    label: 'shapoo de cuerpo',
+    category: ['consumible'],
+    description: 'descripcion del shampo',
+    icon: null
+  },
+  {
+    id: '12',
+    value: '12',
+    label: 'papel sanitario',
+    category: ['consumible'],
+    description: 'descripcion del papel',
+    icon: null
+  },
+  {
+    id: '5',
+    value: '5',
+    label: 'toalla de manos',
+    category: ['linens'],
+    description: 'descripcion del toalla de manos',
+    icon: null
   }
 ]
 
@@ -113,7 +137,7 @@ export default function EspacioForm({ espacio, handleChange }) {
         <div className="flex flex-wrap">
           {subEspacios.map(({ items, label }, i) => (
             <div className="w-1/4" key={i}>
-              <div className='font-bold'>{label}</div>
+              <div className="font-bold">{label}</div>
               <div>
                 {items.map((item) => (
                   <div key={item}>

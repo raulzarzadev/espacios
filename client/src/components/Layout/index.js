@@ -10,7 +10,7 @@ const navigation = [
 
 export default function Layout({ children }) {
   return (
-    <div className="bg-blue-400">
+    <div className="bg-blue-200">
       <Navbar navigation={navigation} />
       <main className="bg-landing-background min-h-screen">{children}</main>
       {/*   

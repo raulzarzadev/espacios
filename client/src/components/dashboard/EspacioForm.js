@@ -13,7 +13,7 @@ const SUB_ESPACIOS = [
     description: 'Descripción de cuarto ',
     category: ['kitchen']
   },
- /*  {
+  /*  {
     id: '2',
     value: '2',
     label: 'Cuarto Ind',
@@ -101,7 +101,7 @@ export default function EspacioForm({ espacio, handleChange }) {
 
   return (
     <div className=" bg-white m-4 flex flex-col gap-4 p-4 rounded-md ">
-      <h3 className="text-3xl text-center">Nuevo Espacio</h3>
+      <h3 className="text-2xl font-bold text-center">Nuevo Espacio</h3>
       <div className="w-96 max-w-max mx-auto">
         <InputText placeholder="Titulo" color="red" />
       </div>
@@ -117,17 +117,23 @@ export default function EspacioForm({ espacio, handleChange }) {
             </div>
           ))}
         </div>
-        <div className="mx-3 flex justify-center flex-wrap">
-          <select value={subEspacioSelected} onChange={handleSelectSubEspacio}>
-            <option value="">selecciona sub espacio</option>
-            {SUB_ESPACIOS.map(({ label, value }, i) => (
-              <option key={`${value}-${i}`} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
-          <div className="mx-3">
-            <Button onClick={addSubEspacio}>
+        <div className="mx-3 flex justify-center flex-wrap md:flex-nowrap">
+          <div className="w-full my-2 ">
+            <select
+              className="w-full py-2"
+              value={subEspacioSelected}
+              onChange={handleSelectSubEspacio}
+            >
+              <option value="">selecciona sub espacio</option>
+              {SUB_ESPACIOS.map(({ label, value }, i) => (
+                <option key={`${value}-${i}`} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="w-full my-2 ">
+            <Button block onClick={addSubEspacio}>
               <Icon name="add" size="2x" />
             </Button>
           </div>

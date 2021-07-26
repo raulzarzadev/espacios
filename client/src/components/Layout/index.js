@@ -12,7 +12,7 @@ export default function Layout({ children }) {
   return (
     <div className="bg-blue-200">
       <Sidebar />
-      <main className="bg-landing-background min-h-screen md:pl-64">{children}</main>
+      <main className="bg-landing-background min-h-screen md:ml-64">{children}</main>
       {/*   
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
       <img

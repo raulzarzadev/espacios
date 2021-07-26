@@ -12,9 +12,9 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
   const location = useRouter().pathname
 
   return (
-    <nav className="bg-light-blue-500 md:ml-64 py-6 px-3">
+    <nav className=" bg-light-blue-500 md:ml-64 py-6 px-3">
       <div className="container max-w-full mx-auto flex items-center justify-between md:pr-8 md:pl-10">
-        <div className="md:hidden">
+        <div className="relativemd:hidden">
           <Button
             color="transparent"
             buttonType="link"
@@ -22,14 +22,12 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
             iconOnly
             rounded
             ripple="light"
-            onClick={() => setShowSidebar(true)}
+            onClick={() => setShowSidebar('-left-0')}
           >
             <Icon name="menu" size="2xl" color="white" />
           </Button>
           <div
-            className={`absolute top-2 md:hidden ${
-              showSidebar ? 'left-64' : '-left-64'
-            } z-50 transition-all duration-300`}
+            className={`absolute top-2 md:hidden ${showSidebar} z-50 transition-all duration-300`}
           >
             <Button
               color="transparent"
@@ -38,7 +36,7 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
               iconOnly
               rounded
               ripple="light"
-              onClick={() => setShowSidebar(false)}
+              onClick={() => setShowSidebar('-left-64')}
             >
               <Icon name="close" size="2xl" color="white" />
             </Button>

@@ -101,13 +101,13 @@ export default function EspacioForm({ espacio, handleChange }) {
   return (
     <div className=" bg-white m-4 flex flex-col gap-4 p-4 rounded-md ">
       <h3 className="text-3xl text-center">Nuevo Espacio</h3>
-      <div className="w-96 mx-auto text-center">
+      <div className="w-96 max-w-max mx-auto text-center">
         <Input placeholder="Titulo" color="red" />
       </div>
-      <div className="w-96 mx-auto text-center">
+      <div className="w-96 mx-auto  max-w-max  text-center">
         <Input placeholder="Sub titulo" color="red" />
       </div>
-      <div className="w-96 mx-auto flex flex-col ">
+      <div className="w-96  max-w-max  mx-auto flex flex-col ">
         <h2 className="text-2xl">Sub Espacios </h2>
         <div className="text-center flex flex-wrap my-4">
           {subEspacios.map(({ label, value }, i) => (
@@ -116,7 +116,7 @@ export default function EspacioForm({ espacio, handleChange }) {
             </div>
           ))}
         </div>
-        <div className="mx-3 flex justify-center">
+        <div className="mx-3 flex justify-center flex-wrap">
           <select value={subEspacioSelected} onChange={handleSelectSubEspacio}>
             <option value="">selecciona sub espacio</option>
             {SUB_ESPACIOS.map(({ label, value }, i) => (
@@ -132,7 +132,7 @@ export default function EspacioForm({ espacio, handleChange }) {
           </div>
         </div>
       </div>
-      <div className="w-96 mx-auto">
+      <div className="w-96  max-w-max  mx-auto">
         <h2 className="text-2xl ">Inventario</h2>
         <div className="flex flex-wrap">
           {subEspacios.map(({ items, label }, i) => (
@@ -149,10 +149,10 @@ export default function EspacioForm({ espacio, handleChange }) {
           ))}
         </div>
       </div>
-      <div className="w-96 mx-auto">
+      <div className="w-96  max-w-max  mx-auto">
         <h2 className="text-2xl">Contratos </h2>
       </div>
-      <div className="w-96 mx-auto">
+      <div className="w-96  max-w-max  mx-auto">
         <h2 className="text-2xl">Servicios </h2>
       </div>
     </div>

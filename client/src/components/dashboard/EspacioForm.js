@@ -12,7 +12,7 @@ const SUB_ESPACIOS = [
     description: 'Descripción de cuarto ',
     category: ['kitchen']
   },
-  {
+ /*  {
     id: '2',
     value: '2',
     label: 'Cuarto Ind',
@@ -20,7 +20,7 @@ const SUB_ESPACIOS = [
     items: ['4', '6', '7', '9'],
     description: 'Descripción de cuarto ',
     category: ['room']
-  },
+  }, */
   {
     id: '3',
     value: '3',

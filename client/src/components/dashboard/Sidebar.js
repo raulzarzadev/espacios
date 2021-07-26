@@ -7,15 +7,24 @@ import Link from '@comps/Link'
 export default function Sidebar() {
   const SIDEBAR_LINKS = [
     { label: 'Home', href: '/dashboard', icon: 'home' },
-    { label: 'Espacios', href: '/dashboard/espacios', icon: 'archive' },
-    { label: 'Nuevo Espacio', href: '/dashboard/espacios/new-espacio', icon: 'home' },
+    { label: 'Espacios', href: '/dashboard/espacios', icon: 'other_houses' },
+    {
+      label: 'Nuevo Espacio',
+      href: '/dashboard/espacios/new-espacio',
+      icon: 'add'
+    },
+    { label: 'Viusal Guide', href: '/visual-guide', icon: 'visibility' }
   ]
-  const [showSidebar, setShowSidebar] = useState('-left-64')
+  const [showSidebar, setShowSidebar] = useState(false)
+  console.log('showSidebar', showSidebar)
+
   return (
     <div className="sticky top-0 z-10 ">
       <AdminNavbar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
       <div
-        className={`bg-blue-300 h-screen fixed top-0 md:left-0 ${showSidebar} overflow-y-auto flex-row flex-nowrap overflow-hidden shadow-xl bg-white w-64 z-10 py-4 px-6 transition-all duration-300`}
+        className={`bg-blue-300 h-screen fixed top-0 md:left-0 ${
+          !showSidebar ? '-left-64' : '-left-0'
+        } overflow-y-auto flex-row flex-nowrap overflow-hidden shadow-xl bg-white w-64 z-10 py-4 px-6 transition-all duration-300`}
       >
         <div className="flex-col items-stretch min-h-full flex-nowrap px-0 relative">
           <a
@@ -32,17 +41,17 @@ export default function Sidebar() {
               {SIDEBAR_LINKS.map(({ href, icon, label }) => (
                 <li key={label} className="rounded-lg mb-4">
                   <Link href={href}>
-                    <Icon family="font-awesome" name={icon} size="2xl" />
+                    <Icon  name={icon} size="2xl" />
                     {label}
                   </Link>
                 </li>
               ))}
-              <li className="px-4 rounded-lg mb-2 text-gray-700">
+              {/* <li className="px-4 rounded-lg mb-2 text-gray-700">
                 <Link href="/dasboard/profile">
-                  <Icon name="account_circle" size="2xl" />
-                  Company Profile
+                <Icon name="account_circle" size="2xl" />
+                Company Profile
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

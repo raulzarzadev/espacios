@@ -2,17 +2,17 @@
 import Navbar from './Navbar'
 import DefaultFooter from './DefaultFooter'
 import SimpleFooter from './SimpleFooter'
+import Sidebar from '@comps/dashboard/Sidebar'
 const navigation = [
   { label: 'Guia visual', href: '/visualgide' },
   { label: 'Dashboard', href: '/dashboard' }
-
 ]
 
 export default function Layout({ children }) {
   return (
     <div className="bg-blue-200">
-      <Navbar navigation={navigation} />
-      <main className="bg-landing-background min-h-screen">{children}</main>
+      <Sidebar />
+      <main className="bg-landing-background min-h-screen md:pl-64">{children}</main>
       {/*   
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
       <img

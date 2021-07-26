@@ -1,5 +1,4 @@
 import ESpaciosCard from '@comps/dashboard/EspaciosCard'
-import LayoutDashboard from '@comps/Layout/Dasboard'
 import { useRouter } from 'next/dist/client/router'
 export default function Espacios() {
   const router = useRouter()
@@ -15,13 +14,13 @@ export default function Espacios() {
     router.push(`/dashboard/espacios/${id}`)
   }
   return (
-    <LayoutDashboard>
+    <>
       <h3 className="text-white text-3xl text-center p-6">Espacios</h3>
       <div className="flex flex-col gap-2 p-2 py-8">
         <ESpaciosCard espacio={espacio} onClick={handleEspacioClick} />
         <ESpaciosCard espacio={espacio} onClick={handleEspacioClick} />
         <ESpaciosCard espacio={espacio} onClick={handleEspacioClick} />
       </div>
-    </LayoutDashboard>
+    </>
   )
 }

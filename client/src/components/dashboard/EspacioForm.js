@@ -80,6 +80,22 @@ const ITEMS = [
     category: ['linens'],
     description: 'descripcion del toalla de manos',
     icon: null
+  },
+  {
+    id: '19',
+    value: '19',
+    label: 'Espejo',
+    category: ['mobil'],
+    description: 'descripcion del toalla de manos',
+    icon: null
+  },
+  {
+    id: '10',
+    value: '10',
+    label: 'Tapete',
+    category: ['linens'],
+    description: 'descripcion del toalla de manos',
+    icon: null
   }
 ]
 
@@ -100,15 +116,15 @@ export default function EspacioForm({ espacio, handleChange }) {
   }
 
   return (
-    <div className=" bg-white m-4 flex flex-col gap-4 p-4 rounded-md ">
+    <div className=" bg-white m-1 sm:m-4  flex flex-col gap-4 p-4 rounded-md ">
       <h3 className="text-2xl font-bold text-center">Nuevo Espacio</h3>
-      <div className="w-96 max-w-max mx-auto">
+      <div className=" max-w-max mx-auto">
         <InputText placeholder="Titulo" color="red" />
       </div>
-      <div className="w-96 mx-auto  max-w-max ">
+      <div className=" mx-auto  max-w-max ">
         <InputText placeholder="Sub titulo" color="red" />
       </div>
-      <div className="w-96  max-w-max  mx-auto flex flex-col ">
+      <div className="  max-w-max  mx-auto flex flex-col ">
         <h2 className="text-2xl">Sub Espacios </h2>
         <div className="text-center flex flex-wrap my-4">
           {subEspacios.map(({ label, value }, i) => (
@@ -139,15 +155,16 @@ export default function EspacioForm({ espacio, handleChange }) {
           </div>
         </div>
       </div>
-      <div className="w-96  max-w-max  mx-auto">
+      <div className=" max-w-max  mx-auto">
         <h2 className="text-2xl ">Inventario</h2>
-        <div className="flex flex-wrap">
+        <div className="flex flex-col">
           {subEspacios.map(({ items, label }, i) => (
-            <div className="w-1/4" key={i}>
+            <div className="" key={i}>
               <div className="font-bold">{label}</div>
-              <div>
+              <div className='flex items-center flex-wrap'>
                 {items.map((item) => (
-                  <div key={item}>
+                  <div key={item} className="flex items-center">
+                    <input type="checkbox" />
                     {ITEMS.find(({ id }) => id === item)?.label}
                   </div>
                 ))}

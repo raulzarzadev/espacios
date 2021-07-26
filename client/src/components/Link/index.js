@@ -18,7 +18,6 @@ export default function Link({
         block={false}
         iconOnly={iconOnly}
         ripple="dark"
-        
         {...rest}
       >
         {children || label}

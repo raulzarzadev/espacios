@@ -16,14 +16,12 @@ export default function Sidebar() {
     { label: 'Viusal Guide', href: '/visual-guide', icon: 'visibility' }
   ]
   const [showSidebar, setShowSidebar] = useState('-left-64')
-  console.log('showSidebar', showSidebar)
-
 
   return (
     <div className="sticky top-0 z-10 ">
       <AdminNavbar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
       <div
-        className={`bg-blue-300 h-screen fixed top-0 md:left-0 ${showSidebar} overflow-y-auto flex-row flex-nowrap overflow-hidden shadow-xl bg-white w-64 z-10 py-4 px-6 transition-all duration-300`}
+        className={`h-screen fixed top-0 md:left-0 ${showSidebar} overflow-y-auto flex-row flex-nowrap overflow-hidden shadow-xl w-64 z-10 py-4 px-6 transition-all duration-300 bg-blue-300`}
       >
         <div className="flex-col items-stretch flex-nowrap px-0 relative">
           <Link
@@ -38,7 +36,7 @@ export default function Sidebar() {
             <ul className="flex-col min-w-full flex list-none">
               {SIDEBAR_LINKS.map(({ href, icon, label }) => (
                 <li key={label} className="rounded-lg mb-4">
-                  <Link href={href}>
+                  <Link href={href} onClick={() => setShowSidebar('-left-64')}>
                     <Icon name={icon} size="2xl" />
                     {label}
                   </Link>

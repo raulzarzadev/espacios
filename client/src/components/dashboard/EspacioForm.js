@@ -1,4 +1,5 @@
 import Button from '@comps/Button'
+import InputText from '@comps/Inputs/Text'
 import Input from '@comps/InputText'
 import Icon from '@material-tailwind/react/Icon'
 import { useState } from 'react'
@@ -101,11 +102,11 @@ export default function EspacioForm({ espacio, handleChange }) {
   return (
     <div className=" bg-white m-4 flex flex-col gap-4 p-4 rounded-md ">
       <h3 className="text-3xl text-center">Nuevo Espacio</h3>
-      <div className="w-96 max-w-max mx-auto text-center">
-        <Input placeholder="Titulo" color="red" />
+      <div className="w-96 max-w-max mx-auto">
+        <InputText placeholder="Titulo" color="red" />
       </div>
-      <div className="w-96 mx-auto  max-w-max  text-center">
-        <Input placeholder="Sub titulo" color="red" />
+      <div className="w-96 mx-auto  max-w-max ">
+        <InputText placeholder="Sub titulo" color="red" />
       </div>
       <div className="w-96  max-w-max  mx-auto flex flex-col ">
         <h2 className="text-2xl">Sub Espacios </h2>

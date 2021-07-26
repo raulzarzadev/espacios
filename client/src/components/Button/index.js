@@ -16,7 +16,6 @@ export default function Button({
 }) {
   return (
     <TWButton
-    
       color={color}
       buttonType={buttonType}
       size={size}

@@ -4,7 +4,7 @@ import Input from '@comps/InputText'
 import Link from '@comps/Link'
 import Icon from '@material-tailwind/react/Icon'
 import { useRouter } from 'next/dist/client/router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 const SUB_ESPACIOS = [
   {
     id: '1',
@@ -116,77 +116,46 @@ export default function EspacioForm({ espacio, handleChange }) {
     setSubEspacios([...subEspacios, newSubEspacio])
     setSubEspacioSelected('')
   }
+
   const router = useRouter()
-  useEffect(() => {
-    if (subEspacioSelected === 'new_sub_espacio')
-      router.push('/dashboard/sub-espacios/new')
-  }, [subEspacioSelected])
+
+  const handleSaveSubEspacio = () => {
+    setTimeout(() => {
+      router.back()
+    }, 300)
+  }
+  const handleToNewItem=()=>{
+    setTimeout(()=>{
+      router.push('/dashboard/items/new')
+    },300)
+  }
 
   return (
     <div className=" bg-white m-1 sm:m-4  flex flex-col gap-4 p-4 rounded-md ">
-      <h3 className="text-2xl font-bold text-center">Nuevo Espacio</h3>
+      <h3 className="text-2xl font-bold text-center">Nuevo Sub Espacio</h3>
       <div className=" max-w-max mx-auto">
-        <InputText placeholder="Titulo" color="red" />
+        <InputText placeholder="Titulo" />
+      </div>
+      <div className=" max-w-max mx-auto">
+        <InputText placeholder="Descripción" />
       </div>
       <div className=" mx-auto  max-w-max ">
-        <InputText placeholder="Sub titulo" color="red" />
-      </div>
-      <div className="  max-w-max  mx-auto flex flex-col ">
-        <h2 className="text-2xl">Sub Espacios </h2>
-        <div className="text-center flex flex-wrap my-4">
-          {subEspacios.map(({ label, value }, i) => (
-            <div className="w-1/2 p-2 " key={`${value}-${i}`}>
-              <div className="">{label}</div>
-            </div>
-          ))}
-        </div>
-        <div className="mx-3 flex justify-center md:block flex-wrap md:flex-nowrap">
-          <div className="w-full my-2 ">
-            <select
-              className="w-full py-2"
-              value={subEspacioSelected}
-              onChange={handleSelectSubEspacio}
-            >
-              <option value="">selecciona sub espacio</option>
-              {SUB_ESPACIOS.map(({ label, value }, i) => (
-                <option key={`${value}-${i}`} value={value}>
-                  {label}
-                </option>
-              ))}
-              <option value="new_sub_espacio">nuevo</option>
-            </select>
-          </div>
-          <div className="w-full my-2 ">
-            <Button block onClick={addSubEspacio}>
-              <Icon name="add" size="2x" />
-            </Button>
-          </div>
-        </div>
-      </div>
-      <div className=" max-w-max  mx-auto">
-        <h2 className="text-2xl ">Inventario</h2>
-        <div className="flex flex-col">
-          {subEspacios.map(({ items, label }, i) => (
-            <div className="" key={i}>
-              <div className="font-bold">{label}</div>
-              <div className="flex items-center flex-wrap">
-                {items.map((item) => (
-                  <div key={item} className="flex items-center">
-                    <input type="checkbox" />
-                    {ITEMS.find(({ id }) => id === item)?.label}
-                  </div>
-                ))}
-              </div>
+        Items
+        <div>
+          {ITEMS.map(({ label, id }) => (
+            <div key={id}>
+              <input type="checkbox" />
+              {label}
             </div>
           ))}
         </div>
       </div>
-      <div className="w-96  max-w-max  mx-auto">
-        <h2 className="text-2xl">Contratos </h2>
+      <div className=" mx-auto">
+        <Button onClick={handleToNewItem}>
+          <Icon name="add" />
+        </Button>
       </div>
-      <div className="w-96  max-w-max  mx-auto">
-        <h2 className="text-2xl">Servicios </h2>
-      </div>
+      <Button onClick={handleSaveSubEspacio}>Guardar</Button>
     </div>
   )
 }

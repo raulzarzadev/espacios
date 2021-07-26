@@ -18,6 +18,7 @@ export default function Sidebar() {
   const [showSidebar, setShowSidebar] = useState('-left-64')
   console.log('showSidebar', showSidebar)
 
+
   return (
     <div className="sticky top-0 z-10 ">
       <AdminNavbar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />

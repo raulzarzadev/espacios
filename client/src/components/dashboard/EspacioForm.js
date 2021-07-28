@@ -101,12 +101,25 @@ const ITEMS = [
   }
 ]
 
-export default function EspacioForm({ espacio, handleChange }) {
+export default function EspacioForm({
+  espacio = null,
+  title = 'Nuevo Espacio',
+  handleChange
+}) {
   const [subEspacioSelected, setSubEspacioSelected] = useState('')
   const [subEspacios, setSubEspacios] = useState([])
   const handleSelectSubEspacio = ({ target: { value } }) => {
     setSubEspacioSelected(value)
   }
+
+  const [form, setForm] = useState({})
+
+  useEffect(() => {
+    if (espacio) {
+      setSubEspacios(espacio.subEspacios)
+      setForm(espacio)
+    }
+  }, [espacio])
 
   const addSubEspacio = () => {
     const newSubEspacio = SUB_ESPACIOS.find(
@@ -124,12 +137,22 @@ export default function EspacioForm({ espacio, handleChange }) {
 
   return (
     <div className=" bg-white m-1 sm:m-4  flex flex-col gap-4 p-4 rounded-md ">
-      <h3 className="text-2xl font-bold text-center">Nuevo Espacio</h3>
+      <h3 className="text-2xl font-bold text-center">{title}</h3>
       <div className=" max-w-max mx-auto">
-        <InputText placeholder="Titulo" color="red" />
+        <InputText
+          value={form.title}
+          name="title"
+          placeholder="Titulo"
+          color="red"
+        />
       </div>
       <div className=" mx-auto  max-w-max ">
-        <InputText placeholder="Sub titulo" color="red" />
+        <InputText
+          value={form.subtitle}
+          name="subtitle"
+          placeholder="Sub titulo"
+          color="red"
+        />
       </div>
       <div className="  max-w-max  mx-auto flex flex-col ">
         <h2 className="text-2xl">Sub Espacios </h2>

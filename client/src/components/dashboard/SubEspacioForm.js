@@ -4,7 +4,8 @@ import Input from '@comps/InputText'
 import Link from '@comps/Link'
 import Icon from '@material-tailwind/react/Icon'
 import { useRouter } from 'next/dist/client/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import Select from '@comps/Inputs/Select'
 const SUB_ESPACIOS = [
   {
     id: '1',
@@ -39,7 +40,7 @@ const ITEMS = [
     id: '1',
     value: '1',
     label: 'estufa',
-    category: ['mobile'],
+    category: ['mobil', 'kitchen'],
     description: 'descripcion de estufa',
     icon: null
   },
@@ -47,7 +48,7 @@ const ITEMS = [
     id: '2',
     value: '2',
     label: 'cuchara',
-    category: ['consumible'],
+    category: ['consumible', 'kitchen'],
     description: 'descripcion de cuchara',
     icon: null
   },
@@ -55,7 +56,7 @@ const ITEMS = [
     id: '3',
     value: '3',
     label: 'jabon de trastes',
-    category: ['consumible'],
+    category: ['consumible', 'kitchen'],
     description: 'descripcion del jabon de trastes',
     icon: null
   },
@@ -63,7 +64,7 @@ const ITEMS = [
     id: '14',
     value: '14',
     label: 'shapoo de cuerpo',
-    category: ['consumible'],
+    category: ['consumible', 'restroom'],
     description: 'descripcion del shampo',
     icon: null
   },
@@ -71,7 +72,7 @@ const ITEMS = [
     id: '12',
     value: '12',
     label: 'papel sanitario',
-    category: ['consumible'],
+    category: ['consumible', 'restroom'],
     description: 'descripcion del papel',
     icon: null
   },
@@ -79,7 +80,7 @@ const ITEMS = [
     id: '5',
     value: '5',
     label: 'toalla de manos',
-    category: ['linens'],
+    category: ['linens', 'restroom'],
     description: 'descripcion del toalla de manos',
     icon: null
   },
@@ -87,7 +88,7 @@ const ITEMS = [
     id: '19',
     value: '19',
     label: 'Espejo',
-    category: ['mobil'],
+    category: ['mobil', 'restroom'],
     description: 'descripcion del toalla de manos',
     icon: null
   },
@@ -95,28 +96,13 @@ const ITEMS = [
     id: '10',
     value: '10',
     label: 'Tapete',
-    category: ['linens'],
+    category: ['linens', 'restroom', 'floor'],
     description: 'descripcion del toalla de manos',
     icon: null
   }
 ]
 
 export default function EspacioForm({ espacio, handleChange }) {
-  const [subEspacioSelected, setSubEspacioSelected] = useState('')
-  const [subEspacios, setSubEspacios] = useState([])
-  const handleSelectSubEspacio = ({ target: { value } }) => {
-    setSubEspacioSelected(value)
-  }
-
-  const addSubEspacio = () => {
-    const newSubEspacio = SUB_ESPACIOS.find(
-      ({ value }) => value === subEspacioSelected
-    )
-    if (!newSubEspacio) return
-    setSubEspacios([...subEspacios, newSubEspacio])
-    setSubEspacioSelected('')
-  }
-
   const router = useRouter()
 
   const handleSaveSubEspacio = () => {
@@ -124,11 +110,40 @@ export default function EspacioForm({ espacio, handleChange }) {
       router.back()
     }, 300)
   }
-  const handleToNewItem=()=>{
-    setTimeout(()=>{
+  const handleToNewItem = () => {
+    setTimeout(() => {
       router.push('/dashboard/items/new')
-    },300)
+    }, 300)
   }
+
+  const getCategories = ({ items = [] }) => {
+    console.log('items', items)
+
+    let res = items.reduce((prev, curr, i, arr) => {
+      curr.category.forEach((cat) => {
+        if (prev.find(({ value }) => value == cat)) return prev
+        return prev.push({ label: cat, value: cat })
+      })
+      return prev
+    }, [])
+    return res
+  }
+  const handleChangeCategory = ({ target }) => {
+    setCatergorySelected(target.value)
+  }
+  const [categories, setCategories] = useState([])
+  const [categorySelected, setCatergorySelected] = useState('')
+  useEffect(() => {
+    setCategories(getCategories({ items: ITEMS }))
+  }, [])
+  const [filteredItems, setFilteredItems] = useState([])
+  useEffect(() => {
+    const filtered = ITEMS.filter(
+      (item) => !item.category.includes(categorySelected)
+    )
+    setFilteredItems(filtered)
+  }, [categorySelected])
+  console.log('filtered', filteredItems)
 
   return (
     <div className=" bg-white m-1 sm:m-4  flex flex-col gap-4 p-4 rounded-md ">
@@ -142,7 +157,15 @@ export default function EspacioForm({ espacio, handleChange }) {
       <div className=" mx-auto  max-w-max ">
         Items
         <div>
-          {ITEMS.map(({ label, id }) => (
+          <Select
+            label="Categoria"
+            onChange={handleChangeCategory}
+            options={categories}
+            placeholder="Todas"
+          />
+        </div>
+        <div>
+          {filteredItems.map(({ label, id }) => (
             <div key={id}>
               <input type="checkbox" />
               {label}
@@ -153,6 +176,7 @@ export default function EspacioForm({ espacio, handleChange }) {
       <div className=" mx-auto">
         <Button onClick={handleToNewItem}>
           <Icon name="add" />
+          Item
         </Button>
       </div>
       <Button onClick={handleSaveSubEspacio}>Guardar</Button>

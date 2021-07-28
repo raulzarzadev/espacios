@@ -1,13 +1,22 @@
+import EspacioForm from '@comps/dashboard/EspacioForm'
 import { useRouter } from 'next/dist/client/router'
 
 export default function Espacios() {
   const {
     query: { id }
   } = useRouter()
+  const espacio = {
+    id: '1',
+    title: 'Casa Rangel',
+    subtitle: 'LPZ Rangel-A',
+    description: '',
+    subEspacios: [],
+    
+  }
 
   return (
     <>
-      <div className="text-white text-5xl ">Detalles de Espacio {id} </div>
+      <EspacioForm espacio={espacio} title='Detalles'/>
     </>
   )
 }

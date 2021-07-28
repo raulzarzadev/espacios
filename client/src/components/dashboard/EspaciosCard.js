@@ -6,7 +6,7 @@ import CardStatusFooter from '@material-tailwind/react/CardStatusFooter'
 import Icon from '@material-tailwind/react/Icon'
 import Image from 'next/image'
 
-export default function ESpaciosCard({
+export default function EspaciosCard({
   title = 'Espacio 1',
   subTitle = 'Subtitulo',
   description = 'Descripcion',
@@ -41,7 +41,7 @@ export default function ESpaciosCard({
           <h3 className="text-3xl">{title}</h3>
           <h6 className="text-2xl font-extralight">{subTitle}</h6>
         </div>
-        <div className="absolute right-10 -top-5 w-52 h-20 bg-gray-200 flex justify-around ">
+        <div className="absolute right-1 -top-5 w-40 h-20 md:w-52 md:right-10 bg-gray-200 flex justify-around ">
           <div>H</div>
           <div>F</div>
           <div>G</div>

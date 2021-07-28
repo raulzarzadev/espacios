@@ -1,4 +1,5 @@
 import Button from '@comps/Button'
+import Select from '@comps/Inputs/Select'
 import InputText from '@comps/Inputs/Text'
 import Input from '@comps/InputText'
 import Link from '@comps/Link'
@@ -101,6 +102,13 @@ const ITEMS = [
   }
 ]
 
+const CATEGORIES = [
+  { value: 'mobile', label: 'Mueble' },
+  { value: 'fijo', label: 'Fijo' },
+  { value: 'linens', label: 'Blancos' },
+  { value: 'consumible', label: 'Consumible' }
+]
+
 export default function ItemForm({ espacio, handleChange }) {
   const [subEspacioSelected, setSubEspacioSelected] = useState('')
   const [subEspacios, setSubEspacios] = useState([])
@@ -125,6 +133,12 @@ export default function ItemForm({ espacio, handleChange }) {
     }, 300)
   }
 
+  const [category, setCategory] = useState('')
+  const handleChangeCategory = ({ target }) => {
+    setCategory(target.value)
+  }
+  console.log('category', category)
+
   return (
     <div className=" bg-white m-1 sm:m-4  flex flex-col gap-4 p-4 rounded-md ">
       <h3 className="text-2xl font-bold text-center">Nuevo Item</h3>
@@ -132,7 +146,7 @@ export default function ItemForm({ espacio, handleChange }) {
         <InputText placeholder="Nombre" />
       </div>
       <div className=" max-w-max mx-auto">
-        <InputText placeholder="Categoria" />
+        <Select options={CATEGORIES} placeholder="Seleccionar categoria" />
       </div>
       <div className=" max-w-max mx-auto">
         <InputText placeholder="Descripción" />

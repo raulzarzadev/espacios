@@ -140,7 +140,7 @@ export default function EspacioForm({
       <h3 className="text-2xl font-bold text-center">{title}</h3>
       <div className=" max-w-max mx-auto">
         <InputText
-          value={form.title}
+          value={form?.title}
           name="title"
           placeholder="Titulo"
           color="red"
@@ -148,11 +148,26 @@ export default function EspacioForm({
       </div>
       <div className=" mx-auto  max-w-max ">
         <InputText
-          value={form.subtitle}
+          value={form?.subtitle}
           name="subtitle"
           placeholder="Sub titulo"
           color="red"
         />
+      </div>
+      <div className="w-full  max-w-max  mx-auto">
+        <h2 className="text-2xl">General </h2>
+        <div className="flex w-full border border-red-100">
+          <div>Dirección</div>
+          <div>Ubicación</div>
+          <div>Ubicación</div>
+        </div>
+      </div>
+      <div className="w-96  max-w-max  mx-auto">
+        <h2 className="text-2xl">Contratos </h2>
+        <div></div>
+      </div>
+      <div className="w-96  max-w-max  mx-auto">
+        <h2 className="text-2xl">Servicios </h2>
       </div>
       <div className="  max-w-max  mx-auto flex flex-col ">
         <h2 className="text-2xl">Sub Espacios </h2>
@@ -205,7 +220,13 @@ export default function EspacioForm({
         </div>
       </div>
       <div className="w-96  max-w-max  mx-auto">
+        <h2 className="text-2xl">General </h2>
+        <div>Dirección</div>
+        <div>Ubicación</div>
+      </div>
+      <div className="w-96  max-w-max  mx-auto">
         <h2 className="text-2xl">Contratos </h2>
+        <div></div>
       </div>
       <div className="w-96  max-w-max  mx-auto">
         <h2 className="text-2xl">Servicios </h2>

@@ -143,7 +143,6 @@ export default function EspacioForm({
           value={form?.title}
           name="title"
           placeholder="Titulo"
-          color="red"
         />
       </div>
       <div className=" mx-auto  max-w-max ">
@@ -151,7 +150,6 @@ export default function EspacioForm({
           value={form?.subtitle}
           name="subtitle"
           placeholder="Sub titulo"
-          color="red"
         />
       </div>
       <div className="w-full  max-w-max  mx-auto">

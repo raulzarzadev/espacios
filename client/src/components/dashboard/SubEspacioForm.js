@@ -121,7 +121,7 @@ export default function EspacioForm({ espacio, handleChange }) {
 
     let res = items.reduce((prev, curr, i, arr) => {
       curr.category.forEach((cat) => {
-        if (prev.find(({ value }) => value == cat)) return prev
+        if (prev.find(({ value }) => value === cat)) return prev
         return prev.push({ label: cat, value: cat })
       })
       return prev
@@ -137,24 +137,30 @@ export default function EspacioForm({ espacio, handleChange }) {
     setCategories(getCategories({ items: ITEMS }))
   }, [])
   const [filteredItems, setFilteredItems] = useState([])
+
   useEffect(() => {
-    const filtered = ITEMS.filter(
-      (item) => !item.category.includes(categorySelected)
-    )
-    setFilteredItems(filtered)
+    if (categorySelected === '') {
+      setFilteredItems(ITEMS)
+    } else {
+      const filtered = ITEMS.filter((item) =>
+        item.category.includes(categorySelected)
+      )
+      setFilteredItems(filtered)
+    }
   }, [categorySelected])
-  console.log('filtered', filteredItems)
 
   return (
-    <div className=" bg-white m-1 sm:m-4  flex flex-col gap-4 p-4 rounded-md ">
+    <div className=" bg-white m-1 sm:m-4  flex flex-col p-4 rounded-md ">
       <h3 className="text-2xl font-bold text-center">Nuevo Sub Espacio</h3>
-      <div className=" max-w-max mx-auto">
-        <InputText placeholder="Titulo" />
+      <div className="my-4">
+        <div className=" max-w-max mx-auto">
+          <InputText placeholder="Titulo" />
+        </div>
+        <div className=" max-w-max mx-auto">
+          <InputText placeholder="Descripción" />
+        </div>
       </div>
-      <div className=" max-w-max mx-auto">
-        <InputText placeholder="Descripción" />
-      </div>
-      <div className=" mx-auto  max-w-max ">
+      <div className="mx-auto  max-w-max ">
         Items
         <div>
           <Select
@@ -173,7 +179,7 @@ export default function EspacioForm({ espacio, handleChange }) {
           ))}
         </div>
       </div>
-      <div className=" mx-auto">
+      <div className=" mx-auto my-4">
         <Button onClick={handleToNewItem}>
           <Icon name="add" />
           Item

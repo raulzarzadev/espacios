@@ -1,4 +1,6 @@
+import Modal from '@comps/Modal'
 import Icon from '@material-tailwind/react/Icon'
+import { useState } from 'react'
 
 export default function ItemCard({ addCard, onClick = () => {}, item }) {
   return (
@@ -34,15 +36,20 @@ const NormalCard = ({ item, onClick }) => {
 }
 
 const AddCard = ({ onClick }) => {
+
+
   return (
-    <button
-      onClick={(e) => {
-        e.preventDefault()
-        onClick()
-      }}
-      className="  w-28 h-40 border-4 border-dashed hover:border-blue-300 border-blue-100 rounded-xl flex items-center justify-center "
-    >
-      <Icon name="add" size="6xl" color="blue" />
-    </button>
+    <>
+      <button
+        onClick={(e) => {
+          e.preventDefault()
+          onClick()
+          console.log('click')
+        }}
+        className="  w-28 h-40 border-4 border-dashed hover:border-blue-300 border-blue-100 rounded-xl flex items-center justify-center "
+      >
+        <Icon name="add" size="6xl" color="blue" />
+      </button>
+    </>
   )
 }

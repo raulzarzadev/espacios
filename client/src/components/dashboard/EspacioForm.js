@@ -7,35 +7,9 @@ import { useRouter } from 'next/dist/client/router'
 import { useEffect, useState } from 'react'
 import ItemCard from './ItemCard'
 import SelectWeekDays from './SelectWeekDays'
-const SUB_ESPACIOS = [
-  {
-    id: '1',
-    value: '1',
-    label: 'Cocina Ch',
-    icon: 'home',
-    items: ['1', '2', '3'],
-    description: 'Descripción de cuarto ',
-    category: ['kitchen']
-  },
-  /*  {
-    id: '2',
-    value: '2',
-    label: 'Cuarto Ind',
-    icon: 'room',
-    items: ['4', '6', '7', '9'],
-    description: 'Descripción de cuarto ',
-    category: ['room']
-  }, */
-  {
-    id: '3',
-    value: '3',
-    label: 'Baño Completo',
-    icon: 'kitchen',
-    items: ['14', '12', '5', '19', '10'],
-    description: 'Descripción label',
-    category: ['room']
-  }
-]
+import Modal from '@comps/Modal'
+import SubEspaciosSection from './SubEspacioSection'
+
 const ITEMS = [
   {
     id: '1',
@@ -108,34 +82,19 @@ export default function EspacioForm({
   title = 'Nuevo Espacio',
   handleChange
 }) {
-  const [subEspacioSelected, setSubEspacioSelected] = useState('')
-  const [subEspacios, setSubEspacios] = useState([])
-  const handleSelectSubEspacio = ({ target: { value } }) => {
-    setSubEspacioSelected(value)
-  }
-
   const [form, setForm] = useState({})
 
   useEffect(() => {
     if (espacio) {
-      setSubEspacios(espacio.subEspacios)
       setForm(espacio)
     }
   }, [espacio])
 
-  const addSubEspacio = () => {
-    const newSubEspacio = SUB_ESPACIOS.find(
-      ({ value }) => value === subEspacioSelected
-    )
-    if (!newSubEspacio) return
-    setSubEspacios([...subEspacios, newSubEspacio])
-    setSubEspacioSelected('')
+  const handleSetSubEspacios = (newSubEspaciosList) => {
+    console.log('newSubEspaciosList', newSubEspaciosList)
+    
+    setForm({ ...form, subEspacios: newSubEspaciosList })
   }
-  const router = useRouter()
-  useEffect(() => {
-    if (subEspacioSelected === 'new_sub_espacio')
-      router.push('/dashboard/sub-espacios/new')
-  }, [subEspacioSelected])
 
   return (
     <div className=" bg-white m-1 sm:m-4  flex flex-col gap-4 p-4 rounded-md ">
@@ -194,40 +153,32 @@ export default function EspacioForm({
           </div>
         </div>
       </Section>
-      <Section title="Servicios" sectionTitle></Section>
-      <Section title="Sub-espacios" sectionTitle>
-        <div className="text-center flex flex-wrap my-4">
-          {subEspacios.map(({ label, value }, i) => (
-            <div className="w-1/2 p-2 " key={`${value}-${i}`}>
-              <div className="">{label}</div>
-            </div>
-          ))}
-        </div>
-        <div className="mx-3 flex justify-center md:block flex-wrap md:flex-nowrap">
-          <div className="w-full my-2 ">
-            <select
-              className="w-full py-2"
-              value={subEspacioSelected}
-              onChange={handleSelectSubEspacio}
-            >
-              <option value="">selecciona sub espacio</option>
-              {SUB_ESPACIOS.map(({ label, value }, i) => (
-                <option key={`${value}-${i}`} value={value}>
-                  {label}
-                </option>
-              ))}
-              <option value="new_sub_espacio">nuevo</option>
-            </select>
+      <Section title="Servicios" sectionTitle>
+        <div className="flex">
+          <div className="m-1">
+            <ItemCard addCard />
           </div>
-          <div className="w-full my-2 ">
-            <Button block onClick={addSubEspacio}>
-              <Icon name="add" size="2x" />
-            </Button>
+          <div className="m-1">
+            <ItemCard
+              item={{
+                files: [
+                  'https://images.unsplash.com/photo-1562240020-ce31ccb0fa7d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9jdW1lbnRzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+                ],
+                title: 'Contrato 2021',
+                description: 'Nuevo contrato firmado con el dueño del lugar'
+              }}
+            />
           </div>
         </div>
       </Section>
+      <Section title="Sub-espacios" sectionTitle>
+        <SubEspaciosSection
+          subEspacios={form.subEspacios}
+          setSubEspacios={handleSetSubEspacios}
+        />
+      </Section>
       <Section title="Inventario" sectionTitle>
-        <div className="flex flex-col">
+        {/* <div className="flex flex-col">
           {subEspacios.map(({ items, label }, i) => (
             <div className="" key={i}>
               <div className="font-bold">{label}</div>
@@ -241,7 +192,7 @@ export default function EspacioForm({
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
       </Section>
     </div>
   )
@@ -305,3 +256,4 @@ const Section = ({
     </div>
   )
 }
+/* */

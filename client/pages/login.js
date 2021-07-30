@@ -1,9 +1,12 @@
-import SingInForm from '@comps/SingInForm'
-
+import Singin from '@comps/Layout/Login/Signin'
+import Head from 'next/head'
 export default function SingIn() {
   return (
     <>
-      <SingInForm />
+    <Head>
+      <title>Ingresa</title>
+    </Head>
+      <Singin />
     </>
   )
 }

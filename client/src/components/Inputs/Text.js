@@ -1,26 +1,25 @@
 import React from 'react'
-import TWInput from '@material-tailwind/react/InputIcon'
+import Input from '@material-tailwind/react/Input'
 
-export default function Input({
+export default function InputText({
   error = '',
   success = '',
   placeholder = 'label',
-  Icon = '', // Material Icon Library https://fonts.google.com/icons
   color = 'lightBlue',
+  size='md',
   ...rest
 }) {
   return (
-    <TWInput
+    <Input
       type="text"
       color={color}
-      size="sm"
-      outline={false}
+      size={size}
       placeholder={placeholder}
       success={success}
       error={error}
-      
-      iconName={Icon}
+    
       {...rest}
+      outline={true}
     />
   )
 }

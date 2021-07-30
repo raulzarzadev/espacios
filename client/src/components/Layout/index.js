@@ -2,20 +2,17 @@
 import Navbar from './Navbar'
 import DefaultFooter from './DefaultFooter'
 import SimpleFooter from './SimpleFooter'
+import Sidebar from '@comps/dashboard/Sidebar'
 const navigation = [
-  { label: 'Visual Gide', href: '/visualgide' }
-  /* 
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' } */
+  { label: 'Guia visual', href: '/visualgide' },
+  { label: 'Dashboard', href: '/dashboard' }
 ]
 
 export default function Layout({ children }) {
   return (
-    <div className="bg-blue-400">
-      <Navbar navigation={navigation} />
-      <main className="bg-landing-background min-h-screen">{children}</main>
+    <div className="bg-blue-200">
+      <Sidebar />
+      <main className="bg-landing-background min-h-screen md:ml-64">{children}</main>
       {/*   
       <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
       <img

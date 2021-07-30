@@ -8,7 +8,9 @@ import { useEffect, useState } from 'react'
 import ItemCard from './ItemCard'
 import SelectWeekDays from './SelectWeekDays'
 import Modal from '@comps/Modal'
-import SubEspaciosSection from './SubEspacioSection'
+import SectionSubEspacios from './SectionSubEspacio'
+import SectionServices from './SectionServices'
+import SectionContracts from './SectionContracts'
 
 const ITEMS = [
   {
@@ -92,7 +94,6 @@ export default function EspacioForm({
 
   const handleSetSubEspacios = (newSubEspaciosList) => {
     console.log('newSubEspaciosList', newSubEspaciosList)
-    
     setForm({ ...form, subEspacios: newSubEspaciosList })
   }
 
@@ -136,25 +137,26 @@ export default function EspacioForm({
       </Section>
 
       <Section title="Contratos" sectionTitle>
-        <div className="flex">
-          <div className="m-1">
-            <ItemCard addCard />
-          </div>
-          <div className="m-1">
-            <ItemCard
-              item={{
-                files: [
-                  'https://images.unsplash.com/photo-1562240020-ce31ccb0fa7d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9jdW1lbnRzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
-                ],
-                title: 'Contrato 2021',
-                description: 'Nuevo contrato firmado con el dueño del lugar'
-              }}
-            />
-          </div>
-        </div>
+        <SectionContracts
+          list={[
+            {
+              files: [
+                'https://images.unsplash.com/photo-1562240020-ce31ccb0fa7d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9jdW1lbnRzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+              ],
+              title: 'label',
+              description: 'Nuevo contrato firmado con el dueño del lugar'
+            }
+          ]}
+        />
       </Section>
       <Section title="Servicios" sectionTitle>
-        <div className="flex">
+        <Section title="Historial" indent="1">
+          Historial de pagos
+        </Section>
+        <Section title="Contratos" indent="1">
+          <SectionServices />
+        </Section>
+        {/* <div className="flex">
           <div className="m-1">
             <ItemCard addCard />
           </div>
@@ -169,10 +171,10 @@ export default function EspacioForm({
               }}
             />
           </div>
-        </div>
+        </div> */}
       </Section>
       <Section title="Sub-espacios" sectionTitle>
-        <SubEspaciosSection
+        <SectionSubEspacios
           subEspacios={form.subEspacios}
           setSubEspacios={handleSetSubEspacios}
         />
@@ -256,4 +258,3 @@ const Section = ({
     </div>
   )
 }
-/* */

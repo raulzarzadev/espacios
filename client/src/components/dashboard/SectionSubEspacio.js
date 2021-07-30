@@ -32,12 +32,12 @@ const SUB_ESPACIOS = [
     category: ['room']
   }
 ]
-export default function SubEspaciosSection({
+export default function SectionSubEspacios({
   subEspacios = [],
   setSubEspacios = () => {}
 }) {
   console.log('subEspacios', subEspacios)
-  
+
   const router = useRouter()
   const [subEspacioSelected, setSubEspacioSelected] = useState('')
   const handleSelectSubEspacio = ({ target: { value } }) => {
@@ -50,7 +50,7 @@ export default function SubEspaciosSection({
   }, [subEspacioSelected])
   const addSubEspacio = () => {
     console.log('add')
-    
+
     const newSubEspacio = SUB_ESPACIOS.find(
       ({ value }) => value === subEspacioSelected
     )
@@ -90,6 +90,8 @@ export default function SubEspaciosSection({
         handleOpen={handleOpenModal}
         handleAccept={addSubEspacio}
         acceptLabel="Agregar"
+        closeLabel="Cancelar"
+        handleClose
       >
         <select
           className="w-full py-2"

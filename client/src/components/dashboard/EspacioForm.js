@@ -5,6 +5,7 @@ import Link from '@comps/Link'
 import Icon from '@material-tailwind/react/Icon'
 import { useRouter } from 'next/dist/client/router'
 import { useEffect, useState } from 'react'
+import SelectWeekDays from './SelectWeekDays'
 const SUB_ESPACIOS = [
   {
     id: '1',
@@ -135,11 +136,6 @@ export default function EspacioForm({
       router.push('/dashboard/sub-espacios/new')
   }, [subEspacioSelected])
 
-  const [open, setOpen] = useState(false)
-  const handleSetOpen = (status) => {
-    setOpen(status)
-  }
-
   return (
     <div className=" bg-white m-1 sm:m-4  flex flex-col gap-4 p-4 rounded-md ">
       <h3 className="text-2xl font-bold text-center">{title}</h3>
@@ -153,64 +149,37 @@ export default function EspacioForm({
           placeholder="Sub titulo"
         />
       </div>
-      <div className="w-full  max-w-max  mx-auto">
-        <h2 className="text-2xl">General </h2>
-        <div className="w-full ">
-          <div>
-            <div className="font-bold flex">
-              Dirección
-              {open ? (
-                <button
-                  iconOnly
-                  size="sm"
-                  className="flex justify-center items-center"
-                  onClick={() => handleSetOpen(false)}
-                >
-                  <Icon name="keyboard_arrow_down" />
-                </button>
-              ) : (
-                <button
-                  iconOnly
-                  size="sm"
-                  className="flex justify-center items-center"
-                  onClick={() => handleSetOpen(true)}
-                >
-                  <Icon name="keyboard_arrow_up" />
-                </button>
-              )}
+      <Section title="General" sectionTitle={true}>
+        <Section title="Dirección" indent="1">
+          <div className="flex flex-wrap">
+            <div className="p-2 w-full sm:w-1/2">
+              <InputText placeholder="Calle" />
             </div>
-            {open && (
-              <div className="flex flex-wrap">
-                <div className="p-2 w-full sm:w-1/2">
-                  <InputText placeholder="Calle" />
-                </div>
-                <div className="p-2 w-full sm:w-1/2">
-                  <InputText placeholder="Numero" />
-                </div>
-                <div className="p-2 w-full sm:w-1/2">
-                  <InputText placeholder="Colonia" />
-                </div>
-                <div className="p-2 w-full sm:w-1/2">
-                  <InputText placeholder="Entre Calles" />
-                </div>
-                <div className="p-2 w-full sm:w-1/2">
-                  <InputText placeholder="CP" />
-                </div>
-              </div>
-            )}
+            <div className="p-2 w-full sm:w-1/2">
+              <InputText placeholder="Numero" />
+            </div>
+            <div className="p-2 w-full sm:w-1/2">
+              <InputText placeholder="Colonia" />
+            </div>
+            <div className="p-2 w-full sm:w-1/2">
+              <InputText placeholder="Entre Calles" />
+            </div>
+            <div className="p-2 w-full sm:w-1/2">
+              <InputText placeholder="CP" />
+            </div>
           </div>
-          <div>Basura</div>
-        </div>
-      </div>
-      <div className="w-96  max-w-max  mx-auto">
-        <h2 className="text-2xl">Contratos </h2>
-        <div></div>
-      </div>
-      <div className="w-96  max-w-max  mx-auto">
-        <h2 className="text-2xl">Servicios </h2>
-      </div>
-      <div className="  max-w-max  mx-auto flex flex-col ">
-        <h2 className="text-2xl">Sub Espacios </h2>
+        </Section>
+        <Section title="Ubicación" indent="1">
+          <div>Ubicacion</div>
+        </Section>
+        <Section title="Basura" indent="1">
+          <SelectWeekDays />
+        </Section>
+      </Section>
+
+      <Section title="Contratos" sectionTitle></Section>
+      <Section title="Servicios" sectionTitle></Section>
+      <Section title="Sub-espacios" sectionTitle>
         <div className="text-center flex flex-wrap my-4">
           {subEspacios.map(({ label, value }, i) => (
             <div className="w-1/2 p-2 " key={`${value}-${i}`}>
@@ -240,9 +209,8 @@ export default function EspacioForm({
             </Button>
           </div>
         </div>
-      </div>
-      <div className=" max-w-max  mx-auto">
-        <h2 className="text-2xl ">Inventario</h2>
+      </Section>
+      <Section title="Inventario" sectionTitle>
         <div className="flex flex-col">
           {subEspacios.map(({ items, label }, i) => (
             <div className="" key={i}>
@@ -258,18 +226,66 @@ export default function EspacioForm({
             </div>
           ))}
         </div>
-      </div>
-      <div className="w-96  max-w-max  mx-auto">
-        <h2 className="text-2xl">General </h2>
-        <div>Dirección</div>
-        <div>Ubicación</div>
-      </div>
-      <div className="w-96  max-w-max  mx-auto">
-        <h2 className="text-2xl">Contratos </h2>
-        <div></div>
-      </div>
-      <div className="w-96  max-w-max  mx-auto">
-        <h2 className="text-2xl">Servicios </h2>
+      </Section>
+    </div>
+  )
+}
+
+const Section = ({
+  title = 'title',
+  sectionTitle = false,
+  children,
+  indent,
+  className
+}) => {
+  const [open, setOpen] = useState(false)
+  const handleSetOpen = (status) => {
+    setOpen(status)
+  }
+  return (
+    <div className={`my-2 ${indent==='1' && `pl-6`}`}>
+      <div className="w-full ">
+        <div className="w-full ">
+          <div className="font-bold flex ">
+            {open ? (
+              <button
+                iconOnly
+                size="sm"
+                onClick={() => handleSetOpen(false)}
+                className={
+                  sectionTitle &&
+                  `text-2xl font-semibold flex justify-center items-center`
+                }
+              >
+                {title}{' '}
+                <Icon name="keyboard_arrow_down" size={sectionTitle && '2xl'} />
+              </button>
+            ) : (
+              <button
+                iconOnly
+                size="sm"
+                className={
+                  sectionTitle &&
+                  `text-2xl font-semibold flex justify-center items-center`
+                }
+                onClick={() => handleSetOpen(true)}
+              >
+                {title}{' '}
+                <Icon
+                  name="keyboard_arrow_right"
+                  size={sectionTitle && '2xl'}
+                />
+              </button>
+            )}
+          </div>
+          <div
+            className={`opacity-0 transition duration-700 ease-in-out ${
+              open && `opacity-100`
+            }`}
+          >
+            {open && <div>{children}</div>}
+          </div>
+        </div>
       </div>
     </div>
   )

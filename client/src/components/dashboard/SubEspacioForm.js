@@ -1,4 +1,4 @@
-qimport Button from '@comps/Button'
+import Button from '@comps/Button'
 import InputText from '@comps/Inputs/Text'
 import Input from '@comps/InputText'
 import Link from '@comps/Link'

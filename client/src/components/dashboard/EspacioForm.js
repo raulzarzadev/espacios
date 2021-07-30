@@ -5,6 +5,7 @@ import Link from '@comps/Link'
 import Icon from '@material-tailwind/react/Icon'
 import { useRouter } from 'next/dist/client/router'
 import { useEffect, useState } from 'react'
+import ItemCard from './ItemCard'
 import SelectWeekDays from './SelectWeekDays'
 const SUB_ESPACIOS = [
   {
@@ -169,15 +170,30 @@ export default function EspacioForm({
             </div>
           </div>
         </Section>
-        <Section title="Ubicación" indent="1">
-          <div>Ubicacion</div>
-        </Section>
-        <Section title="Basura" indent="1">
+        <Section title="Ubicación" indent="1"></Section>
+        <Section title="Dias de basura" indent="1">
           <SelectWeekDays />
         </Section>
       </Section>
 
-      <Section title="Contratos" sectionTitle></Section>
+      <Section title="Contratos" sectionTitle>
+        <div className="flex">
+          <div className="m-1">
+            <ItemCard addCard />
+          </div>
+          <div className="m-1">
+            <ItemCard
+              item={{
+                files: [
+                  'https://images.unsplash.com/photo-1562240020-ce31ccb0fa7d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9jdW1lbnRzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+                ],
+                title: 'Contrato 2021',
+                description: 'Nuevo contrato firmado con el dueño del lugar'
+              }}
+            />
+          </div>
+        </div>
+      </Section>
       <Section title="Servicios" sectionTitle></Section>
       <Section title="Sub-espacios" sectionTitle>
         <div className="text-center flex flex-wrap my-4">
@@ -235,15 +251,14 @@ const Section = ({
   title = 'title',
   sectionTitle = false,
   children,
-  indent,
-  className
+  indent
 }) => {
   const [open, setOpen] = useState(false)
   const handleSetOpen = (status) => {
     setOpen(status)
   }
   return (
-    <div className={`my-2 ${indent==='1' && `pl-6`}`}>
+    <div className={`my-2 ${indent === '1' && `pl-6`}`}>
       <div className="w-full ">
         <div className="w-full ">
           <div className="font-bold flex ">

@@ -6,18 +6,20 @@ export default function InputText({
   success = '',
   placeholder = 'label',
   color = 'lightBlue',
+  size='md',
   ...rest
 }) {
   return (
     <Input
       type="text"
       color={color}
-      size="sm"
-      outline={false}
+      size={size}
       placeholder={placeholder}
       success={success}
       error={error}
+    
       {...rest}
+      outline={true}
     />
   )
 }

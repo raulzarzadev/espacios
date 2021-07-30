@@ -135,15 +135,16 @@ export default function EspacioForm({
       router.push('/dashboard/sub-espacios/new')
   }, [subEspacioSelected])
 
+  const [open, setOpen] = useState(false)
+  const handleSetOpen = (status) => {
+    setOpen(status)
+  }
+
   return (
     <div className=" bg-white m-1 sm:m-4  flex flex-col gap-4 p-4 rounded-md ">
       <h3 className="text-2xl font-bold text-center">{title}</h3>
       <div className=" max-w-max mx-auto">
-        <InputText
-          value={form?.title}
-          name="title"
-          placeholder="Titulo"
-        />
+        <InputText value={form?.title} name="title" placeholder="Titulo" />
       </div>
       <div className=" mx-auto  max-w-max ">
         <InputText
@@ -154,10 +155,51 @@ export default function EspacioForm({
       </div>
       <div className="w-full  max-w-max  mx-auto">
         <h2 className="text-2xl">General </h2>
-        <div className="flex w-full border border-red-100">
-          <div>Dirección</div>
-          <div>Ubicación</div>
-          <div>Ubicación</div>
+        <div className="w-full ">
+          <div>
+            <div className="font-bold flex">
+              Dirección
+              {open ? (
+                <button
+                  iconOnly
+                  size="sm"
+                  className="flex justify-center items-center"
+                  onClick={() => handleSetOpen(false)}
+                >
+                  <Icon name="keyboard_arrow_down" />
+                </button>
+              ) : (
+                <button
+                  iconOnly
+                  size="sm"
+                  className="flex justify-center items-center"
+                  onClick={() => handleSetOpen(true)}
+                >
+                  <Icon name="keyboard_arrow_up" />
+                </button>
+              )}
+            </div>
+            {open && (
+              <div className="flex flex-wrap">
+                <div className="p-2 w-full sm:w-1/2">
+                  <InputText placeholder="Calle" />
+                </div>
+                <div className="p-2 w-full sm:w-1/2">
+                  <InputText placeholder="Numero" />
+                </div>
+                <div className="p-2 w-full sm:w-1/2">
+                  <InputText placeholder="Colonia" />
+                </div>
+                <div className="p-2 w-full sm:w-1/2">
+                  <InputText placeholder="Entre Calles" />
+                </div>
+                <div className="p-2 w-full sm:w-1/2">
+                  <InputText placeholder="CP" />
+                </div>
+              </div>
+            )}
+          </div>
+          <div>Basura</div>
         </div>
       </div>
       <div className="w-96  max-w-max  mx-auto">

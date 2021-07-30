@@ -22,6 +22,7 @@ export default function Button({
       rounded={rounded}
       block={block}
       iconOnly={iconOnly}
+      rounded={iconOnly}
       ripple="light"
       {...rest}
     >

@@ -6,6 +6,8 @@ import Icon from '@material-tailwind/react/Icon'
 import { useRouter } from 'next/dist/client/router'
 import { useEffect, useState } from 'react'
 import Select from '@comps/Inputs/Select'
+import ClosingLabel from '@material-tailwind/react/ClosingLabel'
+import Label from '@material-tailwind/react/Label'
 const SUB_ESPACIOS = [
   {
     id: '1',
@@ -149,6 +151,23 @@ export default function EspacioForm({ espacio, handleChange }) {
     }
   }, [categorySelected])
 
+  const [subEspacioItems, setSubEspacioItems] = useState([])
+  console.log('subEspacioItems', subEspacioItems)
+
+  const handleAddItem = (id) => {
+    console.log('id', id)
+    setSubEspacioItems([...subEspacioItems, id])
+  }
+
+  const getItemDetails = (id) => {
+    const item = ITEMS.find((item) => item.id === id)
+    return item
+  }
+  const handleRemoveItem = (id) => {
+    const itemsCleaned = subEspacioItems.filter((item) => item !== id)
+    setSubEspacioItems(itemsCleaned)
+  }
+
   return (
     <div className=" bg-white m-1 sm:m-4  flex flex-col p-4 rounded-md ">
       <h3 className="text-2xl font-bold text-center">Nuevo Sub Espacio</h3>
@@ -161,7 +180,16 @@ export default function EspacioForm({ espacio, handleChange }) {
         </div>
       </div>
       <div className="mx-auto  max-w-max ">
-        Items
+        <div className="font-bold">Items</div>
+        <div className="flex flex-wrap">
+          {subEspacioItems.map((itemId, i) => (
+            <button key={i} onClick={() => handleRemoveItem(itemId)}>
+              <ClosingLabel color="blue" className="m-1">
+                {getItemDetails(itemId)?.label}
+              </ClosingLabel>
+            </button>
+          ))}
+        </div>
         <div>
           <Select
             label="Categoria"
@@ -170,12 +198,13 @@ export default function EspacioForm({ espacio, handleChange }) {
             placeholder="Todas"
           />
         </div>
-        <div>
+        <div className="flex flex-wrap ">
           {filteredItems.map(({ label, id }) => (
-            <div key={id}>
-              <input type="checkbox" />
-              {label}
-            </div>
+            <button key={id} onClick={() => handleAddItem(id)}>
+              <Label className="m-1 md:m-3" color="blue">
+                {label}
+              </Label>
+            </button>
           ))}
         </div>
       </div>

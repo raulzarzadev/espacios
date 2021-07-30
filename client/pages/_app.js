@@ -1,5 +1,5 @@
-import '../styles/globals.css'
 import '@material-tailwind/react/tailwind.css'
+import '../styles/globals.css'
 import Layout from '@comps/Layout'
 import Head from 'next/head'
 // Font Awesome Style Sheet

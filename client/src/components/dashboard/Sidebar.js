@@ -9,8 +9,23 @@ export default function Sidebar() {
     { label: 'Dashboard', href: '/dashboard', icon: 'dashboard' },
     { label: 'Espacios', href: '/dashboard/espacios', icon: 'other_houses' },
     {
-      label: 'Nuevo Espacio',
+      label: 'Espacio',
       href: '/dashboard/espacios/new-espacio',
+      icon: 'add'
+    },
+    {
+      label: 'Sub-Espacio',
+      href: '/dashboard/sub-espacios/new',
+      icon: 'add'
+    },
+    {
+      label: 'Item',
+      href: '/dashboard/items/new',
+      icon: 'add'
+    },
+    {
+      label: 'Consumible',
+      href: '/dashboard/consumibles/new',
       icon: 'add'
     },
     { label: 'Viusal Guide', href: '/visual-guide', icon: 'visibility' }
@@ -21,7 +36,7 @@ export default function Sidebar() {
     <div className="sticky top-0 z-10 ">
       <AdminNavbar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
       <div
-        className={`h-screen fixed top-0 md:left-0 ${showSidebar} overflow-y-auto flex-row flex-nowrap overflow-hidden shadow-xl w-64 z-10 py-4 px-6 transition-all duration-300 bg-blue-300`}
+        className={`h-screen fixed top-0 md:left-0 ${showSidebar} overflow-y-auto flex-row flex-nowrap overflow-hidden shadow-xl w-64 z-10 py-4 px-4 transition-all duration-300 bg-blue-300`}
       >
         <div className="flex-col items-stretch flex-nowrap px-0 relative">
           <Link

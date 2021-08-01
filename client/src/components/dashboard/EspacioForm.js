@@ -110,6 +110,13 @@ export default function EspacioForm({
           placeholder="Sub titulo"
         />
       </div>
+      <div className=" mx-auto  max-w-max ">
+        <InputText
+          value={form?.maxOccupants}
+          name="maxOccupants"
+          placeholder="Ocupantes Max"
+        />
+      </div>
       <Section title="General" sectionTitle={true}>
         <Section title="Dirección" indent="1">
           <div className="flex flex-wrap">
@@ -151,7 +158,21 @@ export default function EspacioForm({
       </Section>
       <Section title="Servicios" sectionTitle>
         <Section title="Historial" indent="1">
-          Historial de pagos
+          <Section title="Agua" indent="1">
+            <ItemCard addCard />
+          </Section>
+          <Section title="Gas" indent="1">
+            <ItemCard addCard />
+          </Section>
+          <Section title="Luz" indent="1">
+            <ItemCard addCard />
+          </Section>
+          <Section title="Internet" indent="1">
+            <ItemCard addCard />
+          </Section>
+          <Section title="Mantenimiento" indent="1">
+            <ItemCard addCard />
+          </Section>
         </Section>
         <Section title="Contratos" indent="1">
           <SectionServices />

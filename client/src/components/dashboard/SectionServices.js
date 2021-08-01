@@ -93,14 +93,39 @@ export default function SectionServices({ list = [], setList = () => {} }) {
         closeLabel="Cancelar"
         handleClose
       >
-        <select value="">
-          <option value="">Selecciona</option>
-          <option value="">Agua</option>
-          <option value="">Luz</option>
-          <option value="">Internet</option>
-        </select>
-        <InputText placeholder="Periodo" />
-        <input type="file" />
+        <div>
+          <div className="my-4">
+            <label>
+              Servicio:
+              <select value="">
+                <option value="">Selecciona</option>
+                <option value="water">Agua</option>
+                <option value="gas">Gas</option>
+                <option value="internet">Internet</option>
+                <option value="electricity">Luz</option>
+                <option value="maintenance">Mantenimiento</option>
+              </select>
+            </label>
+          </div>
+          <div className="my-4">
+            <label>
+              Fecha del contrato: 
+              <input type="date" />
+            </label>
+          </div>
+          <div className="my-4">
+            <InputText placeholder="Periodo (dias)" type="number" />
+          </div>
+          <div className="my-4">
+            <InputText placeholder="Compañia" />
+          </div>
+          <div className="my-4">
+            <InputText placeholder="No. Servicio" />
+          </div>
+          <div className="my-4">
+            <InputText placeholder="Referencia" />
+          </div>
+        </div>
         {/*   <select
           className="w-full py-2"
           value={subEspacioSelected}

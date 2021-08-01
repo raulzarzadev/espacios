@@ -12,73 +12,6 @@ import SectionSubEspacios from './SectionSubEspacio'
 import SectionServices from './SectionServices'
 import SectionContracts from './SectionContracts'
 
-const ITEMS = [
-  {
-    id: '1',
-    value: '1',
-    label: 'estufa',
-    category: ['mobile'],
-    description: 'descripcion de estufa',
-    icon: null
-  },
-  {
-    id: '2',
-    value: '2',
-    label: 'cuchara',
-    category: ['consumible'],
-    description: 'descripcion de cuchara',
-    icon: null
-  },
-  {
-    id: '3',
-    value: '3',
-    label: 'jabon de trastes',
-    category: ['consumible'],
-    description: 'descripcion del jabon de trastes',
-    icon: null
-  },
-  {
-    id: '14',
-    value: '14',
-    label: 'shapoo de cuerpo',
-    category: ['consumible'],
-    description: 'descripcion del shampo',
-    icon: null
-  },
-  {
-    id: '12',
-    value: '12',
-    label: 'papel sanitario',
-    category: ['consumible'],
-    description: 'descripcion del papel',
-    icon: null
-  },
-  {
-    id: '5',
-    value: '5',
-    label: 'toalla de manos',
-    category: ['linens'],
-    description: 'descripcion del toalla de manos',
-    icon: null
-  },
-  {
-    id: '19',
-    value: '19',
-    label: 'Espejo',
-    category: ['mobil'],
-    description: 'descripcion del toalla de manos',
-    icon: null
-  },
-  {
-    id: '10',
-    value: '10',
-    label: 'Tapete',
-    category: ['linens'],
-    description: 'descripcion del toalla de manos',
-    icon: null
-  }
-]
-
 export default function EspacioForm({
   espacio = null,
   title = 'Nuevo Espacio',
@@ -238,31 +171,30 @@ const Section = ({
           <div className="font-bold flex ">
             {open ? (
               <button
-                iconOnly
-                size="sm"
                 onClick={() => handleSetOpen(false)}
                 className={
-                  sectionTitle &&
-                  `text-2xl font-semibold flex justify-center items-center`
+                  sectionTitle ?
+                  `text-2xl font-semibold flex justify-center items-center`:undefined
                 }
               >
                 {title}{' '}
-                <Icon name="keyboard_arrow_down" size={sectionTitle && '2xl'} />
+                <Icon
+                  name="keyboard_arrow_down"
+                  size={sectionTitle ? '2xl' : ''}
+                />
               </button>
             ) : (
               <button
-                iconOnly
-                size="sm"
                 className={
-                  sectionTitle &&
-                  `text-2xl font-semibold flex justify-center items-center`
+                  sectionTitle ?
+                  `text-2xl font-semibold flex justify-center items-center`:undefined
                 }
                 onClick={() => handleSetOpen(true)}
               >
                 {title}{' '}
                 <Icon
                   name="keyboard_arrow_right"
-                  size={sectionTitle && '2xl'}
+                  size={sectionTitle ? '2xl' : ''}
                 />
               </button>
             )}

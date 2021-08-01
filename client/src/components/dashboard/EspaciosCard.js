@@ -6,20 +6,34 @@ import CardStatusFooter from '@material-tailwind/react/CardStatusFooter'
 import Icon from '@material-tailwind/react/Icon'
 import Image from 'next/image'
 
-export default function EspaciosCard({
-  title = 'Espacio 1',
-  subTitle = 'Subtitulo',
-  description = 'Descripcion',
-  image = 'https://placehold.it/350x150',
-  link = 'https://google.com',
-  color = '#F44336',
-  icon = 'lock',
-  id = false,
-  onClick = () => {}
-}) {
+export default function EspaciosCard({ espacio, onClick, }) {
+  const { title, subTitle, alerts,id } = espacio
+  console.log('alertss', alerts)
+  const ALERTS = {
+    inventoryStatus: {
+      icon: 'inventory',
+      label: 'Invetarios'
+    },
+    servicesStatus: {
+      icon: 'electrical_services',
+      label: 'Servicios'
+    },
+    accountingStatus: {
+      icon: 'account_balance_wallet',
+      label: 'Contabilidad'
+    },
+    maintenanceStatus: {
+      icon: 'handyman',
+      label: 'Mantenimiento'
+    },
+    cleaningStatus: {
+      icon: 'cleaning_services',
+      label: 'Limpieza'
+    }
+  }
   return (
     <button
-      className=" group cursor-pointer"
+      className=" group cursor-pointer max-w-sm"
       onClick={(e) => {
         e.preventDefault()
         onClick(id)
@@ -41,11 +55,32 @@ export default function EspaciosCard({
           <h3 className="text-3xl">{title}</h3>
           <h6 className="text-2xl font-extralight">{subTitle}</h6>
         </div>
-        <div className="absolute right-1 -top-5 w-40 h-20 md:w-52 md:right-10 bg-gray-200 flex justify-around ">
-          <div>H</div>
-          <div>F</div>
-          <div>G</div>
+        <div className="  bg-gray-200 h-10 absolute right-1 -top-5 w-40 sm:w-auto">
+          <div className='flex flex-wrap'>
+            {Object.keys(alerts).map((alert, i) => (
+              <div key={i} className=" flex items-center flex-col sm:m-1  ">
+                <div className=''>
+                  <Icon name={ALERTS[alert]?.icon} size='3xl' />
+                </div>
+                <div className="hidden ">
+                  <div className='text-xs'>
+                  {ALERTS[alert]?.label}
+                    </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+        {/* <div className="absolute right-1 -top-5 w-40 md:h-20 sm:w-auto   md:right-10  flex justify-around flex-wrap ">
+          {Object.keys(alerts).map((alert, i) => (
+            <div key={i} className="md:m-2 flex items-center flex-col">
+              <div>
+                <Icon name={ALERTS[alert]?.icon} size="3xl" />
+              </div>
+              <div className=" hidden  sm:block text-xs">{ALERTS[alert]?.label}</div>
+            </div>
+          ))}
+        </div> */}
       </div>
     </button>
   )

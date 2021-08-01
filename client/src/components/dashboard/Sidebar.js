@@ -10,7 +10,7 @@ export default function Sidebar() {
     { label: 'Espacios', href: '/dashboard/espacios', icon: 'other_houses' },
     {
       label: 'Espacio',
-      href: '/dashboard/espacios/new-espacio',
+      href: '/dashboard/espacios/new',
       icon: 'add'
     },
     {

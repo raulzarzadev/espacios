@@ -9,110 +9,13 @@ import Select from '@comps/Inputs/Select'
 import ClosingLabel from '@material-tailwind/react/ClosingLabel'
 import Label from '@material-tailwind/react/Label'
 import Modal from '@comps/Modal'
-const SUB_ESPACIOS = [
-  {
-    id: '1',
-    value: '1',
-    label: 'Cocina Ch',
-    icon: 'home',
-    items: ['1', '2', '3'],
-    description: 'Descripción de cuarto ',
-    category: ['kitchen']
-  },
-  /*  {
-    id: '2',
-    value: '2',
-    label: 'Cuarto Ind',
-    icon: 'room',
-    items: ['4', '6', '7', '9'],
-    description: 'Descripción de cuarto ',
-    category: ['room']
-  }, */
-  {
-    id: '3',
-    value: '3',
-    label: 'Baño Completo',
-    icon: 'kitchen',
-    items: ['14', '12', '5', '19', '10'],
-    description: 'Descripción label',
-    category: ['room']
-  }
-]
-const ITEMS = [
-  {
-    id: '1',
-    value: '1',
-    label: 'estufa',
-    category: ['mobil', 'kitchen'],
-    description: 'descripcion de estufa',
-    icon: null
-  },
-  {
-    id: '2',
-    value: '2',
-    label: 'cuchara',
-    category: ['consumible', 'kitchen'],
-    description: 'descripcion de cuchara',
-    icon: null
-  },
-
-  {
-    id: '5',
-    value: '5',
-    label: 'toalla de manos',
-    category: ['linens', 'restroom'],
-    description: 'descripcion del toalla de manos',
-    icon: null
-  },
-  {
-    id: '19',
-    value: '19',
-    label: 'Espejo',
-    category: ['mobil', 'restroom'],
-    description: 'descripcion del toalla de manos',
-    icon: null
-  },
-  {
-    id: '10',
-    value: '10',
-    label: 'Tapete',
-    category: ['linens', 'restroom', 'floor'],
-    description: 'descripcion del toalla de manos',
-    icon: null
-  }
-]
-const CONSUMIBLE = [
-  {
-    id: '3',
-    value: '3',
-    label: 'jabon de trastes',
-    category: ['consumible', 'kitchen'],
-    description: 'descripcion del jabon de trastes',
-    icon: null
-  },
-  {
-    id: '14',
-    value: '14',
-    label: 'shapoo de cuerpo',
-    category: ['consumible', 'restroom'],
-    description: 'descripcion del shampo',
-    icon: null
-  },
-  {
-    id: '12',
-    value: '12',
-    label: 'papel sanitario',
-    category: ['consumible', 'restroom'],
-    description: 'descripcion del papel',
-    icon: null
-  }
-]
+import axios from 'axios'
 
 export default function EspacioForm({ subEspacio, handleChange }) {
   const router = useRouter()
   const [form, setForm] = useState({})
   const [openAddItem, setOpenAddItem] = useState(false)
-  const [openAddConsumible, setOpenAddConsumible] = useState(false)
+  const [openAddConsumable, setOpenAddConsumable] = useState(false)
 
   const handleSaveSubEspacio = () => {
     setTimeout(() => {
@@ -124,8 +27,8 @@ export default function EspacioForm({ subEspacio, handleChange }) {
     setOpenAddItem(!openAddItem)
   }
 
-  const handleOpenAddConsumible = () => {
-    setOpenAddConsumible(!openAddConsumible)
+  const handleOpenAddConsumable = () => {
+    setOpenAddConsumable(!openAddConsumable)
   }
 
   const handleAddItem = (id) => {
@@ -137,24 +40,34 @@ export default function EspacioForm({ subEspacio, handleChange }) {
     setForm({ ...form, items: itemsCleaned })
   }
 
-  const handleAddConsumible = (id) => {
-    const consumibles = form?.consumibles ? [...form?.consumibles, id] : [id]
-    setForm({ ...form, consumibles })
+  const handleAddConsumable = (id) => {
+    const consumables = form?.consumables ? [...form?.consumables, id] : [id]
+    setForm({ ...form, consumables })
   }
-  const handleRemoveConsumible = (id) => {
-    const consumiblesCleaned = form?.consumibles?.filter((item) => item !== id)
-    setForm({ ...form, consumibles: consumiblesCleaned })
+  const handleRemoveConsumable = (id) => {
+    const consumablesCleaned = form?.consumables?.filter((item) => item !== id)
+    setForm({ ...form, consumables: consumablesCleaned })
   }
 
-  const getConsumibleDetails = (id) => {
-    const consumible = CONSUMIBLE.find((item) => item.id === id)
-    return consumible
+  const getConsumableDetails = (id) => {
+    const consumable = consumables?.find((item) => item.id === id)
+    return consumable
   }
 
   const getItemDetails = (id) => {
-    const item = ITEMS.find((item) => item.id === id)
+    const item = items.find((item) => item.id === id)
     return item
   }
+
+  const [items, setItems] = useState([])
+  useEffect(() => {
+    axios.get('/api/items').then(({data}) => setItems(data?.items))
+  }, [])
+  const [consumables, setConsumables] = useState([])
+  useEffect(() => {
+    axios.get('/api/consumables').then(({data}) => setConsumables(data?.consumables))
+  }, [])
+
 
   return (
     <div className=" bg-white m-1 sm:m-4  flex flex-col p-4 rounded-md ">
@@ -187,34 +100,34 @@ export default function EspacioForm({ subEspacio, handleChange }) {
           title="Agregar item"
           open={openAddItem}
           handleOpen={handleOpenAddItem}
-          items={ITEMS}
+          items={items}
           handleAddItem={handleAddItem}
           redirectTo="/"
         />
       </div>
       <div className=" mx-auto my-4 w-full">
         <div className="flex ">
-          <h3 className="text-3xl mr-2 ">Consumible</h3>
-          <Button onClick={handleOpenAddConsumible}>
+          <h3 className="text-3xl mr-2 ">Consumable</h3>
+          <Button onClick={handleOpenAddConsumable}>
             <Icon name="add" />
           </Button>
         </div>
         <AddItemModal
-          title="Agregar consumible"
-          open={openAddConsumible}
-          handleOpen={handleOpenAddConsumible}
-          handleAddItem={handleAddConsumible}
-          items={CONSUMIBLE}
+          title="Agregar consumable"
+          open={openAddConsumable}
+          handleOpen={handleOpenAddConsumable}
+          handleAddItem={handleAddConsumable}
+          items={consumables}
           redirectTo="/"
         />
         <div className="flex flex-wrap my-4">
-          {form?.consumibles?.map((consumibleId, i) => (
+          {form?.consumables?.map((consumableId, i) => (
             <button
               key={i}
-              onClick={() => handleRemoveConsumible(consumibleId)}
+              onClick={() => handleRemoveConsumable(consumableId)}
             >
               <ClosingLabel color="blue" className="m-1">
-                {getConsumibleDetails(consumibleId)?.label}
+                {getConsumableDetails(consumableId)?.label}
               </ClosingLabel>
             </button>
           ))}
@@ -295,7 +208,7 @@ const AddItemModal = ({
           </button>
         ))}
       </div>
-      <div className='flex justify-center mt-4'>
+      <div className="flex justify-center mt-4">
         <Button onClick={handleRedirect}>Agregar nuevo</Button>
       </div>
     </Modal>

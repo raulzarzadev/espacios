@@ -1,25 +1,27 @@
-import ESpaciosCard from '@comps/dashboard/EspaciosCard'
+import EspaciosCard from '@comps/dashboard/EspaciosCard'
+import axios from 'axios'
 import { useRouter } from 'next/dist/client/router'
+import { useEffect, useState } from 'react'
 export default function Espacios() {
   const router = useRouter()
-  const espacio = {
-    title: 'Espacio 1',
-    subTitle: 'Subtitulo',
-    description: 'Descripcion',
-    image: 'https://placehold.it/350x150',
-    link: 'https://google.com'
-  }
   const handleEspacioClick = (id) => {
-    console.log('id', id)
     router.push(`/dashboard/espacios/${id}`)
   }
+  const [espacios, setEspacios] = useState([])
+  useEffect(() => {
+    axios.get('/api/espacios').then(({ data }) => setEspacios(data?.espacios))
+  }, [])
   return (
     <>
       <h3 className="text-white text-3xl text-center p-6">Espacios</h3>
       <div className="flex flex-col gap-2 p-2 py-8">
-        <ESpaciosCard espacio={espacio} onClick={handleEspacioClick} />
-        <ESpaciosCard espacio={espacio} onClick={handleEspacioClick} />
-        <ESpaciosCard espacio={espacio} onClick={handleEspacioClick} />
+        {espacios.map((espacio) => (
+          <EspaciosCard
+            key={espacio?.id}
+            espacio={espacio}
+            onClick={handleEspacioClick}
+          />
+        ))}
       </div>
     </>
   )

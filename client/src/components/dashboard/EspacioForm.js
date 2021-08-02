@@ -51,7 +51,13 @@ export default function EspacioForm({
         />
       </div>
       <Section title="General" sectionTitle={true}>
-        <Section title="Dirección" indent="1">
+        <Section title="Sub-espacios">
+          <SectionSubEspacios
+            subEspacios={form.subEspacios}
+            setSubEspacios={handleSetSubEspacios}
+          />
+        </Section>
+        <Section title="Dirección">
           <div className="flex flex-wrap">
             <div className="p-2 w-full sm:w-1/2">
               <InputText placeholder="Calle" />
@@ -70,73 +76,28 @@ export default function EspacioForm({
             </div>
           </div>
         </Section>
-        <Section title="Ubicación" indent="1"></Section>
-        <Section title="Dias de basura" indent="1">
+        <Section title="Ubicación">
+          <div className="p-2 flex items-center">
+            <InputText placeholder="Ubicación" />
+            <button className='mx-2' >
+              <Icon name="copy_all" size="3xl" />
+            </button>
+          </div>
+        </Section>
+        <Section title="Dias de basura">
           <SelectWeekDays />
         </Section>
       </Section>
 
-      <Section title="Contratos" sectionTitle>
-        <SectionContracts
-          list={[
-            {
-              files: [
-                'https://images.unsplash.com/photo-1562240020-ce31ccb0fa7d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9jdW1lbnRzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
-              ],
-              title: 'label',
-              description: 'Nuevo contrato firmado con el dueño del lugar'
-            }
-          ]}
-        />
-      </Section>
-      <Section title="Servicios" sectionTitle>
-        <Section title="Historial" indent="1">
-          <Section title="Agua" indent="1">
-            <ItemCard addCard />
-          </Section>
-          <Section title="Gas" indent="1">
-            <ItemCard addCard />
-          </Section>
-          <Section title="Luz" indent="1">
-            <ItemCard addCard />
-          </Section>
-          <Section title="Internet" indent="1">
-            <ItemCard addCard />
-          </Section>
-          <Section title="Mantenimiento" indent="1">
-            <ItemCard addCard />
-          </Section>
+      <Section title="Operación" sectionTitle>
+        <Section title="Mantenimiento">
+          <div>Seccion de contabilidad</div>
         </Section>
-        <Section title="Contratos" indent="1">
-          <SectionServices />
+        <Section title="Limpieza">
+          <div>Seccion de contabilidad</div>
         </Section>
-        {/* <div className="flex">
-          <div className="m-1">
-            <ItemCard addCard />
-          </div>
-          <div className="m-1">
-            <ItemCard
-              item={{
-                files: [
-                  'https://images.unsplash.com/photo-1562240020-ce31ccb0fa7d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9jdW1lbnRzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
-                ],
-                title: 'Contrato 2021',
-                description: 'Nuevo contrato firmado con el dueño del lugar'
-              }}
-            />
-          </div>
-        </div> */}
-      </Section>
-      <div id="servicesStatus">
-        <Section title="Sub-espacios" sectionTitle>
-          <SectionSubEspacios
-            subEspacios={form.subEspacios}
-            setSubEspacios={handleSetSubEspacios}
-          />
-        </Section>
-      </div>
-      <Section title="Inventario" sectionTitle>
-        {/* <div className="flex flex-col">
+        <Section title="Inventario">
+          {/* <div className="flex flex-col">
           {subEspacios.map(({ items, label }, i) => (
             <div className="" key={i}>
               <div className="font-bold">{label}</div>
@@ -151,6 +112,64 @@ export default function EspacioForm({
             </div>
           ))}
         </div> */}
+        </Section>
+      </Section>
+      <Section title="Administracón" sectionTitle>
+        <Section title="Contratos">
+          <SectionContracts
+            list={[
+              {
+                files: [
+                  'https://images.unsplash.com/photo-1562240020-ce31ccb0fa7d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9jdW1lbnRzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+                ],
+                title: 'label',
+                description: 'Nuevo contrato firmado con el dueño del lugar'
+              }
+            ]}
+          />
+        </Section>
+        <Section title="Servicios">
+          <Section title="Historial" indent>
+            <Section title="Agua" indent>
+              <ItemCard addCard />
+            </Section>
+            <Section title="Gas" indent>
+              <ItemCard addCard />
+            </Section>
+            <Section title="Luz" indent>
+              <ItemCard addCard />
+            </Section>
+            <Section title="Internet" indent>
+              <ItemCard addCard />
+            </Section>
+            <Section title="Mantenimiento" indent>
+              <ItemCard addCard />
+            </Section>
+          </Section>
+          <Section title="Contratos" indent>
+            <SectionServices />
+          </Section>
+          {/* <div className="flex">
+          <div className="m-1">
+          <ItemCard addCard />
+          </div>
+          <div className="m-1">
+          <ItemCard
+          item={{
+            files: [
+              'https://images.unsplash.com/photo-1562240020-ce31ccb0fa7d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9jdW1lbnRzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+            ],
+            title: 'Contrato 2021',
+            description: 'Nuevo contrato firmado con el dueño del lugar'
+          }}
+          />
+          </div>
+        </div> */}
+        </Section>
+
+        <Section title="Contabilidad">
+          <div>Seccion de contabilidad</div>
+        </Section>
       </Section>
     </div>
   )
@@ -167,20 +186,18 @@ const Section = ({
     setOpen(status)
   }
   return (
-    <div className={`my-2 ${indent === '1' && `pl-6`}`}>
+    <div className={`my-2 ${indent && `pl-6`}`}>
       <div className="w-full ">
         <div className="w-full ">
           <div className="font-bold flex ">
             {open ? (
               <button
                 onClick={() => handleSetOpen(false)}
-                className={
-                  sectionTitle
-                    ? `text-2xl font-semibold flex justify-center items-center`
-                    : undefined
-                }
+                className={`${
+                  sectionTitle ? `text-2xl font-semibold ` : undefined
+                } flex justify-center items-center`}
               >
-                {title}{' '}
+                {title}
                 <Icon
                   name="keyboard_arrow_down"
                   size={sectionTitle ? '2xl' : ''}
@@ -188,14 +205,12 @@ const Section = ({
               </button>
             ) : (
               <button
-                className={
-                  sectionTitle
-                    ? `text-2xl font-semibold flex justify-center items-center`
-                    : undefined
-                }
+                className={`${
+                  sectionTitle ? `text-2xl font-semibold ` : undefined
+                } flex justify-center items-center`}
                 onClick={() => handleSetOpen(true)}
               >
-                {title}{' '}
+                {title}
                 <Icon
                   name="keyboard_arrow_right"
                   size={sectionTitle ? '2xl' : ''}

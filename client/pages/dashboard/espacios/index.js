@@ -14,13 +14,11 @@ export default function Espacios() {
   return (
     <>
       <h3 className="text-white text-3xl text-center p-6">Espacios</h3>
-      <div className="flex flex-col gap-2 p-2 py-8">
+      <div className="flex flex-col items-center py-6">
         {espacios.map((espacio) => (
-          <EspaciosCard
-            key={espacio?.id}
-            espacio={espacio}
-            onClick={handleEspacioClick}
-          />
+          <div key={espacio?.id} >
+            <EspaciosCard espacio={espacio} onClick={handleEspacioClick} />
+          </div>
         ))}
       </div>
     </>

@@ -127,12 +127,14 @@ export default function EspacioForm({
           </div>
         </div> */}
       </Section>
-      <Section title="Sub-espacios" sectionTitle>
-        <SectionSubEspacios
-          subEspacios={form.subEspacios}
-          setSubEspacios={handleSetSubEspacios}
-        />
-      </Section>
+      <div id="servicesStatus">
+        <Section title="Sub-espacios" sectionTitle>
+          <SectionSubEspacios
+            subEspacios={form.subEspacios}
+            setSubEspacios={handleSetSubEspacios}
+          />
+        </Section>
+      </div>
       <Section title="Inventario" sectionTitle>
         {/* <div className="flex flex-col">
           {subEspacios.map(({ items, label }, i) => (
@@ -173,8 +175,9 @@ const Section = ({
               <button
                 onClick={() => handleSetOpen(false)}
                 className={
-                  sectionTitle ?
-                  `text-2xl font-semibold flex justify-center items-center`:undefined
+                  sectionTitle
+                    ? `text-2xl font-semibold flex justify-center items-center`
+                    : undefined
                 }
               >
                 {title}{' '}
@@ -186,8 +189,9 @@ const Section = ({
             ) : (
               <button
                 className={
-                  sectionTitle ?
-                  `text-2xl font-semibold flex justify-center items-center`:undefined
+                  sectionTitle
+                    ? `text-2xl font-semibold flex justify-center items-center`
+                    : undefined
                 }
                 onClick={() => handleSetOpen(true)}
               >

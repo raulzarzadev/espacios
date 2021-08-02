@@ -1,7 +1,57 @@
 export const ESPACIOS = [
   {
     id: 'a1',
-    title: 'Rangel A',
+    title: 'Departamento 6',
+    subTitle: 'LPZ Manglito',
+    description:
+      'Antes un hostal, hoy un punto de encuentro para viajeros y amantes de la aventura',
+    maxOccupants: 12,
+    subEspacios: [],
+    address: '',
+    trashDaysColect: ['2', '4'],
+    location: '',
+    contracts: [],
+    services: {
+      contracts: [],
+      paymentsHistory: []
+    },
+    images: ['https://placehold.it/350x150'],
+    alerts: {
+      inventoryStatus: '34',
+      servicesStatus: '88',
+      accountingStatus: '4',
+      maintenanceStatus: '99',
+      cleaningStatus: '88'
+    }
+  },
+  {
+    id: 'a1b',
+    title: 'Departamente 8',
+    subTitle: 'LPZ Manglito',
+    description:
+      'Antes un hostal, hoy un punto de encuentro para viajeros y amantes de la aventura',
+    maxOccupants: 12,
+    subEspacios: [],
+    address: '',
+    trashDaysColect: ['2', '4'],
+    location: '',
+    contracts: [],
+    services: {
+      contracts: [],
+      paymentsHistory: []
+    },
+    images: ['https://placehold.it/350x150'],
+    alerts: {
+      inventoryStatus: '34',
+      servicesStatus: '88',
+      accountingStatus: '4',
+      maintenanceStatus: '99',
+      cleaningStatus: '88'
+    }
+  },
+  {
+    id: 'a12',
+    title: 'Departamento 4',
     subTitle: 'LPZ Manglito',
     description:
       'Antes un hostal, hoy un punto de encuentro para viajeros y amantes de la aventura',

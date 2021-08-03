@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 export default function EspaciosCard({ espacio, onClick }) {
   const router = useRouter()
-  const { title, subTitle, alerts, id } = espacio
+  const { title, subTitle, alerts, id ,images} = espacio
   const ALERTS = {
     inventoryStatus: {
       icon: 'inventory',
@@ -29,28 +29,30 @@ export default function EspaciosCard({ espacio, onClick }) {
     }
   }
   return (
-    <div className=" group cursor-pointer max-w-xs sm:max-w-sm shadow-lg">
+    <div
+      className=" group cursor-pointer max-w-xs sm:max-w-sm sha"
+      onClick={(e) => {
+        e.preventDefault()
+        onClick(id)
+      }}
+    >
       <div className="relative mt-10 clear-none bg-white rounded-lg w-full h-auto p-4 flex flex-col hover:border hover:bg-gray-200">
         <div className="absolute w-20 h-16 sm:w-40 sm:h-32 -top-6 left-2 rounded-lg bg-red-200 shadow-lg ">
+          {images[0] &&
           <Image
-            src="https://images.unsplash.com/photo-1626583223726-b259a1ba244c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
-            layout="fill"
-            objectFit="cover"
-            alt=""
-            className="inital rounded-lg shadow-lg "
+          src={images[0]}
+          layout="fill"
+          objectFit="cover"
+          alt=""
+          className="inital rounded-lg shadow-lg "
           />
+        }
         </div>
         <div className="sm:w-80 text-right  flex flex-col justify-end ">
           <h6 className="text-1xl font-extralight italic">{subTitle}</h6>
-          <h3
-            className="text-lg font-semibold"
-            onClick={(e) => {
-              e.preventDefault()
-              onClick(id)
-            }}
-          >
+          <h3 className='text-lg font-semibold'>
             {title}
-            <span>
+            <span >
               <Icon name="arrow_forward" />
             </span>
           </h3>

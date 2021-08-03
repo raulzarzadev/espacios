@@ -15,7 +15,9 @@ export const ESPACIOS = [
       contracts: [],
       paymentsHistory: []
     },
-    images: ['https://placehold.it/350x150'],
+    images: [
+      'https://images.unsplash.com/photo-1626583223726-b259a1ba244c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
+    ],
     alerts: {
       inventoryStatus: '34',
       servicesStatus: '88',

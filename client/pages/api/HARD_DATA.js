@@ -148,3 +148,47 @@ export const ITEMS = [
     icon: null
   }
 ]
+
+export const SUB_ESPACIOS = [
+  {
+    id: '1',
+    value: '1',
+    label: 'Cocina Ch',
+    icon: 'home',
+    items: ['1', '2', '3'],
+    description: 'Descripción de cuarto ',
+    category: ['kitchen'],
+    images: []
+  },
+  /*  {
+    id: '2',
+    value: '2',
+    label: 'Cuarto Ind',
+    icon: 'room',
+    items: ['4', '6', '7', '9'],
+    description: 'Descripción de cuarto ',
+    category: ['room']
+  }, */
+  {
+    id: '3',
+    value: '3',
+    label: 'Baño Completo',
+    icon: 'kitchen',
+    items: ['14', '12', '5', '19', '10'],
+    description: 'Descripción label',
+    category: ['room'],
+    images: []
+  },
+  {
+    id: '4',
+    value: '4',
+    label: 'Cama mat',
+    icon: 'bed',
+    items: ['14', '12', '5', '19', '10'],
+    description: 'Descripción cama',
+    category: ['room'],
+    images: [
+      'https://images.unsplash.com/photo-1582582621959-48d27397dc69?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YmVkfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'
+    ]
+  }
+]

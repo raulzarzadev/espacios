@@ -2,31 +2,17 @@ import Link from '@comps/Link'
 import Icon from '@material-tailwind/react/Icon'
 import { useRouter } from 'next/dist/client/router'
 import Image from 'next/image'
+import ICONS from 'src/ICONS'
 
 export default function EspaciosCard({ espacio, onClick }) {
   const router = useRouter()
   const { title, subTitle, alerts, id ,images} = espacio
   const ALERTS = {
-    inventoryStatus: {
-      icon: 'inventory',
-      label: 'Invetarios'
-    },
-    servicesStatus: {
-      icon: 'electrical_services',
-      label: 'Servicios'
-    },
-    accountingStatus: {
-      icon: 'account_balance_wallet',
-      label: 'Contabilidad'
-    },
-    maintenanceStatus: {
-      icon: 'handyman',
-      label: 'Mantenimiento'
-    },
-    cleaningStatus: {
-      icon: 'cleaning_services',
-      label: 'Limpieza'
-    }
+    inventoryStatus: ICONS.inventory,
+    servicesStatus: ICONS.services,
+    accountingStatus: ICONS.accounting,
+    maintenanceStatus: ICONS.maintenance,
+    cleaningStatus: ICONS.cleaning
   }
   return (
     <div

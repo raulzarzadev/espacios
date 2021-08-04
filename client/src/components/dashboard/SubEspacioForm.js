@@ -11,7 +11,7 @@ import Label from '@material-tailwind/react/Label'
 import Modal from '@comps/Modal'
 import axios from 'axios'
 
-export default function EspacioForm({ subEspacio, handleChange }) {
+export default function SubEspacioForm({title='Nuevo Sub-Espacio', subEspacio, handleChange }) {
   const router = useRouter()
   const [form, setForm] = useState({})
   const [openAddItem, setOpenAddItem] = useState(false)
@@ -71,7 +71,7 @@ export default function EspacioForm({ subEspacio, handleChange }) {
 
   return (
     <div className=" bg-white m-1 sm:m-4  flex flex-col p-4 rounded-md ">
-      <h3 className="text-2xl font-bold text-center">Nuevo Sub Espacio</h3>
+      <h3 className="text-2xl font-bold text-center">{title}</h3>
       <div className="my-4 ">
         <div className=" max-w-max mx-auto my-2">
           <InputText placeholder="Titulo" />

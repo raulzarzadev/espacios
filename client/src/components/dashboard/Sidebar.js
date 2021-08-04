@@ -11,27 +11,49 @@ export default function Sidebar() {
     {
       label: 'Espacio',
       href: '/dashboard/espacios/new',
-      icon: 'add'
+      icon: 'add',
+      indent: true
+    },
+    {
+      label: 'Sub-Espacios',
+      href: '/dashboard/sub-espacios',
+      icon: 'category'
     },
     {
       label: 'Sub-Espacio',
       href: '/dashboard/sub-espacios/new',
-      icon: 'add'
+      icon: 'add',
+      indent: true
+    },
+
+    {
+      label: 'Items',
+      href: '/dashboard/items',
+      icon: 'workspaces'
     },
     {
       label: 'Item',
       href: '/dashboard/items/new',
-      icon: 'add'
+      icon: 'add',
+      indent: true
+    },
+    {
+      label: 'Consumibles',
+      href: '/dashboard/consumables',
+      icon: 'sanitizer'
     },
     {
       label: 'Consumible',
-      href: '/dashboard/consumibles/new',
-      icon: 'add'
+      href: '/dashboard/consumables/new',
+      icon: 'add',
+      indent: true
     },
     { label: 'Viusal Guide', href: '/visual-guide', icon: 'visibility' }
   ]
   const [showSidebar, setShowSidebar] = useState('-left-64')
-
+  const handelHiddeSidebar = () => {
+    setShowSidebar('-left-64')
+  }
   return (
     <div className="sticky top-0 z-10 ">
       <AdminNavbar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
@@ -49,12 +71,14 @@ export default function Sidebar() {
           <div className="flex flex-col">
             <hr className="my-4 min-w-full" />
             <ul className="flex-col min-w-full flex list-none">
-              {SIDEBAR_LINKS.map(({ href, icon, label }) => (
-                <li key={label} className="rounded-lg mb-4">
-                  <Link href={href} onClick={() => setShowSidebar('-left-64')}>
-                    <Icon name={icon} size="2xl" />
-                    {label}
-                  </Link>
+              {SIDEBAR_LINKS.map(({ href, icon, label, indent }) => (
+                <li key={label} className="rounded-lg mb-2 ">
+                  <div className={`${indent && `ml-4`}`}>
+                    <Link size='sm' href={href} onClick={handelHiddeSidebar}>
+                      <Icon name={icon} size="2xl" />
+                      {label}
+                    </Link>
+                  </div>
                 </li>
               ))}
               {/* <li className="px-4 rounded-lg mb-2 text-gray-700">

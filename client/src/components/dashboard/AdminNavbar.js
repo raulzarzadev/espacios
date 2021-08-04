@@ -15,17 +15,19 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
     <nav className=" bg-light-blue-500 md:ml-64 py-6 px-3">
       <div className="container max-w-full mx-auto flex items-center justify-between md:pr-8 md:pl-10">
         <div className="relativemd:hidden">
-          <Button
-            color="transparent"
-            buttonType="link"
-            size="lg"
-            iconOnly
-            rounded
-            ripple="light"
-            onClick={() => setShowSidebar('-left-0')}
-          >
-            <Icon name="menu" size="2xl" color="white" />
-          </Button>
+          <div className='md:hidden'>
+            <Button
+              color="transparent"
+              buttonType="link"
+              size="lg"
+              iconOnly
+              rounded
+              ripple="light"
+              onClick={() => setShowSidebar('-left-0')}
+            >
+              <Icon name="menu" size="2xl" color="white" />
+            </Button>
+          </div>
           <div
             className={`absolute top-2 md:hidden ${showSidebar} z-50 transition-all duration-300`}
           >

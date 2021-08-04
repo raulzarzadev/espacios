@@ -1,43 +1,13 @@
 import Modal from '@comps/Modal'
 import { useRouter } from 'next/dist/client/router'
+import { SUB_ESPACIOS } from 'pages/api/HARD_DATA'
 import { useEffect, useState } from 'react'
 import ItemCard from './ItemCard'
 
-const SUB_ESPACIOS = [
-  {
-    id: '1',
-    value: '1',
-    label: 'Cocina Ch',
-    icon: 'home',
-    items: ['1', '2', '3'],
-    description: 'Descripción de cuarto ',
-    category: ['kitchen']
-  },
-  /*  {
-    id: '2',
-    value: '2',
-    label: 'Cuarto Ind',
-    icon: 'room',
-    items: ['4', '6', '7', '9'],
-    description: 'Descripción de cuarto ',
-    category: ['room']
-  }, */
-  {
-    id: '3',
-    value: '3',
-    label: 'Baño Completo',
-    icon: 'kitchen',
-    items: ['14', '12', '5', '19', '10'],
-    description: 'Descripción label',
-    category: ['room']
-  }
-]
 export default function SectionSubEspacios({
   subEspacios = [],
   setSubEspacios = () => {}
 }) {
-  console.log('subEspacios', subEspacios)
-
   const router = useRouter()
   const [subEspacioSelected, setSubEspacioSelected] = useState('')
   const handleSelectSubEspacio = ({ target: { value } }) => {

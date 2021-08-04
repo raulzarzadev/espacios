@@ -110,7 +110,7 @@ export const ITEMS = [
     id: '1',
     value: '1',
     label: 'estufa',
-    category: ['mobil', 'kitchen'],
+    category: ['forniture', 'kitchen'],
     description: 'descripcion de estufa',
     icon: null
   },
@@ -118,7 +118,7 @@ export const ITEMS = [
     id: '2',
     value: '2',
     label: 'cuchara',
-    category: ['consumible', 'kitchen'],
+    category: ['consumables', 'kitchen'],
     description: 'descripcion de cuchara',
     icon: null
   },
@@ -127,7 +127,7 @@ export const ITEMS = [
     id: '5',
     value: '5',
     label: 'toalla de manos',
-    category: ['linens', 'restroom'],
+    category: ['linens', 'bathroom'],
     description: 'descripcion del toalla de manos',
     icon: null
   },
@@ -135,7 +135,7 @@ export const ITEMS = [
     id: '19',
     value: '19',
     label: 'Espejo',
-    category: ['mobil', 'restroom'],
+    category: ['forniture', 'bathroom'],
     description: 'descripcion del toalla de manos',
     icon: null
   },
@@ -143,8 +143,8 @@ export const ITEMS = [
     id: '10',
     value: '10',
     label: 'Tapete',
-    category: ['linens', 'restroom', 'floor'],
-    description: 'descripcion del toalla de manos',
+    category: ['linens', 'bathroom', ],
+    description: 'descripcion del tapete de baño',
     icon: null
   }
 ]
@@ -156,6 +156,7 @@ export const SUB_ESPACIOS = [
     label: 'Cocina Ch',
     icon: 'home',
     items: ['1', '2', '3'],
+    consumables: ['14', '12'],
     description: 'Descripción de cuarto ',
     category: ['kitchen'],
     images: []
@@ -176,7 +177,7 @@ export const SUB_ESPACIOS = [
     icon: 'kitchen',
     items: ['14', '12', '5', '19', '10'],
     description: 'Descripción label',
-    category: ['room'],
+    category: ['bathroom'],
     images: []
   },
   {

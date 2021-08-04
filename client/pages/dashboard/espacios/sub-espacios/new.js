@@ -1,4 +1,4 @@
-import SubEspacioForm from '@comps/dashboard/SubEspacioForm'
+import SubEspacioForm from '@comps/dashboard/subEspacios/SubEspacioForm'
 
 export default function NewSubEspacio() {
   return (

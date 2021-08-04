@@ -1,4 +1,4 @@
-import InputText from '@comps/InputText'
+import InputText from '@comps/InputTextIcon'
 import Link from '@comps/Link'
 import LoginLayout from '.'
 

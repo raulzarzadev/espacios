@@ -3,41 +3,89 @@ import Icon from '@material-tailwind/react/Icon'
 import ICONS from 'src/ICONS'
 
 export default function Dashboard() {
-  const areas = [
+  const admin = [
     {
-      title: 'Servicios',
+      ...ICONS.services,
       generalSatus: 83,
       quantity: 32,
-      href: `/dashboard/status-area/services`,
-      icon: ICONS.services.icon
+      href: `/dashboard/administration/services`
     },
     {
-      title: 'Inventarios',
+      ...ICONS.accounting,
       generalSatus: 83,
       quantity: 32,
-      href: `/dashboard/status-area/services`,
-      icon: ICONS.inventory.icon
+      href: `/dashboard/administration/accounting`
+    }
+  ]
+  const operation = [
+    {
+      ...ICONS.inventory,
+      generalSatus: 83,
+      quantity: 32,
+      href: `/dashboard/operation/inventory`
     },
     {
-      title: 'Contabilidad',
+      ...ICONS.maintenance,
       generalSatus: 83,
       quantity: 32,
-      href: `/dashboard/status-area/services`,
-      icon: ICONS.accounting.icon
+      href: `/dashboard/opetation/maintenance`
     },
     {
-      title: 'Limpieza',
+      ...ICONS.cleaning,
       generalSatus: 83,
       quantity: 32,
-      href: `/dashboard/status-area/services`,
-      icon: ICONS.cleaning.icon
+      href: `/dashboard/opetation/cleaning`
+    }
+  ]
+  const espacios = [
+    {
+      ...ICONS.espacios,
+      generalSatus: 99,
+      quantity: 23,
+      href: `/dashboard/espacios`
+    },
+    {
+      ...ICONS.subEspacios,
+      generalSatus: 0,
+      quantity: 7,
+      href: '/dashboard/espacios/sub-espacios'
+    },
+    {
+      ...ICONS.items,
+      generalSatus: 0,
+      quantity: 56,
+      href: '/dashboard/espacios/items'
+    },
+    {
+      ...ICONS.consumables,
+      generalSatus: 0,
+      quantity: 14,
+      href: '/dashboard/espacios/consumables'
     }
   ]
   return (
     <>
-      <h3 className="text-white font-bold text-2xl ml-4 mt-4">Areas:</h3>
+      <h3 className="text-white font-bold text-2xl ml-4 mt-4">Espacios:</h3>
       <div className="flex flex-wrap ">
-        {areas?.map((area, i) => (
+        {espacios?.map((espacio, i) => (
+          <div key={i} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
+            <StatusCard area={espacio} />
+          </div>
+        ))}
+      </div>
+      <h3 className="text-white font-bold text-2xl ml-4 mt-4">Operación:</h3>
+      <div className="flex flex-wrap ">
+        {operation?.map((area, i) => (
+          <div key={i} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
+            <StatusCard area={area} />
+          </div>
+        ))}
+      </div>
+      <h3 className="text-white font-bold text-2xl ml-4 mt-4">
+        Administración:
+      </h3>
+      <div className="flex flex-wrap ">
+        {admin?.map((area, i) => (
           <div key={i} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
             <StatusCard area={area} />
           </div>
@@ -48,7 +96,7 @@ export default function Dashboard() {
 }
 
 const StatusCard = ({
-  area: { icon, title, generalSatus, href, quantity }
+  area: { icon, label, generalSatus, href, quantity }
 }) => {
   return (
     <div className=" relative bg-white rounded-lg shadow-md flex h-24 m-4">
@@ -57,9 +105,11 @@ const StatusCard = ({
         <div className="text-sm font-light">{`${generalSatus}%`}</div>
       </div>
       <div className="w-full flex justify-center items-center flex-col">
-        <h3 className="w-full text-right text-xl pr-4 font-light">{title}</h3>
+        <h3 className="w-full text-right text-2xl md:text-sm pr-4 md:font-light">
+          {label}
+        </h3>
         <div className="w-full text-right pr-4 font-bold ">
-          <span className="font-light text-sm"> Cantidad :</span>{' '}
+          <span className="font-light text-xs"> Cantidad :</span>{' '}
           {`${quantity}`}
         </div>
         <div>

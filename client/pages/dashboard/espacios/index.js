@@ -1,4 +1,4 @@
-import EspaciosCard from '@comps/dashboard/EspaciosCard'
+import EspaciosCard from '@comps/dashboard/Espacios/EspaciosCard'
 import axios from 'axios'
 import { useRouter } from 'next/dist/client/router'
 import { useEffect, useState } from 'react'

@@ -1,4 +1,4 @@
-import ItemForm from '@comps/dashboard/ItemForm'
+import ItemForm from '@comps/dashboard/Items/ItemForm'
 
 export default function NewItem() {
   return (

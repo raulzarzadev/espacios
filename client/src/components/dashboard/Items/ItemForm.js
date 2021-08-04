@@ -1,7 +1,7 @@
 import Button from '@comps/Button'
 import Select from '@comps/Inputs/Select'
 import InputText from '@comps/Inputs/Text'
-import Input from '@comps/InputText'
+import Input from '@comps/InputTextIcon'
 import Link from '@comps/Link'
 import Icon from '@material-tailwind/react/Icon'
 import { useRouter } from 'next/dist/client/router'

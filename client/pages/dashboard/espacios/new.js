@@ -1,4 +1,4 @@
-import EspacioForm from '@comps/dashboard/EspacioForm'
+import EspacioForm from "@comps/dashboard/Espacios/EspacioForm";
 
 export default function NewEspacio() {
   return (

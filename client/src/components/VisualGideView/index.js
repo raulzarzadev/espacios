@@ -1,7 +1,7 @@
 import Button from '@comps/Button'
 import HomeView from '@comps/HomeView'
 import InputSelect from '@comps/InputSelect'
-import InputText from '@comps/InputText'
+import InputText from '@comps/InputTextIcon'
 import Layaut from '@comps/Layout'
 import Link from '@comps/Link'
 

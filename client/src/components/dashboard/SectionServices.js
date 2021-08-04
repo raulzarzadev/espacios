@@ -2,7 +2,7 @@ import InputText from '@comps/Inputs/Text'
 import Modal from '@comps/Modal'
 import { useRouter } from 'next/dist/client/router'
 import { useEffect, useState } from 'react'
-import ItemCard from './ItemCard'
+import ItemCard from './Items/ItemCard'
 
 const SUB_ESPACIOS = [
   {

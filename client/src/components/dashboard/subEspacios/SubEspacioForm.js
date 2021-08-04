@@ -1,6 +1,6 @@
 import Button from '@comps/Button'
 import InputText from '@comps/Inputs/Text'
-import Input from '@comps/InputText'
+import Input from '@comps/InputTextIcon'
 import Link from '@comps/Link'
 import Icon from '@material-tailwind/react/Icon'
 import { useRouter } from 'next/dist/client/router'
@@ -11,7 +11,10 @@ import Label from '@material-tailwind/react/Label'
 import Modal from '@comps/Modal'
 import axios from 'axios'
 
-export default function SubEspacioForm({title='Nuevo Sub-Espacio', subEspacio, handleChange }) {
+export default function SubEspacioForm({
+  title = 'Nuevo Sub-Espacio',
+  subEspacio
+}) {
   const router = useRouter()
   const [form, setForm] = useState({})
   const [openAddItem, setOpenAddItem] = useState(false)
@@ -21,6 +24,12 @@ export default function SubEspacioForm({title='Nuevo Sub-Espacio', subEspacio, h
     setTimeout(() => {
       router.back()
     }, 300)
+  }
+
+  const handleChange = ({ target }) => {
+    console.log('target', target.name, target.value)
+    
+    setForm({ ...form, [target.name]: target.value })
   }
 
   const handleOpenAddItem = () => {
@@ -60,24 +69,52 @@ export default function SubEspacioForm({title='Nuevo Sub-Espacio', subEspacio, h
   }
 
   const [items, setItems] = useState([])
+
   useEffect(() => {
-    axios.get('/api/items').then(({data}) => setItems(data?.items))
+    if (subEspacio) {
+      setForm(subEspacio)
+    }
+  }, [subEspacio])
+  useEffect(() => {
+    axios.get('/api/items').then(({ data }) => setItems(data?.items))
   }, [])
   const [consumables, setConsumables] = useState([])
   useEffect(() => {
-    axios.get('/api/consumables').then(({data}) => setConsumables(data?.consumables))
+    axios
+      .get('/api/consumables')
+      .then(({ data }) => setConsumables(data?.consumables))
   }, [])
 
+  console.log('form', form)
+  
 
   return (
     <div className=" bg-white m-1 sm:m-4  flex flex-col p-4 rounded-md ">
       <h3 className="text-2xl font-bold text-center">{title}</h3>
       <div className="my-4 ">
-        <div className=" max-w-max mx-auto my-2">
-          <InputText placeholder="Titulo" />
+        <div className=" max-w-max mx-auto mt-6">
+          <InputText
+            onChange={handleChange}
+            placeholder="Titulo"
+            name="label"
+            value={form?.label}
+          />
         </div>
-        <div className=" max-w-max mx-auto my-2">
-          <InputText placeholder="Descripción" />
+        <div className=" max-w-max mx-auto mt-6">
+          <InputText
+            onChange={handleChange}
+            placeholder="Descripción"
+            name="description"
+            value={form?.description}
+          />
+        </div>
+        <div className=" max-w-max mx-auto mt-6">
+          <InputText
+            onChange={handleChange}
+            placeholder="Categoria"
+            name="categories"
+            
+          />
         </div>
       </div>
       <div className=" mx-auto my-4 w-full">

@@ -3,57 +3,78 @@ import AdminNavbar from './AdminNavbar'
 import Icon from '@material-tailwind/react/Icon'
 import H6 from '@material-tailwind/react/Heading6'
 import Link from '@comps/Link'
+import ICONS from 'src/ICONS'
+import { useRouter } from 'next/router'
+import ActiveLink from '@comps/ActiveLink'
 
 export default function Sidebar() {
   const SIDEBAR_LINKS = [
-    { label: 'Dashboard', href: '/dashboard', icon: 'dashboard' },
-    { label: 'Espacios', href: '/dashboard/espacios', icon: 'other_houses' },
     {
-      label: 'Espacio',
-      href: '/dashboard/espacios/new',
-      icon: 'add',
-      indent: true
+      href: '/dashboard',
+      ...ICONS.dashboard
     },
     {
-      label: 'Sub-Espacios',
-      href: '/dashboard/sub-espacios',
-      icon: 'category'
+      href: '/dashboard/espacios',
+      ...ICONS.espacios,
+      subLinks: [
+        {
+          href: '/dashboard/espacios/new',
+          indent: true,
+          ...ICONS.newEspacio
+        },
+        {
+          href: '/dashboard/espacios/sub-espacios',
+          ...ICONS.subEspacios
+        },
+        {
+          ...ICONS.newSubEspacio,
+          href: '/dashboard/espacios/sub-espacios/new',
+          indent: true
+        },
+        {
+          ...ICONS.items,
+          href: '/dashboard/espacios/items'
+        },
+        {
+          ...ICONS.newItem,
+          href: '/dashboard/espacios/items/new',
+          indent: true
+        },
+        {
+          ...ICONS.consumables,
+          href: '/dashboard/espacios/consumables'
+        },
+        {
+          ...ICONS.newConsumable,
+          href: '/dashboard/espacios/consumables/new',
+          indent: true
+        }
+      ]
     },
     {
-      label: 'Sub-Espacio',
-      href: '/dashboard/sub-espacios/new',
-      icon: 'add',
-      indent: true
-    },
-
-    {
-      label: 'Items',
-      href: '/dashboard/items',
-      icon: 'workspaces'
+      href: '/dashboard/operation',
+      ...ICONS.operation
     },
     {
-      label: 'Item',
-      href: '/dashboard/items/new',
-      icon: 'add',
-      indent: true
+      href: '/dashboard/administration',
+      ...ICONS.administration
     },
     {
-      label: 'Consumibles',
-      href: '/dashboard/consumables',
-      icon: 'sanitizer'
-    },
-    {
-      label: 'Consumible',
-      href: '/dashboard/consumables/new',
-      icon: 'add',
-      indent: true
-    },
-    { label: 'Viusal Guide', href: '/visual-guide', icon: 'visibility' }
+      ...ICONS.visualGuide,
+      href: '/visual-guide'
+    }
   ]
+
   const [showSidebar, setShowSidebar] = useState('-left-64')
   const handelHiddeSidebar = () => {
     setShowSidebar('-left-64')
   }
+
+  const router = useRouter()
+  const activeLink = router.pathname
+  const espaciosLinks = activeLink.includes('dashboard/espacios')
+  console.log('router', espaciosLinks)
+
   return (
     <div className="sticky top-0 z-10 ">
       <AdminNavbar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
@@ -71,14 +92,44 @@ export default function Sidebar() {
           <div className="flex flex-col">
             <hr className="my-4 min-w-full" />
             <ul className="flex-col min-w-full flex list-none">
-              {SIDEBAR_LINKS.map(({ href, icon, label, indent }) => (
-                <li key={label} className="rounded-lg mb-2 ">
-                  <div className={`${indent && `ml-4`}`}>
-                    <Link size='sm' href={href} onClick={handelHiddeSidebar}>
+              {SIDEBAR_LINKS.map(({ href, icon, label, indent, subLinks }) => (
+                <li key={label} className={`rounded-lg mb-2  `}>
+                  <div
+                    className={`${indent && `ml-4 `} ${
+                      href === activeLink 
+                        ? `bg-red-300`
+                        : `bg-transparent`
+                    }`}
+                  >
+                    <Link size="sm" href={href} onClick={handelHiddeSidebar}>
                       <Icon name={icon} size="2xl" />
                       {label}
                     </Link>
                   </div>
+                  {espaciosLinks && (
+                    <ul>
+                      {subLinks?.map(({ href, icon, label, indent }) => (
+                        <li key={label} className="rounded-lg mb-2 ">
+                          <div
+                            className={`${indent && `ml-4`} ${
+                              href === activeLink
+                                ? `bg-red-300`
+                                : `bg-transparent`
+                            }`}
+                          >
+                            <Link
+                              size="sm"
+                              href={href}
+                              onClick={handelHiddeSidebar}
+                            >
+                              <Icon name={icon} size="2xl" />
+                              {label}
+                            </Link>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </li>
               ))}
               {/* <li className="px-4 rounded-lg mb-2 text-gray-700">

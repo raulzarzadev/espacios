@@ -4,8 +4,7 @@ import Link from '@comps/Link'
 export default function DashboardView() {
   return (
     <>
-     
-      <Dashboard/>
+      <Dashboard />
     </>
   )
 }

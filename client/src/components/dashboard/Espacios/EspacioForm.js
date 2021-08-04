@@ -1,16 +1,17 @@
 import Button from '@comps/Button'
 import InputText from '@comps/Inputs/Text'
-import Input from '@comps/InputText'
+import Input from '@comps/InputTextIcon'
 import Link from '@comps/Link'
 import Icon from '@material-tailwind/react/Icon'
 import { useRouter } from 'next/dist/client/router'
 import { useEffect, useState } from 'react'
-import ItemCard from './ItemCard'
-import SelectWeekDays from './SelectWeekDays'
+import ItemCard from '../Items/ItemCard'
+import SelectWeekDays from '../SelectWeekDays'
 import Modal from '@comps/Modal'
-import SectionSubEspacios from './SectionSubEspacio'
-import SectionServices from './SectionServices'
-import SectionContracts from './SectionContracts'
+import SectionSubEspacios from '../SectionSubEspacio'
+import SectionServices from '../SectionServices'
+import SectionContracts from '../SectionContracts'
+import { ITEMS } from 'pages/api/HARD_DATA'
 
 export default function EspacioForm({
   espacio = null,
@@ -29,7 +30,7 @@ export default function EspacioForm({
     console.log('newSubEspaciosList', newSubEspaciosList)
     setForm({ ...form, subEspacios: newSubEspaciosList })
   }
-
+  
   return (
     <div className=" bg-white m-1 sm:m-4  flex flex-col gap-4 p-4 rounded-md ">
       <h3 className="text-2xl font-bold text-center">{title}</h3>
@@ -97,8 +98,8 @@ export default function EspacioForm({
           <div>Seccion de contabilidad</div>
         </Section>
         <Section title="Inventario">
-          {/* <div className="flex flex-col">
-          {subEspacios.map(({ items, label }, i) => (
+        <div className="flex flex-col">
+          {form?.subEspacios?.map(({ items, label }, i) => (
             <div className="" key={i}>
               <div className="font-bold">{label}</div>
               <div className="flex items-center flex-wrap">
@@ -111,7 +112,7 @@ export default function EspacioForm({
               </div>
             </div>
           ))}
-        </div> */}
+        </div> 
         </Section>
       </Section>
       <Section title="Administracón" sectionTitle>

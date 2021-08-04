@@ -36,8 +36,6 @@ const NormalCard = ({ item, onClick }) => {
 }
 
 const AddCard = ({ onClick }) => {
-
-
   return (
     <>
       <button

@@ -1,7 +1,7 @@
 import React from 'react'
 import TWInput from '@material-tailwind/react/InputIcon'
 
-export default function Input({
+export default function InputTextIcon({
   error = '',
   success = '',
   placeholder = 'label',
@@ -14,7 +14,7 @@ export default function Input({
       type="text"
       color={color}
       size="sm"
-      outline={false}
+      outline={true}
       placeholder={placeholder}
       success={success}
       error={error}

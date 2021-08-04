@@ -1,4 +1,4 @@
-import SubEspacioForm from '@comps/dashboard/SubEspacioForm'
+import SubEspacioForm from '@comps/dashboard/subEspacios/SubEspacioForm'
 import axios from 'axios'
 import { useRouter } from 'next/dist/client/router'
 import { useEffect, useState } from 'react'
@@ -14,7 +14,7 @@ export default function Espacios() {
   }, [id])
   return (
     <>
-      <SubEspacioForm espacio={espacio} title="Detalles" />
+      <SubEspacioForm subEspacio={espacio} title="Detalles" />
     </>
   )
 }

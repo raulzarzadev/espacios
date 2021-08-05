@@ -1,4 +1,4 @@
-import EspacioForm from '@comps/dashboard/EspacioForm'
+import EspacioForm from '@comps/dashboard/Espacios/EspacioForm'
 import axios from 'axios'
 import { useRouter } from 'next/dist/client/router'
 import { useEffect, useState } from 'react'

@@ -28,7 +28,7 @@ export interface selectProps extends textProps {
 }
 
 export interface textAreaProps extends textProps {
-  rows?: number | string
+  rows?: number
 }
 
 export interface buttonProps {
@@ -38,5 +38,5 @@ export interface buttonProps {
   fullWidth?: boolean
   iconOnly?: boolean
   icon?: ReactNode
-  onClick?: Function
+  onClick?: (parm: any) => void
 }

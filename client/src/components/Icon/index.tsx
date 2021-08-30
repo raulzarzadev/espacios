@@ -8,13 +8,13 @@ export default function Icon({
   name: string
   size?: string
 }) {
-  const Icon = ICON_LIST[name]
-  if(!Icon) return name
+  const Icon = ICON_LIST[name] || 'icon'
+ //  if(!Icon) return name
   return <Icon size={sizign[size]}/>
 }
 
 const sizign : sizingObject = {
   sm: '1rem',
   md: '1.4rem',
-  lg: '2rem'
+  lg: '2rem'  
 }

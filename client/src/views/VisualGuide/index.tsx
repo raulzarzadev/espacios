@@ -92,7 +92,7 @@ export default function VisualGuide() {
               />
               <TextArea label="Text Area" fullWidth />
               <Button
-                label={i18n('Button super large full width')}
+                label={'Button super large full width'}
                 fullWidth
                 size="lg"
               />

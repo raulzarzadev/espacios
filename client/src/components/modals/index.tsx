@@ -75,7 +75,7 @@ export default function Modal({
                 {continueButton && (
                   <Button
                     //className="px-4 bg-blue-500 p-3 ml-3 rounded-lg  hover:bg-teal-400"
-                    label="Continuar"
+                    label={continueButton || 'Continuar'}
                     onClick={() => {
                       onContinue()
                       handleClose()
@@ -96,8 +96,8 @@ interface Modal {
   openProps: object
   children: ReactNode
   title: string
-  continueButton: boolean
-  cancelButton: boolean
-  onContinue: any
-  onCancel: any
+  continueButton?: boolean |string
+  cancelButton?: boolean
+  onContinue?: any
+  onCancel?: any
 }

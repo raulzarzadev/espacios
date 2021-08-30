@@ -32,7 +32,7 @@ export interface textAreaProps extends textProps {
 }
 
 export interface buttonProps {
-  label: string
+  label: string | boolean
   variant?: string
   size?: string
   fullWidth?: boolean

@@ -22,17 +22,19 @@ const IMAGES = [
 ]
 export default function FormEspacio() {
   return (
-    <div className="w-full max-w-full">
+    <div className="w-full max-w-full border">
       <div className="flex w-full p-2 pb-0 items-center">
         <h3 className="flex w-full text-3xl">Nuevo Espacio</h3>
         <div>
           <Button label="Guardar" />
         </div>
       </div>
-      <Division />
+      <div className='w-[90%] mx-auto'>
+        <Division />
+      </div>
       {/* -----form navigation ----- */}
-      <section className='sticky top-0 bg-white z-10'>
-        <div className="flex overflow-auto  max-w-[95vw] mx-auto ">
+      <section className="sticky top-0 left-0 right-0 bg-white-light z-10  ">
+        <div className="flex overflow-auto  max-w-[90vw] py-2 mx-auto">
           <div className="mx-2 my-1">
             <Link href="#espacios">Espacio</Link>
           </div>

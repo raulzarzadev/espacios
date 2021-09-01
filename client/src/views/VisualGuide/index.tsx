@@ -73,10 +73,10 @@ export default function VisualGuide() {
                 color="third"
                 fullWidth
               />
-              <Alert variant="danger" />
-              <Alert variant="warning" />
-              <Alert variant="info" />
-              <Alert variant="success" />
+              <Alert description='Esta es la description del alert ' title='Alerta de prueba' variant="danger" />
+              <Alert description='Esta es la description del alert ' title='Alerta de prueba' variant="warning" />
+              <Alert description='Esta es la description del alert ' title='Alerta de prueba' variant="info" />
+              <Alert description='Esta es la description del alert ' title='Alerta de prueba' variant="success" />
             </div>
           </div>
         </section>

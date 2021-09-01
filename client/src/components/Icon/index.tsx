@@ -3,14 +3,15 @@ import ICON_LIST from './icon-list'
 
 export default function Icon({
   name = '',
-  size = 'md'
+  size = 'md',
+  ...rest
 }: {
   name: string
   size?: string
 }) {
   const Icon = ICON_LIST[name] || 'icon'
  //  if(!Icon) return name
-  return <Icon size={sizign[size]}/>
+  return <Icon size={sizign[size]} {...rest}/>
 }
 
 const sizign : sizingObject = {

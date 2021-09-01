@@ -9,6 +9,9 @@ import { TiPhoneOutline } from '@react-icons/all-files/ti/TiPhoneOutline'
 import { TiTimes } from '@react-icons/all-files/ti/TiTimes'
 import { TiPlusOutline } from '@react-icons/all-files/ti/TiPlusOutline'
 import { TiMinusOutline } from '@react-icons/all-files/ti/TiMinusOutline'
+import { TiInfoLarge } from '@react-icons/all-files/ti/TiInfoLarge'
+import { TiFilter } from '@react-icons/all-files/ti/TiFilter'
+
 import React from 'react'
 
 const ICON_LIST: { [index: string]: React.ElementType } = {
@@ -19,7 +22,9 @@ const ICON_LIST: { [index: string]: React.ElementType } = {
   gear: TiCogOutline,
   phone: TiPhoneOutline,
   cross: TiTimes,
-  plus:TiPlusOutline,
-  minus:TiMinusOutline
+  plus: TiPlusOutline,
+  minus: TiMinusOutline,
+  info: TiInfoLarge,
+  filter: TiFilter
 }
 export default ICON_LIST

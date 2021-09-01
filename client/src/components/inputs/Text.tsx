@@ -18,15 +18,15 @@ export default function Text({
       <input
         placeholder={placeholder}
         className={`
-    ${styling[variant]} 
-    ${sizing[size]}
-    ${fullWidth ? `w-full` : ` max-w-max`}
-    rounded-lg
-    min-w-[50px]
-    min-h-[10px]
-    shadow-lg
-    border
-    bg-white-light
+          ${styling[variant]} 
+          ${sizing[size]}
+          ${fullWidth ? `w-full` : ` max-w-max`}
+          rounded-lg
+          min-w-[50px]
+          min-h-[10px]
+          shadow-lg
+          border
+          bg-white-light
     `}
         {...rest}
       />

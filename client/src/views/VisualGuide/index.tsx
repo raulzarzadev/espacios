@@ -1,3 +1,4 @@
+import Alert from '@comps/Alert'
 import AdminCard from '@comps/Cards/AdminCard'
 import EspacioCard from '@comps/Cards/EspacioCard'
 import ServicioCard from '@comps/Cards/ServicioCard'
@@ -72,6 +73,10 @@ export default function VisualGuide() {
                 color="third"
                 fullWidth
               />
+              <Alert variant="danger" />
+              <Alert variant="warning" />
+              <Alert variant="info" />
+              <Alert variant="success" />
             </div>
           </div>
         </section>

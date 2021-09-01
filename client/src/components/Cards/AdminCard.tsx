@@ -12,7 +12,7 @@ export default function AdminCard({
         layout="fill"
         objectFit="cover"
         alt="admin-area"
-        className=" opacity-60 rounded-lg "
+        className=" opacity-60 rounded-lg group-hover:opacity-90 transform transition-all duration-200 "
       />
       <span className="absolute top-[calc(50%-12px)] left-0 right-0 text-center text-lg font-semibold hover:">
         {label}

@@ -25,8 +25,26 @@ const colors = {
     dark: '#d9d7d7'
   },
   danger: {
-    DEFAULT: '#ff3d3d'
+    DEFAULT: '#ff3d3d',
+    dark: '#cf0000'
+  },
+  warning: {
+    DEFAULT: '#f7f76a',
+    dark: '#007525'
+  },
+  info: {
+    DEFAULT: '#a7d3fc',
+    dark: '#35518f'
+  },
+  success: {
+    DEFAULT: '#66e36a',
+    dark: '#407a42'
   }
 }
+
+/*  danger: `bg-danger`,
+  warning: `bg-warning`,
+  info: `bg-info `,
+  success: `bg-success  ` */
 
 module.exports = colors

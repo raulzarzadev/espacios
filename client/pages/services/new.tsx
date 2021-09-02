@@ -1,7 +1,9 @@
-export default function NewService () {
+import FormService from '@comps/Forms/FormServicio'
+
+export default function NewService() {
   return (
-    <div className=''>
-      New Service
+    <div className="">      
+      <FormService  />
     </div>
   )
 }

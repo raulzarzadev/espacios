@@ -24,8 +24,9 @@ export default function AddSquare({ size = 'tall', ...rest }) {
   )
 }
 
-const sizging : sizingObject = {
+const sizging: sizingObject = {
   sm: 'h-12 w-12',
   md: 'h-16 w-16',
+  lg: 'h-20 w-20',
   tall: 'h-20 w-16'
 }

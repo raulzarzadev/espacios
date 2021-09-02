@@ -1,4 +1,4 @@
-import {  sizingObject, stylingObject, textProps } from "./inputTypes"
+import { sizingObject, stylingObject, textProps } from './inputTypes'
 
 export default function Text({
   placeholder = 'placeholder',
@@ -11,7 +11,6 @@ export default function Text({
   value,
   ...rest
 }: textProps) {
- 
   return (
     <label className="relative flex flex-col">
       {label && <div className="text-sm font-semibold">{label}</div>}
@@ -38,7 +37,6 @@ export default function Text({
   )
 }
 
-
 export const styling: stylingObject = {
   primary: `bg-white`,
   secondary: ``,
@@ -47,6 +45,5 @@ export const styling: stylingObject = {
 export const sizing: sizingObject = {
   sm: `py-0.5 px-2 `,
   md: `py-1 px-2`,
-  lg: `py-2 px-3`
+  lg: `py-2 px-3`,
 }
-

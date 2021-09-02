@@ -10,7 +10,7 @@ export default function Modal({
   continueButton,
   cancelButton,
   onContinue,
-  onCancel
+  onCancel=()=>{}
 }: Modal) {
   const [open, setOpen] = useState(false)
   const [opacity, setOpacity] = useState(false)
@@ -30,7 +30,7 @@ export default function Modal({
 
   return (
     <div className="">
-      <div className='cursor-pointer hover:scale-105'>
+      <div className="cursor-pointer hover:scale-105">
         {<OpenComponent {...openProps} onClick={handleOpen}></OpenComponent>}
       </div>
       <div>
@@ -43,7 +43,7 @@ export default function Modal({
           `}
           style={{ background: 'rgba(0, 0, 0, 0.7)' }}
         >
-          <div className="border border-blue-500  bg-white w-full sm:w-6/12 md:max-w-11/12 mx-auto rounded-xl shadow-lg z-50 overflow-y-auto">
+          <div className="border border-blue-500  bg-white w-full sm:w-6/12 md:max-w-11/12 mx-auto rounded-xl shadow-lg z-50 overflow-y-auto max-h-screen">
             <div className=" py-4 text-left px-6">
               {/* 	<!--Title--> */}
               <div className="flex items-center ">
@@ -57,14 +57,14 @@ export default function Modal({
 
               <Division />
               {/* 	<!--Body--> */}
-              <div className="my-5 mr-5 ml-5 flex justify-center">
+              <div className="my-5 mr-5 ml-5 flex justify-center ">
                 {children}
               </div>
               {/* 	<!--Footer--> */}
               <div className="flex justify-center pt-2 space-x-14">
                 {cancelButton && (
                   <Button
-                    label={"Cancelar"}
+                    label={'Cancelar'}
                     variant="outlined"
                     onClick={() => {
                       onCancel()

@@ -1,12 +1,12 @@
 import { ReactChild, ReactNode } from 'react'
 
 export interface stylingObject {
-  [index: string]: 'xs' | 'sm' | 'md' | 'lg' | 'tall' | 'long'
-}
-export interface sizingObject {
   [index: string]: string
 }
-
+export type sizingObject = {
+  [index in sizes]?: string 
+}
+type sizes =  'xs' | 'sm' | 'md' | 'lg' | 'tall' | 'long' | string
 export interface selectOption {
   label: string
   id: string

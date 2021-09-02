@@ -33,7 +33,7 @@ const ModalNewContract = () => {
     <Modal
       OpenComponent={AddSquare}
       openProps={{ size: 'tall' }}
-      title="Agregar imagen"
+      title="Agregar contrato"
       cancelButton
       continueButton="Guardar"
       onContinue={() => console.log(form)}
@@ -42,7 +42,7 @@ const ModalNewContract = () => {
         <div>Preview</div>
         <input type="file" name="image" id="" multiple />
         <Text placeholder="Titulo" fullWidth />
-        <TextArea placeholder="Descripción" fullWidth />
+        <TextArea placeholder="Descripción" fullWidth rows={2}/>
       </div>
     </Modal>
   )

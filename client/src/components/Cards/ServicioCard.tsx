@@ -17,7 +17,7 @@ export default function ServicioCard({ service = {} }: { service?: object }) {
         </Link>
       </div>
       <div className="w-1/6 flex justify-center">
-        <Link href='/'>
+        <Link href='/services/123'>
           <Icon name="rigth-arrow" />
         </Link>
       </div>

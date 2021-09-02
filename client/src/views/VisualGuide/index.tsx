@@ -73,10 +73,26 @@ export default function VisualGuide() {
                 color="third"
                 fullWidth
               />
-              <Alert description='Esta es la description del alert ' title='Alerta de prueba' variant="danger" />
-              <Alert description='Esta es la description del alert ' title='Alerta de prueba' variant="warning" />
-              <Alert description='Esta es la description del alert ' title='Alerta de prueba' variant="info" />
-              <Alert description='Esta es la description del alert ' title='Alerta de prueba' variant="success" />
+              <Alert
+                description="Esta es la description del alert "
+                title="Alerta de prueba"
+                variant="danger"
+              />
+              <Alert
+                description="Esta es la description del alert "
+                title="Alerta de prueba"
+                variant="warning"
+              />
+              <Alert
+                description="Esta es la description del alert "
+                title="Alerta de prueba"
+                variant="info"
+              />
+              <Alert
+                description="Esta es la description del alert "
+                title="Alerta de prueba"
+                variant="success"
+              />
             </div>
           </div>
         </section>
@@ -161,7 +177,7 @@ export default function VisualGuide() {
           <div className="text-lg font-bold text-center">Forms</div>
           <div className="flex flex-wrap justify-center">
             <div className="grid gap-2 ">
-              <FormEspacio />
+              <FormEspacio formTitle='Guia visual'/>
             </div>
           </div>
         </section>

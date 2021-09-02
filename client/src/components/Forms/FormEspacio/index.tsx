@@ -1,33 +1,48 @@
+import AddSquare from '@comps/AddSquare'
 import ServicioCard from '@comps/Cards/ServicioCard'
 import Division from '@comps/Division'
 import Icon from '@comps/Icon'
 import Button from '@comps/inputs/Button'
-import Counter from '@comps/inputs/Coun}ter'
+import Counter from '@comps/inputs/Counter'
 import Text from '@comps/inputs/Text'
 import Link from '@comps/Link'
 import Modal from '@comps/modals'
 import Image from 'next/image'
+import router from 'next/router'
+import { useEffect } from 'react'
+import { useState } from 'react'
 import { testImage } from 'src/assets/images'
+import ContractsSection from './ContractsSection'
+import ImagesSection from './ImagesSection'
 
-const IMAGES = [
-  { image: testImage },
-  { image: testImage },
-  { image: testImage },
-  { image: testImage },
-  { image: testImage },
-  { image: testImage },
-  { image: testImage },
-  { image: testImage },
-  { image: testImage }
-]
-export default function FormEspacio() {
+export default function FormEspacio({
+  formTitle = 'espacios form',
+  alreadyExist,
+  espacio
+}: espacioForm) {
+  const [form, setForm] = useState({
+    contracts: [],
+    images: [],
+    title: '',
+    id:'without'
+  })
+  useEffect(() => {
+    if (typeof espacio === 'object' && Object.keys(espacio).length > 0) {
+      setForm(espacio)
+    }
+  }, [espacio])
+
+  const { contracts, images } = form
   return (
     <div className="w-full max-w-full ">
       <section className="sticky top-0 left-0 right-0 bg-white-light z-10  ">
         <div className="flex w-full p-2 pb-0 items-center">
-          <h3 className="flex w-full text-3xl">Nuevo Espacio</h3>
+          <h3 className="flex w-full text-3xl">{formTitle}</h3>
           <div>
-            <Button label="Guardar" />
+            <Button
+              label={alreadyExist ? 'Actualizar ' : 'Guardar'}
+              size="sm"
+            />
           </div>
         </div>
         <div className="w-[90%] mx-auto">
@@ -36,7 +51,7 @@ export default function FormEspacio() {
         {/* -----form navigation ----- */}
         <div className="flex overflow-auto  max-w-[90vw] py-2 mx-auto">
           <div className="mx-2 my-1">
-            <Link href="#espacios">Espacio</Link>
+            <Link href="#">Espacio</Link>
           </div>
           <div className="mx-2 my-1">
             <Link href="#services">Servicio</Link>
@@ -45,38 +60,14 @@ export default function FormEspacio() {
             <Link href="#areas">Areas</Link>
           </div>
           <div className="mx-2 my-1">
-            <Link href="#contract">Contrato</Link>
-          </div>
-          <div className="mx-2 my-1">
-            <Link href="#contract">Contrato</Link>
-          </div>
-          <div className="mx-2 my-1">
-            <Link href="#contract">Contrato</Link>
+            <Link href="#contract">Contratos</Link>
           </div>
         </div>
       </section>
       {/* -----Form------  */}
-      <section className="grid p-4 gap-2 ">
+      <section className="grid p-4 pt-0 gap-2 ">
         {/* -----form images ----- */}
-        <section id="images" className="flex  max-w-[90vw] overflow-auto">
-          <div className="h-12 w-12 min-w-[3rem]   m-1 border hover:border-2 border-dashed rounded-lg flex justify-center items-center shadow-lg">
-            <Icon name="plus" />
-          </div>
-          {IMAGES.map(({ image }, i) => (
-            <div
-              key={i}
-              className="relative w-12 min-w-[3rem] h-12 m-1 rounded-lg shadow-lg"
-            >
-              <Image
-                src={image}
-                objectFit="cover"
-                layout="fill"
-                alt="image"
-                className="rounded-lg"
-              />
-            </div>
-          ))}
-        </section>
+        <ImagesSection />
 
         {/* -----form espacios ----- */}
         <section id="espacios" className="flex w-full">
@@ -105,15 +96,7 @@ export default function FormEspacio() {
             <h3 className="font-bold">Servicios</h3>
             <ServicioCard />
             <div className="flex w-full justify-center my-4">
-              <Modal
-                title="Nuevo servicio"
-                OpenComponent={Button}
-                openProps={{ label: 'Agregar servicio', variant: 'outlined' }}
-                onContinue={() => console.log('guardar')}
-                continueButton="Guardar"
-              >
-                Form service
-              </Modal>
+              <Button label='Agregar Servicio' onClick={()=>router.push(`/services/new?espacioId=${form.id}`)}/>
             </div>
           </div>
         </section>
@@ -161,11 +144,33 @@ export default function FormEspacio() {
         </section>
         <section id="contract" className="flex w-full">
           <div className="w-full">
-            <h3 className="font-bold">Contrato</h3>
-            <div></div>
+            <h3 className="font-bold">Contratos</h3>
+            <ContractsSection />
           </div>
         </section>
       </section>
     </div>
   )
+}
+
+interface espacioForm {
+  formTitle: string
+  alreadyExist?: boolean
+  espacio?: any
+}
+
+interface espacioType {
+  contracts: Array<contractTypes>
+  images: Array<imagesType>
+  title: string
+}
+
+interface contractTypes {
+  title: string
+  images: Array<imagesType>
+}
+interface imagesType {
+  image: URL
+  title: string
+  description: string
 }

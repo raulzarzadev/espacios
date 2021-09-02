@@ -1,7 +1,7 @@
 import { ReactChild, ReactNode } from 'react'
 
 export interface stylingObject {
-  [index: string]: string
+  [index: string]: 'xs' | 'sm' | 'md' | 'lg' | 'tall' | 'long'
 }
 export interface sizingObject {
   [index: string]: string

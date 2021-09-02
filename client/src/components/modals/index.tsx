@@ -64,7 +64,7 @@ export default function Modal({
               <div className="flex justify-center pt-2 space-x-14">
                 {cancelButton && (
                   <Button
-                    label="Cancelar"
+                    label={"Cancelar"}
                     variant="outlined"
                     onClick={() => {
                       onCancel()
@@ -97,7 +97,7 @@ interface Modal {
   children: ReactNode
   title: string
   continueButton?: boolean |string
-  cancelButton?: boolean
+  cancelButton?: boolean | string
   onContinue?: any
   onCancel?: any
 }

@@ -1,6 +1,6 @@
 import FormEspacio from '@comps/Forms/FormEspacio'
 import Head from '@comps/Head'
-import router from 'next/router'
+import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { testImage } from 'src/assets/images'
@@ -17,6 +17,7 @@ const IMAGES = [
 ]
 const CONTRACTS = [{ title: 'renta 2021' }, { title: 'Admin 2019' }]
 export default function EspacioPage() {
+  const router = useRouter()
   const [espacio, setEspacio] = useState({})
   const {
     query: { id }

@@ -1,38 +1,27 @@
+import { espacioType } from '@comps/Cards/EspacioCard'
 import FormEspacio from '@comps/Forms/FormEspacio'
 import Head from '@comps/Head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { testImage } from 'src/assets/images'
-const IMAGES = [
-  { image: testImage },
-  { image: testImage },
-  { image: testImage },
-  { image: testImage },
-  { image: testImage },
-  { image: testImage },
-  { image: testImage },
-  { image: testImage },
-  { image: testImage }
-]
-const CONTRACTS = [{ title: 'renta 2021' }, { title: 'Admin 2019' }]
+import useAxios from 'src/hooks/useAxios'
+
 export default function EspacioPage() {
   const router = useRouter()
-  const [espacio, setEspacio] = useState({})
   const {
     query: { id }
   } = router
+  const { response, loading, error } = useAxios({ url: `/api/espacios/${id}` })
+  const [espacio, setEspacio] = useState<espacioType>()
 
   useEffect(() => {
     //get espacio id
-    console.log(id)
-    setEspacio({
-      id,
-      title: `Espacio-${id}`,
-      contracts: CONTRACTS,
-      images: IMAGES
-    })
-  }, [id])
+    if (response) {
+      setEspacio(response)
+    }
+  }, [id, response])
+  
   return (
     <div className="">
       <Head title="Detalles | Espacio" />

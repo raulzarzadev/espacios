@@ -32,6 +32,9 @@ export default function FormEspacio({
     }
   }, [espacio])
 
+  console.log(espacio);
+  
+
   const { contracts, images } = form
   return (
     <div className="w-full max-w-full ">
@@ -96,7 +99,12 @@ export default function FormEspacio({
             <h3 className="font-bold">Servicios</h3>
             <ServicioCard />
             <div className="flex w-full justify-center my-4">
-              <Button label='Agregar Servicio' onClick={()=>router.push(`/services/new?espacioId=${form.id}`)}/>
+              <Button
+                label="Agregar Servicio"
+                onClick={() =>
+                  router.push(`/services/new?espacioId=${form.id}`)
+                }
+              />
             </div>
           </div>
         </section>
@@ -145,7 +153,7 @@ export default function FormEspacio({
         <section id="contract" className="flex w-full">
           <div className="w-full">
             <h3 className="font-bold">Contratos</h3>
-            <ContractsSection />
+            <ContractsSection contracts={contracts} />
           </div>
         </section>
       </section>

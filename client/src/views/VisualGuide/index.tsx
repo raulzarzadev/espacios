@@ -16,6 +16,7 @@ import Signup from '@comps/Login/signup'
 import Modal from '@comps/modals'
 
 import { AiOutlineSave } from '@react-icons/all-files/ai/AiOutlineSave'
+import { ESPACIOS } from 'pages/api/HARD_DATA'
 
 export default function VisualGuide() {
   return (
@@ -141,7 +142,7 @@ export default function VisualGuide() {
           <div className="flex flex-wrap justify-center">
             <div className="grid gap-2 ">
               <AdminCard />
-              <EspacioCard />
+              <EspacioCard espacio={ESPACIOS[0]} />
               <ServicioCard />
             </div>
           </div>
@@ -177,7 +178,7 @@ export default function VisualGuide() {
           <div className="text-lg font-bold text-center">Forms</div>
           <div className="flex flex-wrap justify-center">
             <div className="grid gap-2 ">
-              <FormEspacio formTitle='Guia visual'/>
+              <FormEspacio formTitle="Guia visual" espacio={ESPACIOS[0]} />
             </div>
           </div>
         </section>

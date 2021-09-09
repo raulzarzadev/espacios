@@ -4,7 +4,6 @@ import Head from '@comps/Head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { testImage } from 'src/assets/images'
 import useAxios from 'src/hooks/useAxios'
 
 export default function EspacioPage() {
@@ -13,15 +12,14 @@ export default function EspacioPage() {
     query: { id }
   } = router
   const { response, loading, error } = useAxios({ url: `/api/espacios/${id}` })
-  const [espacio, setEspacio] = useState<espacioType>()
+  const [espacio, setEspacio] = useState<espacioType | null>(null)
 
   useEffect(() => {
-    //get espacio id
     if (response) {
       setEspacio(response)
     }
   }, [id, response])
-  
+
   return (
     <div className="">
       <Head title="Detalles | Espacio" />

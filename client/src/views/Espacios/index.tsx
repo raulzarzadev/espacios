@@ -3,21 +3,17 @@ import Division from '@comps/Division'
 import Icon from '@comps/Icon'
 import Button from '@comps/inputs/Button'
 import Text from '@comps/inputs/Text'
-import Link from '@comps/Link'
 import Modal from '@comps/modals'
 import { useEffect } from 'react'
 import router from 'next/router'
-import axios from 'axios'
 import useAxios from 'src/hooks/useAxios'
 import { useState } from 'react'
-import { array } from 'yup/lib/locale'
 
 export default function Espacios() {
   const { response, loading, error } = useAxios({
-    method: 'get',
     url: '/api/espacios'
   })
-  const [espacios, setEspacios] = useState<Array<espacioType>>([])
+  const [espacios, setEspacios] = useState<Array<espacioType>| null>([])
   useEffect(() => {
     if (response) {
       setEspacios(response)
@@ -25,7 +21,6 @@ export default function Espacios() {
   }, [response])
 
   if (error) console.log(error)
-  if (loading) return 'Cargando ...'
   return (
     <div className="relative grid gap-2 sm:p-4 max-w-lg mx-auto  ">
       <div className=" sticky bg-white-light  z-10 left-0 right-0 top-0">
@@ -54,7 +49,7 @@ export default function Espacios() {
           </div>
         </div>
       </div>
-      {espacios.map((espacio) => (
+      {espacios?.map((espacio) => (
         <EspacioCard espacio={espacio} key={espacio.id} />
       ))}
       

@@ -1,4 +1,5 @@
 import AddSquare from '@comps/AddSquare'
+import { espacioType } from '@comps/Cards/EspacioCard'
 import ServicioCard from '@comps/Cards/ServicioCard'
 import Division from '@comps/Division'
 import Icon from '@comps/Icon'
@@ -20,20 +21,20 @@ export default function FormEspacio({
   alreadyExist,
   espacio
 }: espacioForm) {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<espacioType>({
     contracts: [],
     images: [],
     title: '',
-    id:'without'
+    id: '',
+    address: ''
   })
   useEffect(() => {
-    if (typeof espacio === 'object' && Object.keys(espacio).length > 0) {
+    if (espacio) {
       setForm(espacio)
     }
   }, [espacio])
 
-  console.log(espacio);
-  
+  console.log(espacio)
 
   const { contracts, images } = form
   return (
@@ -164,21 +165,5 @@ export default function FormEspacio({
 interface espacioForm {
   formTitle: string
   alreadyExist?: boolean
-  espacio?: any
-}
-
-interface espacioType {
-  contracts: Array<contractTypes>
-  images: Array<imagesType>
-  title: string
-}
-
-interface contractTypes {
-  title: string
-  images: Array<imagesType>
-}
-interface imagesType {
-  image: URL
-  title: string
-  description: string
+  espacio?: espacioType | null
 }

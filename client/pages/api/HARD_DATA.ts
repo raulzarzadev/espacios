@@ -6,10 +6,14 @@ export const ESPACIOS = [
     title: 'Titulo del espacio #1',
     address: 'Dirección cerrada #1415, El Manglito, La Paz, BCS, 23060',
     contracts: [
-      { title: 'renta 2021' },
-      { title: 'Admin 2019' },
-      { title: 'renta 2021' },
-      { title: 'Admin 2019' }
+      {
+        title: 'renta 2021',
+        images: [{ title: 'image contract', description: '', href: testImage }]
+      },
+      {
+        title: 'Admin 2019',
+        images: [{ title: 'image contract', description: '', href: testImage }]
+      }
     ],
     images: [
       {
@@ -30,8 +34,14 @@ export const ESPACIOS = [
     title: 'Titulo del espacio #2ddsda',
     address: 'Dirección cerrada #1415, El Manglito, La Paz, BCS, 23060',
     contracts: [
-      { title: 'renta 2021', image: testImage },
-      { title: 'Admin 2019', image: testImage }
+      {
+        title: 'renta 2021',
+        images: [{ title: 'image contract', description: '', href: testImage }]
+      },
+      {
+        title: 'Admin 2019',
+        images: [{ title: 'image contract', description: '', href: testImage }]
+      }
     ],
     images: [
       {
@@ -51,7 +61,16 @@ export const ESPACIOS = [
     id: '3',
     title: 'Titulo del espacio #qwe3',
     address: 'Dirección cerrada #1415, El Manglito, La Paz, BCS, 23060',
-    contracts: [{ title: 'renta 2021' }, { title: 'Admin 2019' }],
+    contracts: [
+      {
+        title: 'renta 2021',
+        images: [{ title: 'image contract', description: '', href: testImage }]
+      },
+      {
+        title: 'Admin 2019',
+        images: [{ title: 'image contract', description: '', href: testImage }]
+      }
+    ],
     images: [
       {
         title: 'Titulo de imagen',

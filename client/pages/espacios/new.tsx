@@ -1,13 +1,12 @@
-import FormEspacio from "@comps/Forms/FormEspacio";
-import Head from "@comps/Head";
+import FormEspacio from '@comps/Forms/FormEspacio'
+import Head from '@comps/Head'
+import NewEspacio from 'src/views/Espacios/new'
 
 export default function newEspacioPage() {
-   return (
-     <div className="">
-       <Head title="Detalles | Espacio" />
-       <div className="max-w-lg mx-auto">
-         <FormEspacio formTitle="Nuevo espacio"  />
-       </div>
-     </div>
-   )
+  return (
+    <div className="">
+      <Head title="Detalles | Espacio" />
+      <NewEspacio />
+    </div>
+  )
 }

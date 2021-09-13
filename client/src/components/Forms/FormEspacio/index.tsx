@@ -1,26 +1,46 @@
 import AddSquare from '@comps/AddSquare'
 import { espacioType } from '@comps/Cards/EspacioCard'
 import ServicioCard from '@comps/Cards/ServicioCard'
+import ContextualMenu from '@comps/ContextualMenu'
 import Division from '@comps/Division'
 import Icon from '@comps/Icon'
 import Button from '@comps/inputs/Button'
 import Counter from '@comps/inputs/Counter'
 import Text from '@comps/inputs/Text'
+import TextArea from '@comps/inputs/TextArea'
 import Link from '@comps/Link'
 import Modal from '@comps/modals'
 import Image from 'next/image'
 import router from 'next/router'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { testImage } from 'src/assets/images'
 import ContractsSection from './ContractsSection'
 import ImagesSection from './ImagesSection'
+
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import FormTitleAndButton from '@comps/FormTitleAndButton'
+
+const schema = yup.object().shape({
+  name: yup.string().required(),
+  address: yup.string().required()
+})
 
 export default function FormEspacio({
   formTitle = 'espacios form',
   alreadyExist,
   espacio
 }: espacioForm) {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(schema)
+  })
+
   const [form, setForm] = useState<espacioType>({
     contracts: [],
     images: [],
@@ -33,68 +53,106 @@ export default function FormEspacio({
       setForm(espacio)
     }
   }, [espacio])
-
-  console.log(espacio)
+  const onSubmit = () => {
+    console.log(form)
+  }
 
   const { contracts, images } = form
   return (
     <div className="w-full max-w-full ">
-      <section className="sticky top-0 left-0 right-0 bg-white-light z-10  ">
-        <div className="flex w-full p-2 pb-0 items-center">
-          <h3 className="flex w-full text-3xl">{formTitle}</h3>
-          <div>
-            <Button
-              label={alreadyExist ? 'Actualizar ' : 'Guardar'}
-              size="sm"
-            />
-          </div>
-        </div>
-        <div className="w-[90%] mx-auto">
-          <Division />
-        </div>
+      <section className="sticky top-0 left-0 right-0 bg-white-light z-10   ">
+        <FormTitleAndButton
+          title="Nuevo espacio"
+          label="Guardar"
+          onClick={handleSubmit(onSubmit)}
+        />
+
         {/* -----form navigation ----- */}
-        <div className="flex overflow-auto  max-w-[90vw] py-2 mx-auto">
-          <div className="mx-2 my-1">
-            <Link href="#">Espacio</Link>
-          </div>
-          <div className="mx-2 my-1">
-            <Link href="#services">Servicio</Link>
-          </div>
-          <div className="mx-2 my-1">
-            <Link href="#areas">Areas</Link>
-          </div>
-          <div className="mx-2 my-1">
-            <Link href="#contract">Contratos</Link>
-          </div>
-        </div>
+        <ContextualMenu
+          links={[
+            { href: '#', label: 'Espacio' },
+            { href: '#services', label: 'Servicios' },
+            { href: '#areas', label: 'Areas' },
+            { href: '#contract', label: 'Contratos' }
+          ]}
+        />
       </section>
       {/* -----Form------  */}
-      <section className="grid p-4 pt-0 gap-2 ">
+
+      <section className="grid p-4 pt-0 gap-2 max-w-lg mx-auto">
         {/* -----form images ----- */}
+        <h3 className="font-bold">Imagenes</h3>
         <ImagesSection />
 
         {/* -----form espacios ----- */}
-        <section id="espacios" className="flex w-full">
-          <div className="grid gap-3 justify-center w-full">
-            <h3 className="font-bold">Espacio</h3>
-            <Text placeholder="Espacio" />
-            <Text placeholder="Dirección" />
-            <Text placeholder="Anuncio (Link)" />
-            <Text placeholder="Clave de entrada" />
-            <label className="flex mx-auto">
-              <span className="mr-2">Huespedes</span>
-              <Counter />
-            </label>
-            <div>
-              <h4>Ubicación</h4>
-              <div className="h-16 w-full bg-white-dark"></div>
+
+        <section id="espacios" className="flex w-full flex-col ">
+          <h3 className="font-bold">Espacio</h3>
+          <form>
+            <div className="my-2">
+              <Text
+                {...register('name')}
+                errorText={errors?.name && errors.name.message}
+                placeholder="Nombre"
+                fullWidth
+              />
             </div>
-            <Text placeholder="Tipo de espacio" />
-            <Text placeholder="Tipo de alojamiento" />
-            <Text placeholder="Tipo de propiedad" />
+            <div className="my-2">
+              <Text
+                {...register('address')}
+                errorText={errors?.address && errors.address.message}
+                helperText=""
+                placeholder="Dirección"
+                fullWidth
+              />
+            </div>
+            <div className="my-2">
+              <Text
+                {...register('advertLink')}
+                errorText={errors?.advertLink && errors.advertLink.message}
+                helperText=""
+                placeholder="Anuncio (Link)"
+                fullWidth
+              />
+            </div>
+            <div className="my-2">
+              <Text
+                {...register('password')}
+                errorText={errors?.password && errors.password.message}
+                helperText=""
+                placeholder="Clave de entrada"
+                fullWidth
+              />
+            </div>
+            <div className="my-2">
+              <TextArea
+                {...register('coments')}
+                errorText={errors?.coments && errors.coments.message}
+                helperText=""
+                placeholder="Comentarios"
+                rows={2}
+                fullWidth
+              />
+            </div>
+          </form>
+
+          <label className="flex mx-auto">
+            <span className="mr-2">Huespedes</span>
+            <Counter />
+          </label>
+
+          <div>
+            <h4>Ubicación</h4>
+            <div className="h-16 w-full bg-white-dark"></div>
           </div>
+
+          {/*  <Text placeholder="Tipo de espacio" />
+          <Text placeholder="Tipo de alojamiento" />
+        <Text placeholder="Tipo de propiedad" /> */}
         </section>
+
         {/* -----form Servicios ----- */}
+
         <section id="services" className="flex w-full">
           <div className="w-full">
             <h3 className="font-bold">Servicios</h3>

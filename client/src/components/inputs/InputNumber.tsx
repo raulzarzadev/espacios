@@ -2,7 +2,7 @@ import { sizingObject, stylingObject, textProps } from './inputTypes'
 import React from 'react'
 import { ForwardedRef } from 'hoist-non-react-statics/node_modules/@types/react'
 
-const Text = React.forwardRef(
+const InputNumber = React.forwardRef(
   (
     {
       placeholder = 'placeholder',
@@ -21,6 +21,12 @@ const Text = React.forwardRef(
       <label className="relative flex flex-col">
         {label && <div className="text-sm font-semibold">{label}</div>}
         <input
+          type="number"
+          pattern="[0-9]*"
+          inputMode="numeric"
+          step="0.01"
+          min="0.00"
+          max="10000.00"
           ref={ref}
           placeholder={placeholder}
           className={`
@@ -56,5 +62,5 @@ export const sizing: sizingObject = {
   lg: `py-2 px-3`
 }
 
-Text.displayName = 'Text'
-export default Text
+InputNumber.displayName = 'Text'
+export default InputNumber

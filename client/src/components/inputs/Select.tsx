@@ -1,36 +1,40 @@
+import React from 'react'
 import { selectProps, sizingObject, stylingObject } from './inputTypes'
+import { ForwardedRef } from 'hoist-non-react-statics/node_modules/@types/react'
 
-export default function Select({
-  placeholder = 'placeholder',
-  variant = 'primary',
-  label,
-  helperText,
-  errorText,
-  size = 'sm',
-  fullWidth = false,
-  options = [],
-  value,
-  ...rest
-}: selectProps) {
-  return (
+const Select = React.forwardRef(
+  (
+    {
+      placeholder = 'placeholder',
+      variant = 'primary',
+      label,
+      helperText,
+      errorText,
+      size = 'sm',
+      fullWidth = false,
+      options = [],
+      ...rest
+    }: selectProps,
+    ref: ForwardedRef<any>
+  ) => (
     <label className="relative">
       {label && <div className="text-sm font-semibold">{label}</div>}
       <select
+        ref={ref}
         className={`
-    ${styling[variant]} 
-    ${sizing[size]}
-    ${fullWidth ? `w-full` : ` max-w-max`}
-    rounded-lg
-    min-w-[50px]
-    min-h-[10px]
-    shadow-lg
-    border
-    border-black
-    py-1
-    
-    `}
-        {...rest}
+          ${styling[variant]} 
+          ${sizing[size]}
+          ${fullWidth ? `w-full` : ` max-w-max`}
+          rounded-lg
+          min-w-[50px]
+          min-h-[10px]
+          shadow-lg
+          border
+          border-black
+          py-1
+          `}
         defaultValue=""
+        {...rest}
       >
         {placeholder && (
           <option
@@ -41,17 +45,21 @@ export default function Select({
             {placeholder}
           </option>
         )}
-        {options.map(({ label, id }) => (
+        {options.map(({ label, title, id }) => (
           <option key={id} value={id} className="text-black text-opacity-100">
-            {label}
+            {label || title}
           </option>
         ))}
       </select>
-      {helperText && !errorText && <span>{helperText}</span>}
-      {errorText && <span>{errorText}</span>}
+      {helperText && !errorText && (
+        <span className="text-sm opacity-50">{helperText}</span>
+      )}
+      {errorText && <span className="text-sm text-danger">{errorText}</span>}
     </label>
   )
-}
+)
+Select.displayName = 'Select'
+export default Select
 
 export const styling: stylingObject = {
   primary: `bg-white`,

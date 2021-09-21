@@ -1,8 +1,9 @@
 import { sizingObject, stylingObject, textProps } from './inputTypes'
 import React from 'react'
 import { ForwardedRef } from 'hoist-non-react-statics/node_modules/@types/react'
+import { format } from 'date-fns'
 
-const Text = React.forwardRef(
+const InputDate = React.forwardRef(
   (
     {
       placeholder = 'placeholder',
@@ -17,10 +18,13 @@ const Text = React.forwardRef(
     }: textProps,
     ref: ForwardedRef<any>
   ) => {
+    const defaultValue = format(new Date(), 'yyyy-MM-dd')
     return (
       <label className="relative flex flex-col">
         {label && <div className="text-sm font-semibold">{label}</div>}
         <input
+          defaultValue={defaultValue}
+          type="date"
           ref={ref}
           placeholder={placeholder}
           className={`
@@ -32,6 +36,7 @@ const Text = React.forwardRef(
           min-h-[10px]
           shadow-lg
           border
+          text-right
           bg-white-light
         `}
           {...rest}
@@ -51,10 +56,10 @@ export const styling: stylingObject = {
   third: ``
 }
 export const sizing: sizingObject = {
-  sm: `py-0.5 px-2 `,
+  sm: `py-[1px] px-2 `,
   md: `py-1 px-2`,
   lg: `py-2 px-3`
 }
 
-Text.displayName = 'Text'
-export default Text
+InputDate.displayName = 'InputDate'
+export default InputDate

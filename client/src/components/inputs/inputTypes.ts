@@ -1,21 +1,23 @@
+import { InputHTMLAttributes } from 'hoist-non-react-statics/node_modules/@types/react'
 import { ReactChild, ReactNode } from 'react'
 
 export interface stylingObject {
   [index: string]: string
 }
 export type sizingObject = {
-  [index in sizes]?: string 
+  [index in sizes]?: string
 }
-type sizes =  'xs' | 'sm' | 'md' | 'lg' | 'tall' | 'long' | string
+type sizes = 'xs' | 'sm' | 'md' | 'lg' | 'tall' | 'long' | string
 export interface selectOption {
-  label: string
+  label?: string
   id: string
+  title?: string
 }
 
-export interface textProps {
+export interface textProps  {
   label?: string
   variant?: string
-  size?: string
+  size?: sizes
   fullWidth?: boolean
   helperText?: string
   errorText?: string

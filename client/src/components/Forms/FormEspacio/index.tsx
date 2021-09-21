@@ -18,10 +18,10 @@ import { useForm } from 'react-hook-form'
 import { testImage } from 'src/assets/images'
 import ContractsSection from './ContractsSection'
 import ImagesSection from './ImagesSection'
+import FormTitleAndButton from '@comps/FormTitleAndButton'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import FormTitleAndButton from '@comps/FormTitleAndButton'
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -126,12 +126,12 @@ export default function FormEspacio({
             </div>
             <div className="my-2">
               <TextArea
-                {...register('coments')}
                 errorText={errors?.coments && errors.coments.message}
                 helperText=""
                 placeholder="Comentarios"
                 rows={2}
                 fullWidth
+                {...register('coments')}
               />
             </div>
           </form>
@@ -161,7 +161,9 @@ export default function FormEspacio({
               <Button
                 label="Agregar Servicio"
                 onClick={() =>
-                  router.push(`/services/new?espacioId=${form.id}`)
+                  router.push(
+                    `/services/new${form?.id && `?espacio=${form.id}`}`
+                  )
                 }
               />
             </div>

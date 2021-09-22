@@ -148,7 +148,8 @@ export default function FormEspacio({
 
           {/*  <Text placeholder="Tipo de espacio" />
           <Text placeholder="Tipo de alojamiento" />
-        <Text placeholder="Tipo de propiedad" /> */}
+        <Text placeholder="Tipo de propiedad" /> 
+        */}
         </section>
 
         {/* -----form Servicios ----- */}

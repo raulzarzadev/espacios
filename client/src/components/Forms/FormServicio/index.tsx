@@ -14,12 +14,15 @@ import { useForm } from 'react-hook-form'
 import FormTitleAndButton from '@comps/FormTitleAndButton'
 import SERVICES from 'src/CONSTANTS/SERVICES'
 import InputDate from '@comps/inputs/InputDate'
+import * as yup from 'yup'
 
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
 import CurrencyInput from '@comps/inputs/CurrencyInput'
 import InputNumber from '@comps/inputs/InputNumber'
 import FIELD_VALIDATIONS from 'src/CONSTANTS/FIELD_VALIDATIONS'
+import Button from '@comps/inputs/Button'
+import SeriviceHistory from './ServiceHistory'
+import { useRouter } from 'next/router'
 const schema = yup.object().shape({
   espacio: yup.string().required(),
   serviceType: yup.string().required(),
@@ -49,7 +52,8 @@ export default function FormService({
   serviceId?: string
   espacioId: string
 }) {
-  const onSubmit = (data) => console.log(data)
+  const router = useRouter()
+  const onSubmit = (data: any) => console.log(data)
   const {
     register,
     handleSubmit,
@@ -78,14 +82,21 @@ export default function FormService({
   const services = SERVICES
   const setErrorMessage = (fieldName: string) =>
     errors[fieldName] && FIELD_VALIDATIONS[errors[fieldName].type]
+  const [buttonLabel, setButtonLabel] = useState<string>('Guardar')
 
   return (
     <div className="max-w-md mx-auto  ">
       <section className="sticky top-0 left-0 right-0 bg-white-light z-10   ">
         <FormTitleAndButton
           title="Nuevo Servicio"
-          label="Guardar"
-          onClick={handleSubmit(onSubmit)}
+          label={buttonLabel}
+          onClick={() => {
+            handleSubmit(onSubmit)
+            setButtonLabel('Guardado')
+            setTimeout(() => {
+              router.back()
+            }, 800)
+          }}
         />
       </section>
       <section className="p-2">
@@ -141,9 +152,15 @@ export default function FormService({
           </label>
         </div>
         <div className=" grid gap-4">
-          <label>
-            Archivos
-            <input disabled type="file" name="" id="" className="max-w-full" />
+          <label className="flex flex-col w-full justify-center">
+            <Button label="Archivos" fullWidth disabled />
+            <input
+              disabled
+              type="file"
+              name=""
+              id=""
+              className="max-w-full hidden"
+            />
           </label>
           <TextArea
             {...register('coments')}
@@ -158,145 +175,4 @@ export default function FormService({
       </section>
     </div>
   )
-}
-
-const SeriviceHistory = ({ records = [] }: { records: Array<any> }) => {
-  return (
-    <section id="images" className="flex  max-w-[90vw] overflow-auto mx-auto">
-      <NewServiceRecord />
-      {/* {records?.map((record, i) => (
-        <div key={record.id} className="w-20 h-20 m-1">
-          <ServiceRecord record={record} />
-        </div>
-      ))} */}
-    </section>
-  )
-}
-const serviceSchema = yup.object().shape({
-  quanity: yup.string().required(),
-  title: yup.string().required()
-})
-
-const NewServiceRecord = () => {
-  const onSubmit = (data) => console.log(data)
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors }
-  } = useForm({
-    resolver: yupResolver(serviceSchema)
-  })
-  const setErrorMessage = (fieldName: string) =>
-    errors[fieldName] && FIELD_VALIDATIONS[errors[fieldName].type]
-
-  return (
-    <Modal
-      OpenComponent={AddSquare}
-      openProps={{ size: 'lg' }}
-      title="Nueva entrada"
-      continueButton="Guardar"
-      onContinue={handleSubmit(onSubmit)}
-    >
-      <div className="grid gap-4 p-4">
-        {/* 
-        <div>Preview</div>
-         <label>
-          Comprobante
-          <input type="file" name="image" id="" />
-        </label> */}
-        <InputDate
-          helperText="Fecha de pago"
-          fullWidth
-          {...register('paymentDate')}
-        />
-        <CurrencyInput
-          helperText="Monto"
-          errorText={setErrorMessage('quanity')}
-          {...register('quanity')}
-          placeholder="Cantidad ($)"
-        />
-        <Text
-          helperText="Titulo corto"
-          {...register('title')}
-          placeholder="Titulo (opcional)"
-          errorText={setErrorMessage('title')}
-          fullWidth
-        />
-        <TextArea
-          helperText="Comentarios o descripción"
-          errorText={setErrorMessage('description')}
-          {...register('description')}
-          placeholder="Descripción (opcional)"
-          rows={2}
-          fullWidth
-        />
-      </div>
-    </Modal>
-  )
-}
-
-const ServiceRecord = ({ record }: { record: recordType }) => {
-  const [form, setForm] = useState(record)
-  return (
-    <Modal
-      OpenComponent={PreviewRecord}
-      openProps={{ image: form.image }}
-      title="Detalles entrada"
-      continueButton="Actualizar"
-      onContinue={() => console.log(form)}
-    >
-      <div className="grid gap-4 p-4">
-        <div className="relative w-40 h-40">
-          {form.image && (
-            <Image src={form.image} objectFit="cover" layout="fill" alt="alt" />
-          )}
-        </div>
-        <label>
-          Comprobante
-          <input type="file" name="image" id="" />
-        </label>
-        <label>
-          Fecha
-          <input value={'2012/12/12'} type="date" name="" id="" />
-        </label>
-        <Text value={form.quantity} placeholder="Cantidad" fullWidth />
-        <Text value={form.title} placeholder="Titulo (opcional)" fullWidth />
-        <TextArea
-          value={form.coments}
-          placeholder="Descripción (opcional)"
-          rows={2}
-          fullWidth
-        />
-      </div>
-    </Modal>
-  )
-}
-const PreviewRecord = ({
-  image,
-  date,
-  ...rest
-}: {
-  image: string
-  date: string
-}) => (
-  <button className="relative w-20 h-20" {...rest}>
-    <Image
-      src={image}
-      layout="fill"
-      objectFit="cover"
-      alt="alt image"
-      className="rounded-lg"
-    />
-    <span className="z-10 absolute top-0">{date}</span>
-  </button>
-)
-
-interface recordType {
-  id: string
-  label: string
-  image: string
-  title: string
-  coments: string
-  quantity: string
 }

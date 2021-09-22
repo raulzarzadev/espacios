@@ -5,18 +5,20 @@ export default function Button({
   label = 'button',
   size = 'md',
   fullWidth = false,
+  disabled,
   iconOnly,
   icon,
   ...rest
 }: buttonProps) {
   return (
     <button
+      disabled={disabled}
       className={`
               ${stylingButton[variant]} 
+              ${disabled && stylingButton.disabled}
               ${sizingButton[size]}
               ${iconOnly ? `rounded-full` : 'rounded-md min-w-[50px]'}
               ${fullWidth ? `w-full` : ` max-w-max`}
-              
               min-h-[10px]
               shadow-lg
               border
@@ -46,6 +48,7 @@ export const sizingButton: sizingObject = {
 export const stylingButton: stylingObject = {
   primary: `bg-prim text-white`,
   secondary: `bg-secon text-white`,
-  third: `bg-third `,
-  outlined: `bg-transparent border-black  `
+  third: `bg-third`,
+  outlined: `bg-transparent border-black`,
+  disabled: 'bg-black-light bg-opacity-50 shadow-none '
 }

@@ -14,7 +14,7 @@ export interface selectOption {
   title?: string
 }
 
-export interface textProps  {
+export interface textProps {
   label?: string
   variant?: string
   size?: sizes
@@ -40,5 +40,6 @@ export interface buttonProps {
   fullWidth?: boolean
   iconOnly?: boolean
   icon?: ReactNode
+  disabled?: boolean
   onClick?: (parm: any) => void
 }

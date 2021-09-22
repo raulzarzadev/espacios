@@ -1,8 +1,5 @@
 import Currency from 'react-currency-input-field'
 
-
-
-
 import { sizingObject, stylingObject, textProps } from './inputTypes'
 import React from 'react'
 import { ForwardedRef } from 'hoist-non-react-statics/node_modules/@types/react'
@@ -42,6 +39,7 @@ const CurrencyInput = React.forwardRef(
               bg-white-light
             `}
           {...rest}
+          value={value}
         />
         {helperText && !errorText && (
           <span className="text-sm opacity-50">{helperText}</span>

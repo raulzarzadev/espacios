@@ -17,7 +17,6 @@ import InputDate from '@comps/inputs/InputDate'
 import * as yup from 'yup'
 
 import { yupResolver } from '@hookform/resolvers/yup'
-import CurrencyInput from '@comps/inputs/CurrencyInput'
 import InputNumber from '@comps/inputs/InputNumber'
 import FIELD_VALIDATIONS from 'src/CONSTANTS/FIELD_VALIDATIONS'
 import Button from '@comps/inputs/Button'
@@ -29,29 +28,8 @@ const schema = yup.object().shape({
   serviceNo: yup.string().required(),
   periodOf: yup.number().required()
 })
-/* const espacios = [
-  { id: '1', label: 'Espacio 1' },
-  { id: '2', label: 'Espacio 2' },
-  { id: '3', label: 'Espacio 3' }
-]
-const servicios = [
-  { id: '1', label: 'Gas 1' },
-  { id: '2', label: 'Luz 2' },
-  { id: '3', label: 'Agua 3' }
-]
-const records = [
-  { id: '1', date: '12/12/12', image: testImage, quantity: '22.22' },
-  { id: '2', date: '12/11/12', image: testImage, quantity: '22.22' },
-  { id: '3', date: '12/11/13', image: testImage, quantity: '22.22' },
-  { id: '4', date: '12/11/13', image: testImage, quantity: '22.22' }
-] */
-export default function FormService({
-  serviceId,
-  espacioId
-}: {
-  serviceId?: string
-  espacioId: string
-}) {
+
+export default function FormService({ service }: { service?: object | null }) {
   const router = useRouter()
   const onSubmit = (data: any) => console.log(data)
   const {
@@ -73,9 +51,10 @@ export default function FormService({
   } = useAxios({
     url: '/api/espacios'
   })
+
   useEffect(() => {
     if (espaciosRes) {
-      setEspacios(espaciosRes)
+      setEspacios(espaciosRes || [])
     }
   }, [espaciosRes])
 

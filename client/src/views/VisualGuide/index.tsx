@@ -1,7 +1,6 @@
 import Alert from '@comps/Alert'
 import AdminCard from '@comps/Cards/AdminCard'
 import EspacioCard from '@comps/Cards/EspacioCard'
-import ServicioCard from '@comps/Cards/ServicioCard'
 import Chip from '@comps/Chip'
 import FormEspacio from '@comps/Forms/FormEspacio'
 import Icon from '@comps/Icon'
@@ -143,7 +142,6 @@ export default function VisualGuide() {
             <div className="grid gap-2 ">
               <AdminCard />
               <EspacioCard espacio={ESPACIOS[0]} />
-              <ServicioCard />
             </div>
           </div>
         </section>

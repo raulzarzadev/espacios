@@ -9,7 +9,7 @@ const NewServiceRecord = ({ record }: { record?: Object }) => {
       openProps={{ size: 'lg' }}
       title="Nueva entrada"
     >
-      <FormServiceRecord />
+      <FormServiceRecord  />
     </Modal>
   )
 }

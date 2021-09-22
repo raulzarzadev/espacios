@@ -29,6 +29,7 @@ export interface espacioType {
   address: string
   images: Array<imageType>
   contracts: Array<contractsType>
+  services?: Array<string>
 }
 
 export interface contractsType {

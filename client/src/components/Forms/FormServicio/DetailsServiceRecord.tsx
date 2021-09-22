@@ -1,4 +1,4 @@
-import FormServiceRecord from './FormServiceRecord'
+import FormServiceRecord, { recordType } from './FormServiceRecord'
 import Image from 'next/image'
 import Modal from '@comps/modals'
 import { useState } from 'react'
@@ -11,7 +11,7 @@ const DetailsServiceRecord = ({ record }: { record: recordType }) => {
       title="Detalles entrada"
     >
       <div className="grid gap-4 p-4">
-        <FormServiceRecord record={{quantity:'12.50'}}/>
+        <FormServiceRecord record={record}/>
       </div>
     </Modal>
   )
@@ -38,11 +38,3 @@ const PreviewRecord = ({
 )
 export default DetailsServiceRecord
 
-interface recordType {
-  id: string
-  label: string
-  image: string
-  title: string
-  coments: string
-  quantity: string
-}

@@ -7,7 +7,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import FIELD_VALIDATIONS from 'src/CONSTANTS/FIELD_VALIDATIONS'
 import * as yup from 'yup'
-import Image from 'next/image'
 import { useState } from 'react'
 
 const serviceSchema = yup.object().shape({
@@ -15,7 +14,7 @@ const serviceSchema = yup.object().shape({
   title: yup.string().required()
 })
 
-const FormServiceRecord = ({ record }: { record: recordType }) => {
+const FormServiceRecord = ({ record }: { record?: recordType }) => {
   const {
     register,
     handleSubmit,
@@ -86,11 +85,13 @@ const FormServiceRecord = ({ record }: { record: recordType }) => {
   )
 }
 
-interface recordType {
+export interface recordType {
   id: string
-  quantity: number
+  image: string
   title: string
+  coments: string
   description: string
+  quantity: string
   date: string
 }
 

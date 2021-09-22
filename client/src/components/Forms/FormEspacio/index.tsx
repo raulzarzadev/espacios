@@ -1,27 +1,22 @@
 import AddSquare from '@comps/AddSquare'
 import { espacioType } from '@comps/Cards/EspacioCard'
-import ServicioCard from '@comps/Cards/ServicioCard'
 import ContextualMenu from '@comps/ContextualMenu'
-import Division from '@comps/Division'
-import Icon from '@comps/Icon'
 import Button from '@comps/inputs/Button'
 import Counter from '@comps/inputs/Counter'
 import Text from '@comps/inputs/Text'
 import TextArea from '@comps/inputs/TextArea'
-import Link from '@comps/Link'
 import Modal from '@comps/modals'
-import Image from 'next/image'
 import router from 'next/router'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { testImage } from 'src/assets/images'
 import ContractsSection from './ContractsSection'
 import ImagesSection from './ImagesSection'
 import FormTitleAndButton from '@comps/FormTitleAndButton'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import ServiceCard from '@comps/Cards/ServiceCard'
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -46,7 +41,8 @@ export default function FormEspacio({
     images: [],
     title: '',
     id: '',
-    address: ''
+    address: '',
+    services: []
   })
   useEffect(() => {
     if (espacio) {
@@ -157,7 +153,9 @@ export default function FormEspacio({
         <section id="services" className="flex w-full">
           <div className="w-full">
             <h3 className="font-bold">Servicios</h3>
-            <ServicioCard />
+            {form?.services?.map((id) => (
+              <ServiceCard key={id} service={{ id }} />
+            ))}
             <div className="flex w-full justify-center my-4">
               <Button
                 label="Agregar Servicio"

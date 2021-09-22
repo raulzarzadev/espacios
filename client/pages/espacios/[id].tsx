@@ -20,6 +20,8 @@ export default function EspacioPage() {
     }
   }, [id, response])
 
+  
+
   return (
     <div className="">
       <Head title="Detalles | Espacio" />

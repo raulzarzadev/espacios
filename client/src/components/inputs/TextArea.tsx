@@ -40,8 +40,10 @@ const TextArea = React.forwardRef(
           `}
         {...rest}
       />
-      {helperText && !errorText && <span>{helperText}</span>}
-      {errorText && <span>{errorText}</span>}
+      {helperText && !errorText && (
+        <span className="text-sm opacity-50">{helperText}</span>
+      )}
+      {errorText && <span className="text-sm text-danger">{errorText}</span>}
     </label>
   )
 )

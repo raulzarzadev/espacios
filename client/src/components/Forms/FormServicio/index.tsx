@@ -17,12 +17,14 @@ import InputDate from '@comps/inputs/InputDate'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import CurrencyInput from '@comps/inputs/CurrencyInput'
 import InputNumber from '@comps/inputs/InputNumber'
+import FIELD_VALIDATIONS from 'src/CONSTANTS/FIELD_VALIDATIONS'
 const schema = yup.object().shape({
   espacio: yup.string().required(),
   serviceType: yup.string().required(),
   serviceNo: yup.string().required(),
-  periodOf: yup.string().required()
+  periodOf: yup.number().required()
 })
 /* const espacios = [
   { id: '1', label: 'Espacio 1' },
@@ -73,26 +75,9 @@ export default function FormService({
     }
   }, [espaciosRes])
 
-  console.log(errors)
-
   const services = SERVICES
-
-  /*  
-
- 
-    records: []
-  })
-  
-  
-  
-  
-  
-  useEffect(() => {
-    if (espacioId) {
-      setForm({ ...form, espacioId })
-    }
-  }, [espacioId])
-  console.log(form); */
+  const setErrorMessage = (fieldName: string) =>
+    errors[fieldName] && FIELD_VALIDATIONS[errors[fieldName].type]
 
   return (
     <div className="max-w-md mx-auto  ">
@@ -107,14 +92,14 @@ export default function FormService({
         <div className="grid gap-3 max-w-[10rem] mx-auto">
           <Select
             {...register('espacio')}
-            errorText={errors.espacio && errors.espacio.message}
+            errorText={setErrorMessage('espacio')}
             options={espacios}
             placeholder="Espacio"
             fullWidth
           />
           <Select
             {...register('serviceType')}
-            errorText={errors.service && errors.service.message}
+            errorText={setErrorMessage('serviceType')}
             options={services}
             placeholder="Tipo de servicio"
             fullWidth
@@ -123,46 +108,47 @@ export default function FormService({
         <div className="grid gap-3  grid-cols-2 my-6 ">
           <Text
             {...register('contractNo')}
-            errorText={errors.contractNo && errors.contractNo.message}
+            errorText={setErrorMessage('contractNo')}
             placeholder="No. contrato"
             fullWidth
           />
           <Text
             {...register('company')}
-            errorText={errors.company && errors.company.message}
+            errorText={setErrorMessage('company')}
             placeholder="Compañia"
             fullWidth
           />
           <Text
             {...register('serviceNo')}
-            errorText={errors.serviceNo && errors.serviceNo.message}
             placeholder="No. servicio"
+            errorText={setErrorMessage('serviceNo')}
             fullWidth
           />
           <Text
             {...register('support')}
-            errorText={errors.support && errors.support.message}
+            errorText={setErrorMessage('support')}
             placeholder="Asisitencia"
             fullWidth
           />
           <InputNumber
             {...register('periodOf')}
-            errorText={errors.periodOf && errors.periodOf.message}
+            errorText={setErrorMessage('periodOf')}
             placeholder="Perodo de corte (dias)"
             fullWidth
           />
           <label>
             <InputDate fullWidth {...register('registrationDate')} />
           </label>
+        </div>
+        <div className=" grid gap-4">
           <label>
             Archivos
             <input disabled type="file" name="" id="" className="max-w-full" />
           </label>
-        </div>
-        <div className="">
           <TextArea
             {...register('coments')}
             placeholder="Comentarios"
+            errorText={setErrorMessage('coments')}
             fullWidth
             rows={2}
           />
@@ -178,42 +164,79 @@ const SeriviceHistory = ({ records = [] }: { records: Array<any> }) => {
   return (
     <section id="images" className="flex  max-w-[90vw] overflow-auto mx-auto">
       <NewServiceRecord />
-      {records?.map((record, i) => (
+      {/* {records?.map((record, i) => (
         <div key={record.id} className="w-20 h-20 m-1">
           <ServiceRecord record={record} />
         </div>
-      ))}
+      ))} */}
     </section>
   )
 }
+const serviceSchema = yup.object().shape({
+  quanity: yup.string().required(),
+  title: yup.string().required()
+})
 
 const NewServiceRecord = () => {
-  const [form, setForm] = useState({})
+  const onSubmit = (data) => console.log(data)
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(serviceSchema)
+  })
+  const setErrorMessage = (fieldName: string) =>
+    errors[fieldName] && FIELD_VALIDATIONS[errors[fieldName].type]
+
   return (
     <Modal
       OpenComponent={AddSquare}
       openProps={{ size: 'lg' }}
       title="Nueva entrada"
       continueButton="Guardar"
-      onContinue={() => console.log(form)}
+      onContinue={handleSubmit(onSubmit)}
     >
       <div className="grid gap-4 p-4">
+        {/* 
         <div>Preview</div>
-       {/*  <label>
+         <label>
           Comprobante
           <input type="file" name="image" id="" />
         </label> */}
-        <InputNumber placeholder="Cantidad ($)" fullWidth />
-        <Text placeholder="Titulo (opcional)" fullWidth />
-        <TextArea placeholder="Descripción (opcional)" rows={2} fullWidth />
+        <InputDate
+          helperText="Fecha de pago"
+          fullWidth
+          {...register('paymentDate')}
+        />
+        <CurrencyInput
+          helperText="Monto"
+          errorText={setErrorMessage('quanity')}
+          {...register('quanity')}
+          placeholder="Cantidad ($)"
+        />
+        <Text
+          helperText="Titulo corto"
+          {...register('title')}
+          placeholder="Titulo (opcional)"
+          errorText={setErrorMessage('title')}
+          fullWidth
+        />
+        <TextArea
+          helperText="Comentarios o descripción"
+          errorText={setErrorMessage('description')}
+          {...register('description')}
+          placeholder="Descripción (opcional)"
+          rows={2}
+          fullWidth
+        />
       </div>
     </Modal>
   )
 }
 
 const ServiceRecord = ({ record }: { record: recordType }) => {
-  console.log(record)
-
   const [form, setForm] = useState(record)
   return (
     <Modal

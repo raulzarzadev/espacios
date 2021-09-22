@@ -1,8 +1,13 @@
+import Currency from 'react-currency-input-field'
+
+
+
+
 import { sizingObject, stylingObject, textProps } from './inputTypes'
 import React from 'react'
 import { ForwardedRef } from 'hoist-non-react-statics/node_modules/@types/react'
 
-const Text = React.forwardRef(
+const CurrencyInput = React.forwardRef(
   (
     {
       placeholder = 'placeholder',
@@ -20,9 +25,11 @@ const Text = React.forwardRef(
     return (
       <label className="relative flex flex-col">
         {label && <div className="text-sm font-semibold">{label}</div>}
-        <input
+        <Currency
           ref={ref}
           placeholder={placeholder}
+          prefix="$"
+          decimalsLimit={2}
           className={`
               ${styling[variant]} 
               ${sizing[size]}
@@ -56,5 +63,5 @@ export const sizing: sizingObject = {
   lg: `py-2 px-3`
 }
 
-Text.displayName = 'Text'
-export default Text
+CurrencyInput.displayName = 'Text'
+export default CurrencyInput

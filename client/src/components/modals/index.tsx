@@ -9,8 +9,8 @@ export default function Modal({
   children,
   continueButton,
   cancelButton,
-  onContinue,
-  onCancel=()=>{}
+  onContinue = () => {},
+  onCancel = () => {}
 }: Modal) {
   const [open, setOpen] = useState(false)
   const [opacity, setOpacity] = useState(false)

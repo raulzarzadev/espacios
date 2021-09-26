@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.4-alpha" use-changelog="false" last-position="2,102" last-zoom="1" max-obj-count="14"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<database name="spaces" encoding="UTF8" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="space" layers="0" collapse-mode="2" max-obj-count="14" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="720" y="260"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name">
+		<type name="text" length="0"/>
+	</column>
+	<column name="guests">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="safe_box_code">
+		<type name="text" length="0"/>
+	</column>
+	<column name="notes">
+		<type name="text" length="0"/>
+	</column>
+	<column name="contract">
+		<type name="text" length="0"/>
+	</column>
+	<column name="pictures">
+		<type name="text" length="0" dimension="1"/>
+	</column>
+	<column name="url">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="space_pk" type="pk-constr" table="public.space">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_address" index="4"/>
+		<object name="id_property_type" index="3"/>
+		<object name="id_space_type" index="2"/>
+		<object name="id_team" index="1"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="address_fk" index="3"/>
+		<object name="property_type_fk" index="2"/>
+		<object name="space_type_fk" index="1"/>
+		<object name="space_uq" index="4"/>
+		<object name="team_fk" index="5"/>
+	</customidxs>
+</table>
+
+<table name="service_type" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1680" y="20"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="service_pk" type="pk-constr" table="public.service_type">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="area_type" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1620" y="440"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="area_pk" type="pk-constr" table="public.area_type">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="space_service" layers="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="public"/>
+	<position x="1240" y="140"/>
+	<column name="company">
+		<type name="text" length="0"/>
+	</column>
+	<column name="contract">
+		<type name="text" length="0"/>
+	</column>
+	<column name="reference_no">
+		<type name="text" length="0"/>
+	</column>
+	<column name="support_phone">
+		<type name="text" length="0"/>
+	</column>
+	<column name="notes">
+		<type name="text" length="0"/>
+	</column>
+
+	<customidxs object-type="column">
+		<object name="id_service_type" index="1"/>
+		<object name="id_space" index="0"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="service_type_fk" index="2"/>
+		<object name="space_fk" index="1"/>
+		<object name="space_service_pk" index="0"/>
+	</customidxs>
+</table>
+
+<relationship name="space_has_many_space_service" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="public.space"
+	 dst-table="public.space_service"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<relationship name="service_type_has_many_space_service" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="public.service_type"
+	 dst-table="public.space_service"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<table name="space_area" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<position x="1180" y="440"/>
+	<column name="number">
+		<type name="smallint" length="0"/>
+	</column>
+
+	<customidxs object-type="column">
+		<object name="id_area_type" index="1"/>
+		<object name="id_space" index="0"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="area_type_fk" index="2"/>
+		<object name="space_area_pk" index="0"/>
+		<object name="space_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="space_has_many_space_area" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="public.space"
+	 dst-table="public.space_area"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<relationship name="area_type_has_many_space_area" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="public.area_type"
+	 dst-table="public.space_area"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<table name="space_type" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="500" y="20"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="space_type_pk" type="pk-constr" table="public.space_type">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="property_type" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="880" y="20"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="property_type_pk" type="pk-constr" table="public.property_type">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="space_type_has_many_space" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#75f403"
+	 src-table="public.space_type"
+	 dst-table="public.space"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="property_type_has_many_space" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#a7741c"
+	 src-table="public.property_type"
+	 dst-table="public.space"
+	 src-required="true" dst-required="false"/>
+
+<table name="address" layers="0" collapse-mode="2" max-obj-count="10" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1320" y="640"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="unit_no">
+		<type name="text" length="0"/>
+	</column>
+	<column name="street">
+		<type name="text" length="0"/>
+	</column>
+	<column name="city">
+		<type name="text" length="0"/>
+	</column>
+	<column name="state">
+		<type name="text" length="0"/>
+	</column>
+	<column name="country">
+		<type name="text" length="0"/>
+	</column>
+	<column name="zip_code">
+		<type name="text" length="0"/>
+	</column>
+	<column name="latitude">
+		<type name="float" length="0"/>
+	</column>
+	<column name="longitude">
+		<type name="float" length="0"/>
+	</column>
+	<constraint name="address_pk" type="pk-constr" table="public.address">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="space_has_one_address" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#da9bbd"
+	 src-table="public.address"
+	 dst-table="public.space"
+	 src-required="true" dst-required="false"/>
+
+<table name="user" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="60" y="60"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name">
+		<type name="text" length="0"/>
+	</column>
+	<column name="email">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="user_pk" type="pk-constr" table="public.&quot;user&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="email_uq" type="uq-constr" table="public.&quot;user&quot;">
+		<columns names="email" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="team" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="340" y="360"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="name">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="team_pk" type="pk-constr" table="public.team">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_user" index="1"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="user_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="user_has_many_team" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#12fcba"
+	 src-table="public.&quot;user&quot;"
+	 dst-table="public.team"
+	 src-required="true" dst-required="false"/>
+
+<table name="role" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="520" y="700"/>
+	<column name="id" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="name">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="role_pk" type="pk-constr" table="public.role">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="member" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="40" y="620"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<constraint name="member_pk" type="pk-constr" table="public.member">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="user_is_member_of_many" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#7a1e31"
+	 src-table="public.&quot;user&quot;"
+	 dst-table="public.member"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="team_has_many_member" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#5a46b8"
+	 src-table="public.team"
+	 dst-table="public.member"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="role_has_many_member" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#8bb19a"
+	 src-table="public.role"
+	 dst-table="public.member"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="team_has_many_space" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#f21365"
+	 src-table="public.team"
+	 dst-table="public.space"
+	 src-required="true" dst-required="false"/>
+
+</dbmodel>

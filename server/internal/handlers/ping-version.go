@@ -1,15 +1,15 @@
-package controller
+package handlers
 
 import (
 	"log"
-	v1 "spaces/internal/controller/v1"
+	v1 "spaces/internal/handlers/v1"
 
 	"github.com/gin-gonic/gin"
 )
 
 type Ping struct{}
 
-func (c Ping) Pong(ctx *gin.Context) {
+func (Ping) Pong(ctx *gin.Context) {
 	version, err := ctx.Get("version")
 	if err == false {
 		version = "v1"
@@ -18,7 +18,7 @@ func (c Ping) Pong(ctx *gin.Context) {
 
 	switch version {
 	case "v1":
-		controller := v1.Ping{}
-		controller.Pong(ctx)
+		handler := v1.Ping{}
+		handler.Pong(ctx)
 	}
 }

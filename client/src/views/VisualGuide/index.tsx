@@ -147,7 +147,7 @@ export default function VisualGuide() {
         </section>
         <section>
           <div className="text-lg font-bold text-center">Modals</div>
-          <div className="flex flex-wrap justify-center">
+          <div className="flex flex-wrap ju stify-center">
             <div className="grid gap-2 ">
               <Modal
                 OpenComponent={Button}

@@ -7,10 +7,12 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import router from 'next/router'
+import useAuth from 'src/hooks/useAuth'
 const schema = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().required()
 })
+
 export default function Signin() {
   const {
     register,
@@ -21,16 +23,19 @@ export default function Signin() {
   })
   const onSubmit = (form: object) => {
     console.log(form)
-    router.push('/home')
+    setTimeout(() => {
+      handleLogin()
+    }, 400)
   }
 
-
+  const { handleLogin } = useAuth()
 
   return (
     <div className=" p-4 rounded-xl shadow-2xl">
       <div className="my-12 flex mx-auto justify-center text-3xl font-bold">
         {'< Logo />'}
       </div>
+      <div></div>
       <p className="w-4/5 mx-auto text-center my-4">
         Optimiza la gestión de espacios. Incrementa tus ganancias.
       </p>
@@ -48,7 +53,7 @@ export default function Signin() {
         </div>
         <div className="my-2 w-full">
           <Text
-          type='password'
+            type="password"
             {...register('password')}
             placeholder="contraseña"
             errorText={errors?.password?.message}
@@ -56,7 +61,7 @@ export default function Signin() {
           />
         </div>
         <div className="my-4 w-full">
-          <Button label="Ingresar" fullWidth/>
+          <Button label="Ingresar" fullWidth type="submit" />
         </div>
       </form>
       <div className="flex flex-col items-center ">
@@ -65,7 +70,12 @@ export default function Signin() {
         </div>
         <Division />
         <div className="my-4">
-          <Button label="Registrate" variant="third" />
+          <Button
+            type="button"
+            label="Registrate"
+            variant="third"
+            onClick={() => router.push('/signup')}
+          />
         </div>
       </div>
     </div>

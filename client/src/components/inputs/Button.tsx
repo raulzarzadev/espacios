@@ -8,10 +8,12 @@ export default function Button({
   disabled,
   iconOnly,
   icon,
+  type = 'submit',
   ...rest
 }: buttonProps) {
   return (
     <button
+      type={type}
       disabled={disabled}
       className={`
               ${stylingButton[variant]} 
@@ -24,7 +26,8 @@ export default function Button({
               border
               border-transparent
               transform hover:opacity-90 active:shadow-none
-              font-semibold
+              
+              font-normal
           `}
       {...rest}
     >
@@ -46,9 +49,10 @@ export const sizingButton: sizingObject = {
   lg: `px-3 py-3`
 }
 export const stylingButton: stylingObject = {
-  primary: `bg-prim text-white`,
-  secondary: `bg-secon text-white`,
-  third: `bg-third`,
-  outlined: `bg-transparent border-black`,
-  disabled: 'bg-black-light bg-opacity-50 shadow-none '
+  primary: `bg-prim text-white font-semibold`,
+  secondary: `bg-secon text-white font-semibold`,
+  third: `bg-third `,
+  outlined: `bg-transparent border-black font-semibold`,
+  disabled: 'bg-black-light bg-opacity-50 shadow-none ',
+  link: 'shadow-none  '
 }

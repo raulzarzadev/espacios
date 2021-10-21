@@ -8,12 +8,14 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import useAuth from 'src/hooks/useAuth'
 import * as yup from 'yup'
 
 const schema = yup.object().shape({
   email: yup.string().email().required()
 })
 export default function Signup() {
+  const { handleLogin } = useAuth()
   const {
     register,
     handleSubmit,
@@ -22,18 +24,15 @@ export default function Signup() {
     resolver: yupResolver(schema)
   })
   const [alert, setAlert] = useState(false)
+
   const onSubmit = (form: object) => {
     setAlert(true)
     setTimeout(() => {
       setAlert(false)
+      handleLogin()
     }, 5000)
-
-    console.log(form)
   }
-  useEffect(() => {
-    console.log(alert)
-  }, [alert])
-  console.log(alert)
+  useEffect(() => {}, [alert])
 
   return (
     <div className=" p-4 rounded-xl shadow-2xl w-full">
@@ -52,8 +51,7 @@ export default function Signup() {
             title="Correo enviado"
             description="Un correo electronico fue enviado, revisa tu correo para continuar con el proceso de registro"
             handleClose={() => setAlert(false)}
-            link='/set-password?token=123'
-            
+            link="/set-password?token=123"
           />
         </div>
       )}
@@ -76,7 +74,7 @@ export default function Signup() {
         </div>
 
         <div className="my-4 w-full">
-          <Button label="Enviar correo" fullWidth />
+          <Button label="Enviar correo" fullWidth type="submit" />
         </div>
       </form>
       <div className="flex flex-col items-center ">

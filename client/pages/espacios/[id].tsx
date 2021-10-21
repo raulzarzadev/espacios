@@ -1,6 +1,7 @@
 import { espacioType } from '@comps/Cards/EspacioCard'
 import FormEspacio from '@comps/Forms/FormEspacio'
 import Head from '@comps/Head'
+import RouteType from '@comps/HOCS/RouteType'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useState } from 'react'
@@ -20,18 +21,18 @@ export default function EspacioPage() {
     }
   }, [id, response])
 
-  
-
   return (
     <div className="">
       <Head title="Detalles | Espacio" />
-      <div className="max-w-lg mx-auto">
-        <FormEspacio
-          formTitle="Detalles de casa-123"
-          alreadyExist
-          espacio={espacio}
-        />
-      </div>
+      <RouteType type="private">
+        <div className="max-w-lg mx-auto">
+          <FormEspacio
+            formTitle="Detalles de casa-123"
+            alreadyExist
+            espacio={espacio}
+          />
+        </div>
+      </RouteType>
     </div>
   )
 }

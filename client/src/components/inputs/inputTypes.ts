@@ -35,11 +35,12 @@ export interface textAreaProps extends textProps {
 
 export interface buttonProps {
   label: string | boolean
-  variant?: string
+  variant?: 'primary' | 'secondary' | 'third' | 'outlined' | 'disabled' | 'link'
   size?: string
   fullWidth?: boolean
   iconOnly?: boolean
   icon?: ReactNode
   disabled?: boolean
+  type: 'submit' | 'button' | 'reset'
   onClick?: (parm: any) => void
 }

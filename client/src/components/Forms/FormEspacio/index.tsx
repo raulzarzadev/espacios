@@ -14,6 +14,7 @@ import FormTitleAndButton from '@comps/FormTitleAndButton'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -243,8 +244,17 @@ const DeleteButton = ({ espacio }: { espacio: any }) => {
   const handleOpenDelete = () => {
     setOpen(!open)
   }
+  const router = useRouter()
   const handleDelete = () => {
-    // axios.delete(`/api/espacios/${espacio.id}`)
+    axios
+      .delete(`/api/espacios/${espacio.id}`)
+      .then((res) => {
+        console.log(`res`, res)
+        setTimeout(() => {
+          router.replace('/espacios')
+        }, 300)
+      })
+      .catch((err) => console.log(`err`, err))
     console.log(`espacio`, espacio)
   }
   return (

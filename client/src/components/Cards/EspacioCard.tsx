@@ -8,7 +8,7 @@ export default function EspacioCard({ espacio }: { espacio: espacioType }) {
       <div className="relative min-w-[15rem] h-24  rounded-2xl flex shadow-xl hover:shadow-none active:opacity-90">
         <div className="relative w-2/6 h-full rounded-l-2xl">
           <Image
-            src={espacio?.images?.[0].href || testImage}
+            src={espacio?.images?.[0]?.href || testImage}
             className=" rounded-l-2xl"
             objectFit="cover"
             layout="fill"

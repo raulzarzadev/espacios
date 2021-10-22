@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@comps/*": ["src/components/*"],
-      "@redux/*": ["redux/*"]
+      "@redux/*": ["redux/*"],
+      "@backend/*": ["backend/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "jsconfig.json"],

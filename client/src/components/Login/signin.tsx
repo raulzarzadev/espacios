@@ -14,6 +14,7 @@ const schema = yup.object().shape({
 })
 
 export default function Signin() {
+  const { handleLogin } = useAuth()
   const {
     register,
     handleSubmit,
@@ -22,20 +23,17 @@ export default function Signin() {
     resolver: yupResolver(schema)
   })
   const onSubmit = (form: object) => {
-    console.log(form)
     setTimeout(() => {
       handleLogin()
     }, 400)
   }
 
-  const { handleLogin } = useAuth()
 
   return (
     <div className=" p-4 rounded-xl shadow-2xl">
       <div className="my-12 flex mx-auto justify-center text-3xl font-bold">
         {'< Logo />'}
       </div>
-      <div></div>
       <p className="w-4/5 mx-auto text-center my-4">
         Optimiza la gestión de espacios. Incrementa tus ganancias.
       </p>

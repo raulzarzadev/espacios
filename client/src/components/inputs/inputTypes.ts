@@ -43,4 +43,5 @@ export interface buttonProps {
   disabled?: boolean
   type: 'submit' | 'button' | 'reset'
   onClick?: (parm: any) => void
+  loading?: boolean
 }

@@ -8,7 +8,7 @@ export default function EspacioCard({ espacio }: { espacio: espacioType }) {
       <div className="relative min-w-[15rem] h-24  rounded-2xl flex shadow-xl hover:shadow-none active:opacity-90">
         <div className="relative w-2/6 h-full rounded-l-2xl">
           <Image
-            src={espacio.images[0].href || testImage}
+            src={espacio?.images?.[0].href || testImage}
             className=" rounded-l-2xl"
             objectFit="cover"
             layout="fill"
@@ -16,7 +16,7 @@ export default function EspacioCard({ espacio }: { espacio: espacioType }) {
           />
         </div>
         <div className="w-4/6 flex flex-col p-2">
-          <div className="text-sm font-bold my-1">{espacio.title}</div>
+          <div className="text-sm font-bold my-1">{espacio.name}</div>
           <div className="text-sm  opacity-50">{espacio.address}</div>
         </div>
       </div>
@@ -25,11 +25,14 @@ export default function EspacioCard({ espacio }: { espacio: espacioType }) {
 }
 export interface espacioType {
   id: string
-  title: string
+  name: string
   address: string
-  images: Array<imageType>
-  contracts: Array<contractsType>
+  images?: Array<imageType>
+  contracts?: Array<contractsType>
   services?: Array<string>
+  coments?: string
+  doorPassword?: string
+  advertLink?: string
 }
 
 export interface contractsType {

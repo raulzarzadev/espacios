@@ -9,15 +9,16 @@ export default function Button({
   iconOnly,
   icon,
   type = 'submit',
+  loading = false,
   ...rest
 }: buttonProps) {
   return (
     <button
       type={type}
-      disabled={disabled}
+      disabled={disabled && loading}
       className={`
               ${stylingButton[variant]} 
-              ${disabled && stylingButton.disabled}
+              ${(disabled && stylingButton.disabled) || loading}
               ${sizingButton[size]}
               ${iconOnly ? `rounded-full` : 'rounded-md min-w-[50px]'}
               ${fullWidth ? `w-full` : ` max-w-max`}
@@ -31,7 +32,9 @@ export default function Button({
           `}
       {...rest}
     >
-      {iconOnly ? (
+      {loading ? (
+        <Loading />
+      ) : iconOnly ? (
         <div className="">{icon}</div>
       ) : (
         <div className="flex justify-evenly items-center">
@@ -42,6 +45,11 @@ export default function Button({
     </button>
   )
 }
+const Loading = () => (
+  <div className="flex justify-center items-center">
+    <div className="border-4 rounded-full w-7 h-7 border-t-transparent animate-spin"></div>
+  </div>
+)
 export const sizingButton: sizingObject = {
   xs: `px-0.5 py-0.5`,
   sm: `px-1 py-1`,

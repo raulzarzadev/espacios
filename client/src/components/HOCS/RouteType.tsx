@@ -14,17 +14,14 @@ export default function RouteType({
   const {
     user: { isLoggedIn }
   } = useAuth()
-  const redirectToHome = () => {
-    router.replace('/')
-  }
 
   useEffect(() => {
     if (type === 'private') {
-      !isLoggedIn && redirectToHome()
+      isLoggedIn === false && router.replace('/')
     } else if (type === 'public') {
       // do noting ??
     } else if (type === 'not-logged-in') {
-      isLoggedIn && redirectToHome()
+      isLoggedIn && router.replace('/')
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

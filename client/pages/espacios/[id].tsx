@@ -2,6 +2,7 @@ import { espacioType } from '@comps/Cards/EspacioCard'
 import FormEspacio from '@comps/Forms/FormEspacio'
 import Head from '@comps/Head'
 import RouteType from '@comps/HOCS/RouteType'
+import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useState } from 'react'
@@ -12,25 +13,31 @@ export default function EspacioPage() {
   const {
     query: { id }
   } = router
-  const { response, loading, error } = useAxios({ url: `/api/espacios/${id}` })
   const [espacio, setEspacio] = useState<espacioType | null>(null)
 
   useEffect(() => {
-    if (response) {
-      setEspacio(response)
+    if (id) {
+      axios
+        .get(`/api/espacios/${id}`)
+        .then((res) => setEspacio(res.data))
+        .catch((err) => console.log(err))
     }
-  }, [id, response])
+  }, [id])
 
   return (
     <div className="">
       <Head title="Detalles | Espacio" />
       <RouteType type="private">
         <div className="max-w-lg mx-auto">
-          <FormEspacio
-            formTitle="Detalles de casa-123"
-            alreadyExist
-            espacio={espacio}
-          />
+          {espacio ? (
+            <FormEspacio
+              formTitle="Detalles de casa-123"
+              alreadyExist
+              espacio={espacio}
+            />
+          ) : (
+            <div>Loading...</div>
+          )}
         </div>
       </RouteType>
     </div>

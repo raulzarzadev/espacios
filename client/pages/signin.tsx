@@ -1,5 +1,4 @@
 import Head from '@comps/Head'
-import PrivateRoute from '@comps/HOCS/PrivateRoute'
 import RouteType from '@comps/HOCS/RouteType'
 import Signin from '@comps/Login/signin'
 

@@ -10,7 +10,8 @@ export default function Modal({
   continueButton,
   cancelButton,
   onContinue = () => {},
-  onCancel = () => {}
+  onCancel = () => {},
+  continueButtonVariant = 'primary'
 }: Modal) {
   const [open, setOpen] = useState(false)
   const [opacity, setOpacity] = useState(false)
@@ -64,6 +65,7 @@ export default function Modal({
               <div className="flex justify-center pt-2 space-x-14">
                 {cancelButton && (
                   <Button
+                    type="button"
                     label={'Cancelar'}
                     variant="outlined"
                     onClick={() => {
@@ -74,6 +76,8 @@ export default function Modal({
                 )}
                 {continueButton && (
                   <Button
+                    type="button"
+                    variant={continueButtonVariant}
                     //className="px-4 bg-blue-500 p-3 ml-3 rounded-lg  hover:bg-teal-400"
                     label={continueButton || 'Continuar'}
                     onClick={() => {
@@ -96,8 +100,9 @@ interface Modal {
   openProps: object
   children: ReactNode
   title: string
-  continueButton?: boolean |string
+  continueButton?: boolean | string
   cancelButton?: boolean | string
   onContinue?: any
   onCancel?: any
+  continueButtonVariant?: 'primary' | 'secondary' | 'third'
 }

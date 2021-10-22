@@ -6,17 +6,14 @@ import Counter from '@comps/inputs/Counter'
 import Text from '@comps/inputs/Text'
 import TextArea from '@comps/inputs/TextArea'
 import Modal from '@comps/modals'
-import router from 'next/router'
-import { useEffect } from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import ContractsSection from './ContractsSection'
 import ImagesSection from './ImagesSection'
 import FormTitleAndButton from '@comps/FormTitleAndButton'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import ServiceCard from '@comps/Cards/ServiceCard'
+import axios from 'axios'
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -33,27 +30,36 @@ export default function FormEspacio({
     register,
     formState: { errors }
   } = useForm({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
+    defaultValues: espacio
   })
 
-  const [form, setForm] = useState<espacioType>({
-    contracts: [],
-    images: [],
-    title: '',
-    id: '',
-    address: '',
-    services: []
-  })
-  useEffect(() => {
-    if (espacio) {
-      setForm(espacio)
+  const onSubmit = async (data: any) => {
+    console.log('data', data)
+    setSaveLoading(true)
+    if (data.id) {
+      await axios
+        .post(`/api/espacios/${data.id}/edit`, data)
+        .then((res) => {})
+        .catch((err) => {
+          false
+          console.log(err)
+        })
+    } else {
+      await axios
+        .post('/api/espacios/new', data)
+        .then((res) => {})
+        .catch((err) => {
+          false
+          console.log(err)
+        })
     }
-  }, [espacio])
-  const onSubmit = () => {
-    console.log(form)
+    setSaveLoading(false)
   }
 
-  const { contracts, images } = form
+  const [saveLoading, setSaveLoading] = useState(false)
+
+  // const { contracts, images } = form
   return (
     <div className="w-full max-w-full ">
       <section className="sticky top-0 left-0 right-0 bg-white-light z-10   ">
@@ -61,6 +67,7 @@ export default function FormEspacio({
           title="Nuevo espacio"
           label="Guardar"
           onClick={handleSubmit(onSubmit)}
+          loading={saveLoading}
         />
 
         {/* -----form navigation ----- */}
@@ -113,8 +120,8 @@ export default function FormEspacio({
             </div>
             <div className="my-2">
               <Text
-                {...register('password')}
-                errorText={errors?.password && errors.password.message}
+                {...register('doorPassword')}
+                errorText={errors?.doorPassword && errors.doorPassword.message}
                 helperText=""
                 placeholder="Clave de entrada"
                 fullWidth
@@ -151,13 +158,14 @@ export default function FormEspacio({
         {/* -----form Servicios ----- */}
 
         <section id="services" className="flex w-full">
-          <div className="w-full">
+          {/*   <div className="w-full">
             <h3 className="font-bold">Servicios</h3>
             {form?.services?.map((id) => (
               <ServiceCard key={id} service={{ id }} />
             ))}
             <div className="flex w-full justify-center my-4">
               <Button
+                type="button"
                 label="Agregar Servicio"
                 onClick={() =>
                   router.push(
@@ -166,7 +174,7 @@ export default function FormEspacio({
                 }
               />
             </div>
-          </div>
+          </div> */}
         </section>
         <section id="areas" className="flex w-full">
           <div className="w-full">
@@ -213,7 +221,16 @@ export default function FormEspacio({
         <section id="contract" className="flex w-full">
           <div className="w-full">
             <h3 className="font-bold">Contratos</h3>
-            <ContractsSection contracts={contracts} />
+            {/* <ContractsSection contracts={contracts} /> */}
+          </div>
+        </section>
+        <section id="contract" className="flex w-full">
+          <div className="w-full">
+            <h3 className="font-bold">Configuración</h3>
+
+            <DeleteButton espacio={espacio} />
+
+            {/* <ContractsSection contracts={contracts} /> */}
           </div>
         </section>
       </section>
@@ -221,8 +238,40 @@ export default function FormEspacio({
   )
 }
 
+const DeleteButton = ({ espacio }: { espacio: any }) => {
+  const [open, setOpen] = useState(false)
+  const handleOpenDelete = () => {
+    setOpen(!open)
+  }
+  const handleDelete = () => {
+    // axios.delete(`/api/espacios/${espacio.id}`)
+    console.log(`espacio`, espacio)
+  }
+  return (
+    <div>
+      <Modal
+        OpenComponent={Button}
+        openProps={{
+          fullWidth: true,
+          label: 'Eliminar',
+          variant: 'secondary',
+          type: 'button',
+          onClick: { handleOpenDelete }
+        }}
+        title="Eliminar espacio"
+        onContinue={handleDelete}
+        continueButton="Eliminar"
+        cancelButton="Cancelar"
+        continueButtonVariant="secondary"
+      >
+        <div>Eliminar este espacio</div>
+      </Modal>
+    </div>
+  )
+}
+
 interface espacioForm {
   formTitle: string
   alreadyExist?: boolean
-  espacio?: espacioType | null
+  espacio?: espacioType
 }

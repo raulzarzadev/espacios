@@ -8,19 +8,18 @@ import { useEffect } from 'react'
 import router from 'next/router'
 import useAxios from 'src/hooks/useAxios'
 import { useState } from 'react'
+import axios from 'axios'
 
 export default function Espacios() {
-  const { response, loading, error } = useAxios({
-    url: '/api/espacios'
-  })
-  const [espacios, setEspacios] = useState<Array<espacioType>| null>([])
+  const [espacios, setEspacios] = useState<Array<espacioType> | null>([])
   useEffect(() => {
-    if (response) {
-      setEspacios(response)
-    }
-  }, [response])
+    axios
+      .get('api/espacios')
+      .then(({ data }) => setEspacios(data))
+      .catch((err) => console.log(err))
+  }, [])
 
-  if (error) console.log(error)
+
   return (
     <div className="relative grid gap-2 sm:p-4 max-w-lg mx-auto  ">
       <div className=" sticky bg-white-light  z-10 left-0 right-0 top-0">
@@ -28,6 +27,7 @@ export default function Espacios() {
           <h3 className="font-bold text-2xl text-center w-full ">Espacios</h3>
           <div className="min-w-[7rem]">
             <Button
+              type="button"
               label="Agregar"
               size="sm"
               fullWidth
@@ -52,7 +52,6 @@ export default function Espacios() {
       {espacios?.map((espacio) => (
         <EspacioCard espacio={espacio} key={espacio.id} />
       ))}
-      
     </div>
   )
 }

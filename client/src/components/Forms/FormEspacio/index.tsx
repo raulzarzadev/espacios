@@ -2,7 +2,6 @@ import AddSquare from '@comps/AddSquare'
 import { espacioType } from '@comps/Cards/EspacioCard'
 import ContextualMenu from '@comps/ContextualMenu'
 import Button from '@comps/inputs/Button'
-import Counter from '@comps/inputs/Counter'
 import Text from '@comps/inputs/Text'
 import TextArea from '@comps/inputs/TextArea'
 import Modal from '@comps/modals'
@@ -15,6 +14,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import Counter from '@comps/inputs/Counter2'
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -29,7 +29,8 @@ export default function FormEspacio({
   const {
     handleSubmit,
     register,
-    formState: { errors }
+    formState: { errors },
+    watch
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: espacio
@@ -142,7 +143,7 @@ export default function FormEspacio({
 
           <label className="flex mx-auto">
             <span className="mr-2">Huespedes</span>
-            <Counter />
+            <Counter {...register('guests')} />
           </label>
 
           <div>

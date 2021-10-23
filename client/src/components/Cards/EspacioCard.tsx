@@ -33,6 +33,7 @@ export interface espacioType {
   coments?: string
   doorPassword?: string
   advertLink?: string
+  guests?: number
 }
 
 export interface contractsType {

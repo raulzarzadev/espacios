@@ -19,7 +19,8 @@ const espacio = new Schema({
   coments: String,
   doorPassword: String,
   advertLink: String,
-  guests: Number
+  guests: Number,
+  trashDays: Array
 })
 
 mongoose.models = {}

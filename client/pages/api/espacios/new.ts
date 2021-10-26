@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { ESPACIOS } from '../HARD_DATA'
 import connectDB from '../../../backend/middlewares/mongodb'
 import Espacio from '../../../backend/models/espacio'
-
+import formatEspacio from 'backend/utils/formatEspacio'
 async function newEspacio(
   req: NextApiRequest,
   res: NextApiResponse<Array<espacioType>>,
@@ -13,7 +13,7 @@ async function newEspacio(
   try {
     const espacio = req.body
     const newEspacio = await Espacio.create(espacio)
-    res.status(201).json(newEspacio)
+    res.status(201).json(formatEspacio(newEspacio))
   } catch (error) {
     next(error)
   }

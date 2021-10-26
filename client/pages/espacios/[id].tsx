@@ -28,17 +28,15 @@ export default function EspacioPage() {
     <div className="">
       <Head title="Detalles | Espacio" />
       <RouteType type="private">
-        <div className="max-w-lg mx-auto">
-          {espacio ? (
-            <FormEspacio
-              formTitle="Detalles de casa-123"
-              alreadyExist
-              espacio={espacio}
-            />
-          ) : (
-            <div>Loading...</div>
-          )}
-        </div>
+        {espacio ? (
+          <FormEspacio
+            formTitle="Detalles de casa-123"
+            alreadyExist
+            espacio={espacio}
+          />
+        ) : (
+          <div>Loading...</div>
+        )}
       </RouteType>
     </div>
   )

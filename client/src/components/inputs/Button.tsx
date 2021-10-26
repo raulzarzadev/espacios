@@ -15,7 +15,7 @@ export default function Button({
   return (
     <button
       type={type}
-      disabled={disabled && loading}
+      disabled={disabled || loading}
       className={`
               ${stylingButton[variant]} 
               ${(disabled && stylingButton.disabled) || loading}

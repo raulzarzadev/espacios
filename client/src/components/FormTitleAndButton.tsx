@@ -5,7 +5,8 @@ export default function FormTitleAndButton({
   label = '',
   title = '',
   onClick = () => {},
-  loading = false
+  loading = false,
+  disabled=false,
 }) {
   return (
     <div className="">
@@ -13,6 +14,7 @@ export default function FormTitleAndButton({
         <h3 className="flex w-full text-3xl ">{title}</h3>
         <div>
           <Button
+          disabled={disabled}
             loading={loading}
             type="button"
             label={label}

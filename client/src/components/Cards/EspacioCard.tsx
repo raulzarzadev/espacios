@@ -34,6 +34,7 @@ export interface espacioType {
   doorPassword?: string
   advertLink?: string
   guests?: number
+  trashDays?: Array<Number>
 }
 
 export interface contractsType {

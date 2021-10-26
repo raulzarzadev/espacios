@@ -15,6 +15,7 @@ import * as yup from 'yup'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import Counter from '@comps/inputs/Counter2'
+import LocationSection from './LocationSection'
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -148,7 +149,8 @@ export default function FormEspacio({
 
           <div>
             <h4>Ubicación</h4>
-            <div className="h-16 w-full bg-white-dark"></div>
+              <LocationSection />
+            
           </div>
 
           {/*  <Text placeholder="Tipo de espacio" />

@@ -1,18 +1,10 @@
-import {
-  withScriptjs,
-  withGoogleMap,
-  GoogleMap,
-  Marker
-} from 'react-google-maps'
-
-const SelectLocation = withScriptjs(
-  withGoogleMap((props) => (
-    <GoogleMap defaultZoom={8} defaultCenter={{ lat: -34.397, lng: 150.644 }}>
-      {props.isMarkerShown && (
-        <Marker position={{ lat: -34.397, lng: 150.644 }} />
-      )}
-    </GoogleMap>
-  ))
-)
-
-export default SelectLocation
+export default function SelectLocation() {
+  return (
+    <div className="">
+      <div className="h-16 w-full bg-white-dark">
+        Mpas
+      </div>
+    </div>
+  )
+}
+x

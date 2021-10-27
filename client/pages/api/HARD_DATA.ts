@@ -3,7 +3,7 @@ import { testImage } from 'src/assets/images'
 export const ESPACIOS = [
   {
     id: '1',
-    title: 'Titulo del espacio #1',
+    name: 'Titulo del espacio #1',
     address: 'Dirección cerrada #1415, El Manglito, La Paz, BCS, 23060',
     contracts: [
       {
@@ -32,7 +32,7 @@ export const ESPACIOS = [
   },
   {
     id: '2',
-    title: 'Titulo del espacio #2ddsda',
+    name: 'Titulo del espacio #2ddsda',
     address: 'Dirección cerrada #1415, El Manglito, La Paz, BCS, 23060',
     contracts: [
       {
@@ -60,7 +60,7 @@ export const ESPACIOS = [
   },
   {
     id: '3',
-    title: 'Titulo del espacio #qwe3',
+    name: 'Titulo del espacio #qwe3',
     address: 'Dirección cerrada #1415, El Manglito, La Paz, BCS, 23060',
     contracts: [
       {

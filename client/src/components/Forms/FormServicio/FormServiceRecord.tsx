@@ -78,7 +78,7 @@ const FormServiceRecord = ({ record }: { record?: recordType }) => {
           fullWidth
         />
         <div className="flex justify-center w-full">
-          <Button label={buttonLabel} />
+          <Button label={buttonLabel} type="submit" />
         </div>
       </form>
     </div>

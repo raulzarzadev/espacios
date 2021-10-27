@@ -20,6 +20,6 @@
       "@backend/*": ["backend/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "jsconfig.json"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "jsconfig.json"],
   "exclude": ["node_modules"]
 }

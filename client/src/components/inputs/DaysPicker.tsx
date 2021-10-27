@@ -1,12 +1,12 @@
-import axios from 'axios'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { string } from 'yup/lib/locale'
 
 export default function DaysPicker({
-  defaultDays = [1, 3],
-  handleChange = (field: string, value: any) => {},
-  espacioId = ''
+  defaultDays,
+  handleChange = () => {}
+}: {
+  defaultDays?: any
+  handleChange?: (field: string, value: any) => void
 }) {
   const days = [
     { label: 'Do', value: 0 },
@@ -20,7 +20,7 @@ export default function DaysPicker({
   const [selectedDays, setSelectedDays] = useState(defaultDays)
   const handleClickDay = (day: number) => {
     if (selectedDays.includes(day)) {
-      setSelectedDays(selectedDays.filter((d) => d !== day))
+      setSelectedDays(selectedDays.filter((d: any) => d !== day))
     } else {
       setSelectedDays([...selectedDays, day])
     }

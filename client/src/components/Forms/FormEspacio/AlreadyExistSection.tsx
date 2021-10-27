@@ -1,11 +1,7 @@
 import { espacioType } from '@comps/Cards/EspacioCard'
-import Button from '@comps/inputs/Button'
-import Counter from '@comps/inputs/Counter'
 import DaysPicker from '@comps/inputs/DaysPicker'
-import Modal from '@comps/modals'
 import DeleteEspacioModal from './DeleteEspacioModal'
 import FormSection from './FormSection'
-import LocationSection from './LocationSection'
 
 export default function AlreadyExistSection({
   espacio,
@@ -17,7 +13,7 @@ export default function AlreadyExistSection({
   return (
     <div>
       <FormSection title="Dias de basura" id="basura">
-        <DaysPicker espacioId={espacio?.id} defaultDays={espacio?.trashDays} handleChange={handleChange} />
+        <DaysPicker  defaultDays={espacio?.trashDays} handleChange={handleChange} />
       </FormSection>
       <FormSection title="Ubicacion" id="location">
         <div></div>

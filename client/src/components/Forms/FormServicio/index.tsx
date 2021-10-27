@@ -132,7 +132,7 @@ export default function FormService({ service }: { service?: object | null }) {
         </div>
         <div className=" grid gap-4">
           <label className="flex flex-col w-full justify-center">
-            <Button label="Archivos" fullWidth disabled />
+            <Button label="Archivos" fullWidth disabled type="button" />
             <input
               disabled
               type="file"

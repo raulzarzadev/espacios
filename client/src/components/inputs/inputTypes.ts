@@ -41,7 +41,7 @@ export interface buttonProps {
   iconOnly?: boolean
   icon?: ReactNode
   disabled?: boolean
-  type: 'submit' | 'button' | 'reset'
+  type?: 'submit' | 'button' | 'reset'
   onClick?: (parm: any) => void
   loading?: boolean
 }

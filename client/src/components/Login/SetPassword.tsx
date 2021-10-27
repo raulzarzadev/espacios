@@ -75,7 +75,7 @@ export default function SetPassword() {
           />
         </div>
         <div className="my-4 w-full">
-          <Button label="Confirmar password" fullWidth />
+          <Button label="Confirmar password" fullWidth  type='submit'/>
         </div>
       </form>
       <div className="flex flex-col items-center ">

@@ -5,7 +5,6 @@ import Button from '@comps/inputs/Button'
 import Text from '@comps/inputs/Text'
 import TextArea from '@comps/inputs/TextArea'
 import Modal from '@comps/modals'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import ImagesSection from './ImagesSection'
 import FormTitleAndButton from '@comps/FormTitleAndButton'
@@ -15,8 +14,6 @@ import * as yup from 'yup'
 import axios from 'axios'
 import router, { useRouter } from 'next/router'
 import Counter from '@comps/inputs/Counter2'
-import LocationSection from './LocationSection'
-import DaysPicker from '@comps/inputs/DaysPicker'
 import AlreadyExistSection from './AlreadyExistSection'
 import FormSection from './FormSection'
 
@@ -66,7 +63,7 @@ export default function FormEspacio({
   console.log(isDirty)
 
   const handleChange = (field: any, value: any) => {
-    setValue(field, value, { shouldValidate: true, shouldDirty: true })
+    // setValue(field, value, {  shouldDirty: true })
   }
 
   // const { contracts, images } = form
@@ -93,13 +90,12 @@ export default function FormEspacio({
       </section>
       {/* -----Form------  */}
 
-      <section className="grid p-4 pt-0 gap-2 max-w-lg mx-auto">
-        {/* -----form images ----- */}
-        <h3 className="font-bold">Imagenes</h3>
+      {/* -----form images ----- */}
+      <FormSection title="Imagenes" id="images">
         <ImagesSection />
 
         {/* -----form espacios ----- */}
-      </section>
+      </FormSection>
       <FormSection id="espacios" title="Espacio">
         <form>
           <div className="my-2">

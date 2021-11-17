@@ -24,6 +24,8 @@ export interface textProps {
   placeholder?: string
   value?: string | number
   type?: string
+  name?: string
+  onChange: (param: any) => void
 }
 export interface selectProps extends textProps {
   options: Array<selectOption>

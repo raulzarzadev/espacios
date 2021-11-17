@@ -1,10 +1,7 @@
-import AddSquare from '@comps/AddSquare'
 import { espacioType } from '@comps/Cards/EspacioCard'
 import ContextualMenu from '@comps/ContextualMenu'
-import Button from '@comps/inputs/Button'
 import Text from '@comps/inputs/Text'
 import TextArea from '@comps/inputs/TextArea'
-import Modal from '@comps/modals'
 import { useForm } from 'react-hook-form'
 import ImagesSection from './ImagesSection'
 import FormTitleAndButton from '@comps/FormTitleAndButton'
@@ -16,6 +13,7 @@ import router, { useRouter } from 'next/router'
 import Counter from '@comps/inputs/Counter2'
 import AlreadyExistSection from './AlreadyExistSection'
 import FormSection from './FormSection'
+import { images } from 'next.config'
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -60,7 +58,6 @@ export default function FormEspacio({
         })
     }
   }
-  console.log(isDirty)
 
   const handleChange = (field: any, value: any) => {
     // setValue(field, value, {  shouldDirty: true })
@@ -92,7 +89,7 @@ export default function FormEspacio({
 
       {/* -----form images ----- */}
       <FormSection title="Imagenes" id="images">
-        <ImagesSection />
+        <ImagesSection espacioId={espacio.id} />
 
         {/* -----form espacios ----- */}
       </FormSection>

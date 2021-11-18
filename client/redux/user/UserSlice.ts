@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { signInWithEmail, singupWithEmail } from '@fb/client'
+import { createSlice } from '@reduxjs/toolkit'
 
 export interface UserState {
   isLoggedIn: any
@@ -11,8 +12,15 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    signin: (state) => {
-      state.isLoggedIn = true
+    signup: (state, { payload }) => {
+      singupWithEmail(payload)
+        .then((res) => {
+          state.isLoggedIn = true
+        })
+        .catch((err) => console.log(`err`, err))
+    },
+    signin: (state, { payload }) => {
+      signInWithEmail(payload)
     },
     signout: (state) => {
       state.isLoggedIn = false
@@ -20,6 +28,6 @@ export const userSlice = createSlice({
   }
 })
 
-export const { signin, signout } = userSlice.actions
+export const { signin, signout, signup } = userSlice.actions
 
 export default userSlice.reducer

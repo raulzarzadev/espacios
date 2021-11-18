@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "es6",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -15,11 +19,28 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@comps/*": ["src/components/*"],
-      "@redux/*": ["redux/*"],
-      "@backend/*": ["backend/*"]
+      "@fb/*": [
+        "firebase/*"
+      ],
+      "@comps/*": [
+        "src/components/*"
+      ],
+      "@redux/*": [
+        "redux/*"
+      ],
+      "@backend/*": [
+        "backend/*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "jsconfig.json"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "jsconfig.json"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

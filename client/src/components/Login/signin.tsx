@@ -24,7 +24,7 @@ export default function Signin() {
   })
   const onSubmit = (form: object) => {
     setTimeout(() => {
-      handleLogin()
+      handleLogin(form)
     }, 400)
   }
 

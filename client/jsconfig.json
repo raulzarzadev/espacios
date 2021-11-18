@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@fb/*": ["firebase/**/*"],
       "@comps/*": ["src/components/*"],
       "@redux/*": ["redux/*"],
       "@backend/*": ["backend/*"]

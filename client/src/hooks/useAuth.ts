@@ -1,27 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@redux/store'
-import { signin, signout } from '@redux/user/UserSlice'
-import { useEffect } from 'react'
-import { useLocalStorage } from './useLocalStorage'
+import { signin, signout, signup } from '@redux/user/UserSlice'
 
 export default function useAuth() {
   const dispatch = useDispatch()
-  const [isLoggedIn, setIsLoggedIn] = useLocalStorage('isLoggedIn', undefined)
+
   const userStatus = useSelector((state: RootState) => state.user)
-  const handleLogin = () => {
-    setIsLoggedIn(true)
+  console.log(`userStatus`, userStatus)
+
+  const signupWithEmail = (form: any) => {
+    dispatch(signup(form))
+  }
+  const handleLogin = (form: any) => {
+    dispatch(signin(form))
   }
   const handleLogout = () => {
-    setIsLoggedIn(false)
     dispatch(signout())
   }
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      dispatch(signin())
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn])
-
-  return { handleLogin, handleLogout, user: userStatus }
+  return { handleLogin, handleLogout, signupWithEmail, user: userStatus }
 }

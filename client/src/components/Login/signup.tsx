@@ -15,7 +15,7 @@ const schema = yup.object().shape({
   email: yup.string().email().required()
 })
 export default function Signup() {
-  const { handleLogin } = useAuth()
+  const { signupWithEmail } = useAuth()
   const {
     register,
     handleSubmit,
@@ -27,9 +27,9 @@ export default function Signup() {
 
   const onSubmit = (form: object) => {
     setAlert(true)
+    signupWithEmail(form)
     setTimeout(() => {
       setAlert(false)
-      handleLogin()
     }, 5000)
   }
   useEffect(() => {}, [alert])
@@ -69,6 +69,15 @@ export default function Signup() {
             placeholder="correo"
             errorText={errors?.email?.message}
             helperText="Recibiras un correo para continuar"
+            fullWidth
+          />
+        </div>
+        <div className="my-2 w-full">
+          <Text
+            {...register('password')}
+            placeholder="Contraseña"
+            errorText={errors?.email?.message}
+            //helperText="Recibiras un correo para continuar"
             fullWidth
           />
         </div>

@@ -1,12 +1,18 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@redux/store'
-import { signin, signout, signup } from '@redux/user/UserSlice'
-
+import { signup, signin, login, signout } from '@redux/user/UserSlice'
+// import { userStatus } from '@fb/client'
+import { useEffect, useState } from 'react'
+import { logout, userStatus } from '@fb/client'
 export default function useAuth() {
   const dispatch = useDispatch()
+  const userState = useSelector((state: RootState) => state.user)
 
-  const userStatus = useSelector((state: RootState) => state.user)
-  console.log(`userStatus`, userStatus)
+  useEffect(() => {
+    userStatus((user) => {
+      dispatch(login(user))
+    })
+  }, [])
 
   const signupWithEmail = (form: any) => {
     dispatch(signup(form))
@@ -15,8 +21,8 @@ export default function useAuth() {
     dispatch(signin(form))
   }
   const handleLogout = () => {
-    dispatch(signout())
+    logout()
   }
 
-  return { handleLogin, handleLogout, signupWithEmail, user: userStatus }
+  return { handleLogin, handleLogout, signupWithEmail, user: userState }
 }

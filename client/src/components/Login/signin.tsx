@@ -23,9 +23,8 @@ export default function Signin() {
     resolver: yupResolver(schema)
   })
   const onSubmit = (form: object) => {
-    setTimeout(() => {
+   
       handleLogin(form)
-    }, 400)
   }
 
 

@@ -21,11 +21,33 @@ const app = initializeApp(firebaseConfig)
 const db = getFirestore()
 
 const auth = getAuth()
+const normalizeUser = (data) => {
+  const {
+    email,
+    emailVerified,
+    accessToken,
+    uid: id,
+    phoneNumber,
+    photoURL,
+    displayName
+  } = data
+
+  return {
+    email,
+    emailVerified,
+    accessToken,
+    uid: id,
+    phoneNumber,
+    photoURL,
+    displayName
+  }
+}
 
 export const userStatus = (callback = (user) => console.log(`user`, user)) => {
   onAuthStateChanged(auth, (user) => {
+    
     if (user) {
-      callback(user)
+      callback(normalizeUser(user))
     } else {
       callback(null)
     }
@@ -45,10 +67,11 @@ export const singupWithEmail = async ({ email, password }) => {
 }
 
 export const signInWithEmail = async ({ email, password }) => {
-  
-   signInWithEmailAndPassword({ email, password })
+  signInWithEmailAndPassword(auth, email, password)
     .then((res) => {
-      callback(res)
+     // console.log(`normalizeUser(res)`, normalizeUser(res))
+      console.log(`res`, res)
+      // callback(res)
     })
     .catch((err) => console.log(`err`, err))
 }

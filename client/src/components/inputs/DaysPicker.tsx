@@ -38,7 +38,7 @@ export default function DaysPicker({
           <button
             key={day.value}
             className={`w-10 h-10 flex items-center justify-center rounded-md shadow-lg 
-            ${selectedDays.includes(day.value) && `bg-third`}
+            ${selectedDays?.includes(day.value) && `bg-third`}
             `}
             onClick={() => handleClickDay(day.value)}
           >

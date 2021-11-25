@@ -8,12 +8,14 @@ import FormTitleAndButton from '@comps/FormTitleAndButton'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import axios from 'axios'
-import router, { useRouter } from 'next/router'
 import Counter from '@comps/inputs/Counter2'
 import AlreadyExistSection from './AlreadyExistSection'
 import FormSection from './FormSection'
-import { images } from 'next.config'
+import { createEspacio, updateEspacio } from '@fb/espacios'
+import { useSelector } from 'react-redux'
+import { RootState } from '@redux/store'
+import { useRouter } from 'next/router'
+import ROUTES from 'src/CONSTANTS/ROUTES'
 
 const schema = yup.object().shape({
   name: yup.string().required(),
@@ -35,27 +37,19 @@ export default function FormEspacio({
     resolver: yupResolver(schema),
     defaultValues: espacio
   })
+  const router = useRouter()
+  const { user } = useSelector((state: RootState) => state.user)
   const onSubmit = async (data: any) => {
-    console.log('data', data)
-
-    if (data.id) {
-      await axios
-        .put(`/api/espacios/${data.id}`, data)
+    if (!data?.id) {
+      createEspacio(user?.id, data)
         .then((res) => {
-          router.push(`/espacios/${data.id}`)
+          if (res.ok) {
+            router.push(ROUTES.espacios.details(res.res.id))
+          }
         })
-        .catch((err) => {
-          console.log(err)
-        })
+        .catch((err) => console.log(`err`, err))
     } else {
-      await axios
-        .post('/api/espacios/new', data)
-        .then(({ data }) => {
-          router.push(`/espacios/${data.id}`)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+      updateEspacio(data.id, data)
     }
   }
 
@@ -89,7 +83,7 @@ export default function FormEspacio({
 
       {/* -----form images ----- */}
       <FormSection title="Imagenes" id="images">
-        <ImagesSection espacioId={espacio.id} />
+        <ImagesSection espacioId={espacio?.id} />
 
         {/* -----form espacios ----- */}
       </FormSection>

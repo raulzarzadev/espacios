@@ -6,19 +6,22 @@ import Text from '@comps/inputs/Text'
 import Modal from '@comps/modals'
 import { useEffect } from 'react'
 import router from 'next/router'
-import useAxios from 'src/hooks/useAxios'
 import { useState } from 'react'
-import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@redux/store'
+import { getEspacios } from '@redux/espacios/EspaciosSlice'
 
 export default function Espacios() {
-  const [espacios, setEspacios] = useState<Array<espacioType> | null>([])
+  // const [espacios, setEspacios] = useState<Array<espacioType> | null>([])
+  const { list: espacios } = useSelector((state: RootState) => state.espacios)
+  const { user } = useSelector((state: RootState) => state.user)
+  const dispatch = useDispatch()
   useEffect(() => {
-    axios
-      .get('api/espacios')
-      .then(({ data }) => setEspacios(data))
-      .catch((err) => console.log(err))
-  }, [])
-
+    if (user?.id) {
+      dispatch(getEspacios(user?.id))
+    }
+  }, [dispatch, user?.id])
+  console.log(`espacios`, espacios)
 
   return (
     <div className="relative grid gap-2 sm:p-4 max-w-lg mx-auto  ">
@@ -50,7 +53,7 @@ export default function Espacios() {
         </div>
       </div>
       {espacios?.map((espacio) => (
-        <EspacioCard espacio={espacio} key={espacio.id} />
+        <EspacioCard  espacio={espacio} key={espacio.name} />
       ))}
     </div>
   )

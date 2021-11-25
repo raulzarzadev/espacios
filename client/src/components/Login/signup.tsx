@@ -5,7 +5,6 @@ import Text from '@comps/inputs/Text'
 import Link from '@comps/Link'
 
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useEffect } from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import useAuth from 'src/hooks/useAuth'
@@ -32,7 +31,6 @@ export default function Signup() {
       setAlert(false)
     }, 5000)
   }
-  useEffect(() => {}, [alert])
 
   return (
     <div className=" p-4 rounded-xl shadow-2xl w-full">

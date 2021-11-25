@@ -8,7 +8,14 @@ import {
 } from 'firebase/auth'
 import 'firebase/storage'
 import { initializeApp } from 'firebase/app'
-import { getFirestore, collection, addDoc } from 'firebase/firestore'
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  setDoc,
+  doc,
+  getDoc
+} from 'firebase/firestore'
 
 import {
   datesToFirebaseFromat,
@@ -18,36 +25,15 @@ import {
 } from './firebase-helpers'
 const firebaseConfig = JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_CONFIG)
 const app = initializeApp(firebaseConfig)
-const db = getFirestore()
+export const db = getFirestore()
 
 const auth = getAuth()
-const normalizeUser = (data) => {
-  const {
-    email,
-    emailVerified,
-    accessToken,
-    uid: id,
-    phoneNumber,
-    photoURL,
-    displayName
-  } = data
-
-  return {
-    email,
-    emailVerified,
-    accessToken,
-    uid: id,
-    phoneNumber,
-    photoURL,
-    displayName
-  }
-}
 
 export const userStatus = (callback = (user) => console.log(`user`, user)) => {
-  onAuthStateChanged(auth, (user) => {
-    
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
-      callback(normalizeUser(user))
+      const db_user = await getUser(user.uid)
+      callback({ ...db_user })
     } else {
       callback(null)
     }
@@ -61,7 +47,7 @@ export const singupWithEmail = async ({ email, password }) => {
     password
   )
   const user = userCredential.user
-  const newUser = { email: user.email }
+  const newUser = { email: user.email, id: user.uid }
   const userCrated = await createNewUser(newUser)
   return userCrated
 }
@@ -69,8 +55,7 @@ export const singupWithEmail = async ({ email, password }) => {
 export const signInWithEmail = async ({ email, password }) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((res) => {
-     // console.log(`normalizeUser(res)`, normalizeUser(res))
-      console.log(`res`, res)
+      // console.log(`normalizeUser(res)`, normalizeUser(res))
       // callback(res)
     })
     .catch((err) => console.log(`err`, err))
@@ -85,27 +70,24 @@ export const logout = () => {
 /* -------------------- */
 
 const getUser = async (userId) => {
-  return await db
-    .collection('users')
-    .doc(userId)
-    .get()
-    .then(normalizeDoc)
-    .catch((err) => {
-      formatResponse(false, 'ERROR_USER', err)
-    })
+  const docRef = doc(db, 'users', userId)
+  const docSnap = await getDoc(docRef)
 
-  // return res.data()
+  if (docSnap.exists()) {
+    return docSnap.data()
+  } else {
+    // doc.data() will be undefined in this case
+    console.log('No such document!')
+  }
 }
 
 const createNewUser = async (user) => {
-  console.log(`user`, user)
-  return addDoc(collection(db, 'users'), user)
-    .then((res) => {
-      return { id: res.id, ...user }
-    })
-    .catch((err) => console.log(`err`, err))
+  const usersRef = collection(db, 'users')
+  return setDoc(doc(usersRef, user.id), user)
+    .then((res) => formatResponse(true, 'USER_CREATED', res))
+    .catch((err) => formatResponse(false, 'ERROR_USER_CREATED', err))
 }
-
+/* 
 export const updateUser = async (user) => {
   const eventRef = db.collection('users').doc(user.id)
   const datesInFirebaseFormat = datesToFirebaseFromat(user)
@@ -119,3 +101,4 @@ export const updateUser = async (user) => {
     return formatResponse(false, 'UPDATE_ERROR', err)
   }
 }
+ */

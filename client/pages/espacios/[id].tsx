@@ -2,10 +2,12 @@ import { espacioType } from '@comps/Cards/EspacioCard'
 import FormEspacio from '@comps/Forms/FormEspacio'
 import Head from '@comps/Head'
 import RouteType from '@comps/HOCS/RouteType'
-import axios from 'axios'
+import { getAdminEspacio } from '@fb/espacios'
+import { RootState } from '@redux/store'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import useAxios from 'src/hooks/useAxios'
 
 export default function EspacioPage() {
@@ -13,16 +15,17 @@ export default function EspacioPage() {
   const {
     query: { id }
   } = router
-  const [espacio, setEspacio] = useState<espacioType | null>(null)
+
+  const { user } = useSelector((state): RootState => state.user)
+  const [espacio, setEspacio] = useState(undefined)
 
   useEffect(() => {
-    if (id) {
-      axios
-        .get(`/api/espacios/${id}`)
-        .then((res) => setEspacio(res.data))
-        .catch((err) => console.log(err))
-    }
-  }, [id])
+    console.log(`user.id`, user?.id)
+    getAdminEspacio(user?.id, id, setEspacio)
+  }, [])
+  console.log(`espacio`, espacio)
+
+  if (espacio === undefined) return 'Cargando ...'
 
   return (
     <div className="">

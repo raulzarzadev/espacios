@@ -2,12 +2,8 @@ import { espacioType } from '@comps/Cards/EspacioCard'
 import ContextualMenu from '@comps/ContextualMenu'
 import Text from '@comps/inputs/Text'
 import TextArea from '@comps/inputs/TextArea'
-import { useForm } from 'react-hook-form'
 import ImagesSection from './ImagesSection'
 import FormTitleAndButton from '@comps/FormTitleAndButton'
-
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
 import Counter from '@comps/inputs/Counter2'
 import AlreadyExistSection from './AlreadyExistSection'
 import FormSection from './FormSection'
@@ -17,6 +13,10 @@ import { RootState } from '@redux/store'
 import { useRouter } from 'next/router'
 import ROUTES from 'src/CONSTANTS/ROUTES'
 
+
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 const schema = yup.object().shape({
   name: yup.string().required(),
   address: yup.string().required()
@@ -37,6 +37,7 @@ export default function FormEspacio({
     resolver: yupResolver(schema),
     defaultValues: espacio
   })
+
   const router = useRouter()
   const { user } = useSelector((state: RootState) => state.user)
   const onSubmit = async (data: any) => {
@@ -54,7 +55,7 @@ export default function FormEspacio({
   }
 
   const handleChange = (field: any, value: any) => {
-    // setValue(field, value, {  shouldDirty: true })
+    setValue(field, value, {  shouldDirty: true })
   }
 
   // const { contracts, images } = form
@@ -63,7 +64,7 @@ export default function FormEspacio({
       <section className="sticky top-0 left-0 right-0 bg-white-light z-10   ">
         <FormTitleAndButton
           disabled={!isDirty}
-          title="Nuevo espacio"
+          title={`${alreadyExist ? espacio?.name : 'Nuevo espacio'}`}
           label={alreadyExist ? 'Editar' : 'Guardar'}
           onClick={handleSubmit(onSubmit)}
           loading={isSubmitting}

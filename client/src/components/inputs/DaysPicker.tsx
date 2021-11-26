@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 
 export default function DaysPicker({
-  defaultDays,
+  defaultDays=[],
   handleChange = () => {}
 }: {
   defaultDays?: any
@@ -19,7 +19,7 @@ export default function DaysPicker({
   ]
   const [selectedDays, setSelectedDays] = useState(defaultDays)
   const handleClickDay = (day: number) => {
-    if (selectedDays.includes(day)) {
+    if (selectedDays?.includes(day)) {
       setSelectedDays(selectedDays.filter((d: any) => d !== day))
     } else {
       setSelectedDays([...selectedDays, day])
@@ -30,6 +30,7 @@ export default function DaysPicker({
     handleChange('trashDays', selectedDays)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDays])
+
 
   return (
     <div className="max-w-sm mx-auto">

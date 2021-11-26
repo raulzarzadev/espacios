@@ -8,14 +8,23 @@ export const normalizeDoc = (doc) => {
   const data = doc.data()
   const id = doc.id
 
-  const { updatedAt, registryDate, createdAt, date, birth, joinedAt } = data
+  const {
+    updatedAt,
+    registryDate,
+    createdAt,
+    date,
+    birth,
+    joinedAt,
+    lastUpdate,
+  } = data
   const dates = unfierebazeDates({
     updatedAt,
     registryDate,
     joinedAt,
     createdAt,
     birth,
-    date
+    date,
+    lastUpdate,
   })
 
   return {
@@ -39,7 +48,8 @@ export const unfierebazeDates = (dates = {}) => {
   return aux
 }
 
-export const normalizeDocs = (docs = []) => docs?.map((doc) => normalizeDoc(doc))
+export const normalizeDocs = (docs = []) =>
+  docs?.map((doc) => normalizeDoc(doc))
 
 export const datesToFirebaseFromat = ({
   birth,
@@ -53,6 +63,7 @@ export const datesToFirebaseFromat = ({
   if (date) foramtedDates.date = dateToFirebaseFormat(date)
   if (createdAt) foramtedDates.createdAt = dateToFirebaseFormat(createdAt)
   if (updatedAt) foramtedDates.updatedAt = dateToFirebaseFormat(updatedAt)
+  if (lastUpdate) foramtedDates.lastUpdate = dateToFirebaseFormat(lastUpdate)
   if (registryDate)
     foramtedDates.registryDate = dateToFirebaseFormat(registryDate)
   return foramtedDates

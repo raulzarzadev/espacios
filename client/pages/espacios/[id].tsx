@@ -20,12 +20,12 @@ export default function EspacioPage() {
   const [espacio, setEspacio] = useState(undefined)
 
   useEffect(() => {
-    console.log(`user.id`, user?.id)
-    getAdminEspacio(user?.id, id, setEspacio)
-  }, [])
-  console.log(`espacio`, espacio)
+    if (user?.id) {
+      getAdminEspacio(user?.id, id, setEspacio)
+    }
+  }, [user])
 
-  if (espacio === undefined) return 'Cargando ...'
+  if (espacio === undefined ) return 'Cargando ...'
 
   return (
     <div className="">

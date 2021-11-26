@@ -8,7 +8,9 @@ import {
   getDoc,
   onSnapshot,
   where,
-  query
+  query,
+  updateDoc,
+  Timestamp
 } from 'firebase/firestore'
 import { db } from './client'
 import { formatResponse, normalizeDoc } from './firebase-helpers'
@@ -31,9 +33,15 @@ export const getAdminEspacios = async (adminId, callback) => {
 }
 export const getAdminEspacio = async (adminId, espacioId, callback) => {
   const unsub = onSnapshot(doc(db, 'espacios', espacioId), (doc) => {
-    callback(doc.data())
+    callback(normalizeDoc(doc))
   })
 }
-export const updateEspacio = (espacioId, espacio) => {
-  console.log(`espacioId`, espacioId)
+export const updateEspacio = async (espacioId, espacio) => {
+  const espacioRef = doc(db, 'espacios', espacioId)
+  return updateDoc(espacioRef, {
+    ...espacio,
+    lastUpdate: Timestamp.now()
+  })
+    .then((res) => formatResponse(true, 'ESPACIO_UPDATED', res))
+    .catch((err) => formatResponse(true, 'ERROR_ESPACIO_UPDATED', err))
 }

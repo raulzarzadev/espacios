@@ -12,7 +12,6 @@ const Counter = React.forwardRef(function Counter({ ...props }: any, ref) {
         min={0}
         max={999}
         placeholder="0"
-        defaultValue="0"
         type="number"
         pattern="[0-9]*"
         inputMode="numeric"

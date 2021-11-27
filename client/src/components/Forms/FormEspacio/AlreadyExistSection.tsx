@@ -11,6 +11,7 @@ export default function AlreadyExistSection({
   espacio?: espacioType
   handleChange?: (field: string, value: any) => void
 }) {
+  console.log(`espacio`, espacio)
   return (
     <div>
       <FormSection title="Dias de basura" id="basura">
@@ -20,7 +21,10 @@ export default function AlreadyExistSection({
         />
       </FormSection>
       <FormSection title="Areas" id="areas">
-        <AreasSection areas={espacio?.areas} setAreas={handleChange} />
+        <AreasSection
+          areas={espacio?.areas}
+          setAreas={(areas: any) => handleChange('areas', areas)}
+        />
       </FormSection>
       <FormSection title="Servicios" id="services">
         {/*   <div className="w-full">

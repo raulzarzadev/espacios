@@ -13,7 +13,6 @@ import { RootState } from '@redux/store'
 import { useRouter } from 'next/router'
 import ROUTES from 'src/CONSTANTS/ROUTES'
 
-
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -55,7 +54,7 @@ export default function FormEspacio({
   }
 
   const handleChange = (field: any, value: any) => {
-    setValue(field, value, {  shouldDirty: true })
+    setValue(field, value, { shouldDirty: true })
   }
 
   // const { contracts, images } = form
@@ -152,7 +151,7 @@ export default function FormEspacio({
       {/* ------------------------- -----------------------------------------          ALERADY EXIST SECTION------------------------- */}
 
       {alreadyExist && (
-        <AlreadyExistSection espacio={espacio} handleChange={handleChange} />
+        <AlreadyExistSection espacio={watch()} handleChange={handleChange} />
       )}
     </div>
   )

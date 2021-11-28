@@ -25,7 +25,6 @@ const ICON_LIST: { [index: string]: React.ElementType } = {
   plus: TiPlusOutline,
   minus: TiMinusOutline,
   info: TiInfoLarge,
-  filter: TiFilter,
-  icon: TiFilter
+  filter: TiFilter
 }
 export default ICON_LIST

@@ -27,7 +27,7 @@ export default function AlreadyExistSection({
         />
       </FormSection>
       <FormSection title="Inventarios" id="inventory">
-        <InventorySection areas={espacio?.areas} />
+        <InventorySection areas={espacio?.areas} espacioId={espacio?.id} />
       </FormSection>
       <FormSection title="Servicios" id="services">
         {/*   <div className="w-full">

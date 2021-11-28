@@ -16,7 +16,7 @@ export default function EspacioPage() {
     query: { id }
   } = router
 
-  const { user } = useSelector((state): RootState => state.user)
+  const { user } = useSelector((state: RootState) => state.user)
   const [espacio, setEspacio] = useState(undefined)
 
   useEffect(() => {

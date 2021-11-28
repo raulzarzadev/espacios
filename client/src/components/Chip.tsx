@@ -2,6 +2,7 @@ export default function Chip({
   label = 'label',
   color = 'primary',
   size = 'sm',
+  
   fullWidth = false,
   ...rest
 }: chipProps) {

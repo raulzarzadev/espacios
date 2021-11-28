@@ -3,6 +3,7 @@ import DaysPicker from '@comps/inputs/DaysPicker'
 import AreasSection from './AreasSection'
 import DeleteEspacioModal from './DeleteEspacioModal'
 import FormSection from './FormSection'
+import InventorySection from './InventorySection'
 
 export default function AlreadyExistSection({
   espacio,
@@ -11,7 +12,6 @@ export default function AlreadyExistSection({
   espacio?: espacioType
   handleChange?: (field: string, value: any) => void
 }) {
-  console.log(`espacio`, espacio)
   return (
     <div>
       <FormSection title="Dias de basura" id="basura">
@@ -25,6 +25,9 @@ export default function AlreadyExistSection({
           areas={espacio?.areas}
           setAreas={(areas: any) => handleChange('areas', areas)}
         />
+      </FormSection>
+      <FormSection title="Inventarios" id="inventory">
+        <InventorySection areas={espacio?.areas} />
       </FormSection>
       <FormSection title="Servicios" id="services">
         {/*   <div className="w-full">

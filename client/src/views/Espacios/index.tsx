@@ -21,7 +21,6 @@ export default function Espacios() {
       dispatch(getEspacios(user?.id))
     }
   }, [dispatch, user?.id])
-  console.log(`espacios`, espacios)
 
   return (
     <div className="relative grid gap-2 sm:p-4 max-w-lg mx-auto  ">
@@ -40,7 +39,7 @@ export default function Espacios() {
         </div>
         <Division />
         <div className="max-w-sm mx-auto my-4 flex items-center px-1 justify-center">
-          <Text placeholder="Buscar" />
+          <Text placeholder="Buscar" onChange={() => {}} />
           <div className="ml-2">
             <Modal
               OpenComponent={Icon}
@@ -53,7 +52,7 @@ export default function Espacios() {
         </div>
       </div>
       {espacios?.map((espacio) => (
-        <EspacioCard  espacio={espacio} key={espacio.name} />
+        <EspacioCard espacio={espacio} key={espacio?.name} />
       ))}
     </div>
   )

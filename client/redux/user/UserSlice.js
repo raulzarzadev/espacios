@@ -34,7 +34,6 @@ export const signin = createAsyncThunk(
 )
 
 
-
 const initialState = {
   isLoggedIn: false,
   loading: false,
@@ -55,8 +54,7 @@ export const userSlice = createSlice({
         state.isLoggedIn = false
         state.loading = false
       }
-    },
-    
+    }
   },
   extraReducers: (builder) => {
     // ------------------------------------------------------ SIGIN

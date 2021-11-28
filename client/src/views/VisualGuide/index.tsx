@@ -100,8 +100,9 @@ export default function VisualGuide() {
           <div className="text-lg font-bold text-center">Inputs</div>
           <div className="flex flex-wrap justify-center">
             <div className="grid gap-2 ">
-              <Text label="Input text" variant="primary" />
+              <Text label="Input text" variant="primary" onChange={() => {}} />
               <Select
+                onChange={() => {}}
                 variant="primary"
                 label="Input select"
                 options={[
@@ -111,7 +112,7 @@ export default function VisualGuide() {
                 ]}
                 fullWidth
               />
-              <TextArea label="Text Area" fullWidth />
+              <TextArea label="Text Area" fullWidth onChange={() => {}} />
               <Button
                 label={'Button super large full width'}
                 fullWidth

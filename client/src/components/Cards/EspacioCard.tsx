@@ -35,6 +35,7 @@ export interface espacioType {
   advertLink?: string
   guests?: number
   trashDays?: Array<any>
+  areas?: Array<any>
 }
 
 export interface contractsType {

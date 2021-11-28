@@ -71,7 +71,8 @@ export default function FormArea({ area = {} }) {
         options={{
           addNewRoute: ROUTES.items.new(),
           modalOpenLabel: 'Agregar item',
-          modalTitle: 'Nuevo item'
+          modalTitle: 'Nuevo item',
+          addNewLabel:'Crear item nuevo'
         }}
       />
     </div>

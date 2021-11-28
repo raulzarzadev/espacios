@@ -34,11 +34,11 @@ export default function DaysPicker({
 
   return (
     <div className="max-w-sm mx-auto">
-      <div className="grid gap-4 grid-flow-col">
+      <div className="flex justify-evenly ">
         {days.map((day) => (
           <button
             key={day.value}
-            className={`w-10 h-10 flex items-center justify-center rounded-md shadow-lg 
+            className={`w-6 sm:w-10 h-10 flex items-center justify-center rounded-md shadow-lg 
             ${selectedDays?.includes(day.value) && `bg-third`}
             `}
             onClick={() => handleClickDay(day.value)}

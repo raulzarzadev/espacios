@@ -75,6 +75,7 @@ export default function FormEspacio({
             { href: '#', label: 'Espacio' },
             { href: '#services', label: 'Servicios' },
             { href: '#areas', label: 'Areas' },
+            { href: '#inventory', label: 'Inventario' },
             { href: '#contract', label: 'Contratos' }
           ]}
         />

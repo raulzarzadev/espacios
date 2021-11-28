@@ -1,3 +1,4 @@
+import Chip from '@comps/Chip'
 import Button from '@comps/inputs/Button'
 import Counter from '@comps/inputs/Counter2'
 import Modal from '@comps/modals'
@@ -7,16 +8,18 @@ export default function FormAddItem({
   selected = [],
   setSelected = () => {},
   options = {
-    modalTitle: 'Agregar',
-    modalOpenLabel: 'Agregar',
-    addNewRoute: '/'
+    modalTitle: '',
+    modalOpenLabel: '',
+    addNewRoute: '',
+    addNewLabel: ''
   }
 }) {
   const router = useRouter()
   const {
     modalTitle = 'Agregar',
-    modalOpenLabel = 'Agregar',
-    addNewRoute = '/'
+    modalOpenLabel = 'Agregr',
+    addNewRoute = '/',
+    addNewLabel = 'Crear nuevo'
   } = options
   const handleAddItem = (item) => {
     let res = []
@@ -49,7 +52,7 @@ export default function FormAddItem({
       <div className="grid-flow-col">
         {selected.sort(sortByName).map((item) => (
           <div key={item.id} className="my-2">
-            <label className='flex w-full justify-between px-4'>
+            <label className="flex w-full justify-between px-4">
               <div>{item.name}</div>
               <Counter
                 value={item?.quantity}
@@ -68,15 +71,17 @@ export default function FormAddItem({
           openProps={{ label: modalOpenLabel, variant: 'outlined' }}
         >
           <div className="flex flex-col justify-center items-center">
-            <div>Todas las areas</div>
-            <div>
+            <div className="flex flex-wrap">
               {selectables?.map((item, i) => (
-                <div key={item?.id}>
-                  {item?.name}
-                  <input
-                    type="checkbox"
-                    checked={!!selected?.find(({ id }) => id === item?.id)}
-                    onChange={() => handleAddItem({ ...item, quantity: 1 })}
+                <div key={item.id} className="m-1.5">
+                  <Chip
+                    label={item.name}
+                    color={
+                      !!selected?.find(({ id }) => id === item?.id)
+                        ? 'primary'
+                        : 'third'
+                    }
+                    onClick={() => handleAddItem({ ...item, quantity: 1 })}
                   />
                 </div>
               ))}
@@ -84,7 +89,7 @@ export default function FormAddItem({
             <div className="grid grid-flow-col gap-5 pt-5">
               <Button
                 size="sm"
-                label="Nuevo"
+                label={addNewLabel}
                 variant="outlined"
                 onClick={() => router.push(addNewRoute)}
               />

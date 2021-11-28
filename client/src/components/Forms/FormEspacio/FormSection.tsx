@@ -10,7 +10,7 @@ export default function FormSection({
   id: string
 }) {
   return (
-    <section className="" id={id}>
+    <section className="p-1" id={id}>
       <h3 className="font-bold">{title}</h3>
       <div>{children}</div>
     </section>

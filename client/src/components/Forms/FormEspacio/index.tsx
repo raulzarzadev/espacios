@@ -59,7 +59,7 @@ export default function FormEspacio({
 
   // const { contracts, images } = form
   return (
-    <div className="max-w-md mx-auto mt-4 p-1">
+    <div className="max-w-md mx-auto mt-4 ">
       <section className="sticky top-0 left-0 right-0 bg-white-light z-10   ">
         <FormTitleAndButton
           disabled={!isDirty}

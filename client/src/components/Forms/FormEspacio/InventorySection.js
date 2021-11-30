@@ -4,8 +4,6 @@ import Button from '@comps/inputs/Button'
 import Counter from '@comps/inputs/Counter2'
 import { useState, useEffect } from 'react'
 export default function InventorySection({ areas = [], espacioId = '' }) {
-  console.log(`areas`, areas)
-
   return (
     <div className="">
       <div className="flex ">

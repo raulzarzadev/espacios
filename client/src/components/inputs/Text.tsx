@@ -12,7 +12,6 @@ const Text = React.forwardRef(
       errorText,
       size = 'sm',
       fullWidth = false,
-      value,
       ...rest
     }: textProps,
     ref: ForwardedRef<any>

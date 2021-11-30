@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import ROUTES from 'src/CONSTANTS/ROUTES'
 import FormAddItem from '../FormAddItem'
-export default function AreasSection({areas, setAreas}) {
+import FormArea from '../FormArea2'
+export default function AreasSection({areas, setAreas, espacio}) {
   const [allAreas, setAllAreas] = useState([])
   const { user } = useSelector((state) => state?.user)
 
@@ -19,18 +20,7 @@ export default function AreasSection({areas, setAreas}) {
   return (
     <div className="w-full">
       <div>
-        <FormAddItem
-          options={{
-            modalTitle: 'Agregar areas',
-            modalOpenLabel: 'Agregar areas',
-            selectedTitle: 'Areas',
-            addNewRoute: ROUTES.areas.new(),
-            addNewLabel:'Nueva area'
-          }}
-          selectables={allAreas}
-          selected={areas}
-          setSelected={handleSetAareas}
-        />
+       <FormArea espacio={espacio}/>
       </div>
     </div>
   )

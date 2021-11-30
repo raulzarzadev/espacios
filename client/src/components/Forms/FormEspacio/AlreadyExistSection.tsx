@@ -22,6 +22,7 @@ export default function AlreadyExistSection({
       </FormSection>
       <FormSection title="Areas" id="areas">
         <AreasSection
+          espacio={espacio}
           areas={espacio?.areas}
           setAreas={(areas: any) => handleChange('areas', areas)}
         />

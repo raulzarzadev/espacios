@@ -39,7 +39,7 @@
     "**/*.tsx",
     "**/*.js",
     "jsconfig.json"
-  ],
+, "src/components/Modal/indexjs"  ],
   "exclude": [
     "node_modules"
   ]

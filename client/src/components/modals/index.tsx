@@ -30,7 +30,7 @@ export default function Modal({
   }
 
   return (
-    <div className="">
+    <>
       <div className="cursor-pointer hover:scale-105">
         {<OpenComponent {...openProps} onClick={handleOpen}></OpenComponent>}
       </div>
@@ -47,22 +47,21 @@ export default function Modal({
           <div className="border border-blue-500  bg-white w-full sm:w-6/12 md:max-w-11/12 mx-auto rounded-xl shadow-lg z-50 overflow-y-auto max-h-screen">
             <div className=" py-4 text-left px-6">
               {/* 	<!--Title--> */}
-              <div className="flex items-center ">
+              <header className="flex items-center ">
                 <button className=" cursor-pointer z-50" onClick={handleClose}>
                   <Icon name="cross" />
                 </button>
                 <p className="text-2xl font-bold text-gray-500 w-full text-center">
                   {title}
                 </p>
-              </div>
+              </header>
 
               <Division />
               {/* 	<!--Body--> */}
-              <div className="my-5 mr-5 ml-5 flex justify-center ">
-                {children}
-              </div>
+              {/* <main className="my-5 mr-5 ml-5 flex justify-center "> */}
+              <main className="pt-5  flex justify-center ">{children}</main>
               {/* 	<!--Footer--> */}
-              <div className="flex justify-center pt-2 space-x-14">
+              <footer className="flex justify-center pt-2 space-x-14">
                 {cancelButton && (
                   <Button
                     type="button"
@@ -86,12 +85,12 @@ export default function Modal({
                     }}
                   />
                 )}
-              </div>
+              </footer>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

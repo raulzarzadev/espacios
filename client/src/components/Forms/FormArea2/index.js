@@ -3,56 +3,36 @@ import Button from '@comps/inputs/Button'
 import Counter from '@comps/inputs/Counter2'
 import Text from '@comps/inputs/Text'
 import Modal from '@comps/modals'
-import { useState } from 'react'
+import NewArea from 'pages/areas/new'
+import { useState, useEffect } from 'react'
 
 export default function FormArea({ espacio }) {
-  /* 
-  {
-    espacio:{
-      id: 
-      name:
-    },
-    areas:[
-      {
-        name,
-        items:[
-          {
-            name
-            quantity
-          }
-        ]
-      }
-    ]
-    
-  }
-  */
-
   const [newArea, setNewArea] = useState({ name: '', items: [] })
+  const [items, setItems] = useState([])
+
   const handleChangeName = ({ target: { value } }) => {
     setNewArea({ ...newArea, name: value })
   }
+
   const handleAddItem = () => {
-    setNewArea({
-      ...newArea,
-      items: [...newArea?.items, { name: '', quantity: 1 }]
-    })
+    const id = new Date().getTime().toString()
+    const newItem = { id, name: '', quantity: 1 }
+    setItems([...items, newItem])
   }
 
-  const handleRemoveItem = (index) => {
-    newArea.items.splice(index, 1)
-    setNewArea({ ...newArea })
+  const handleRemoveItem = (itemId) => {}
+  const handleChangeItem = (itemId, name) => {
+    const newItem = items.find(({ id }) => itemId === id)
+    newItem.name = name
+    const listClenad = items.filter(({id})=>id!==itemId)
+    set()
   }
-  const handleChangeItem = (index, value) => {
-    newArea.items[index].name = value
-    setNewArea({ ...newArea })
-  }
-  const handleChangeQuantity = (index, value) => {
-    newArea.items[index].quantity = value
-    setNewArea({ ...newArea })
-  }
+  const handleChangeQuantity = (itemId, quantity) => {}
 
-  console.log(`newArea`, newArea)
-
+  const handleSetItems = () => {
+    console.log(`save`, { ...newArea, items })
+  }
+  console.log(`items`, items)
   return (
     <div className="">
       <Modal
@@ -68,8 +48,19 @@ export default function FormArea({ espacio }) {
             label="Nombre del area"
             onChange={handleChangeName}
           />
-          
-          {newArea?.items?.map((item, i) => (
+
+          {items.map((item, i) => (
+            <div key={i}>
+              <ItemRow
+                item={item}
+                handleRemoveItem={handleRemoveItem}
+                handleChangeItem={handleChangeItem}
+                handleChangeQuantity={handleChangeQuantity}
+              />
+            </div>
+          ))}
+
+          {/*  {newArea?.items?.map((item, i) => (
             <ItemRow
               key={i}
               item={item}
@@ -79,10 +70,10 @@ export default function FormArea({ espacio }) {
               handleChangeQuantity={handleChangeQuantity}
             />
           ))}
-
+ */}
           <div className="flex justify-center items-center">
             <Button
-              onClick={handleAddItem}
+              onClick={() => handleAddItem()}
               size="xs"
               variant="third"
               iconOnly
@@ -91,7 +82,7 @@ export default function FormArea({ espacio }) {
             Item
           </div>
           <div className="flex justify-center mt-4">
-            <Button label="Agregar area" />
+            <Button label="Agregar area" onClick={handleSetItems} />
           </div>
         </div>
       </Modal>
@@ -101,7 +92,6 @@ export default function FormArea({ espacio }) {
 
 const ItemRow = ({
   item,
-  index,
   handleRemoveItem,
   handleChangeItem,
   handleChangeQuantity
@@ -110,25 +100,26 @@ const ItemRow = ({
     <div className="">
       <div
         className="grid grid-flow-col gap-2 items-center my-2  "
-        key={`${item.name}-${index}`}
+        key={`${item?.name}-${item?.id}`}
       >
         <Button
           size="xs"
           variant="secondary"
           iconOnly
           icon={<Icon name="minus" />}
-          onClick={() => handleRemoveItem(index)}
+          onClick={() => handleRemoveItem(item.id)}
         />
-        <Text
-          value={item.name}
+        <input
+          type="text"
+          value={item?.name}
           placeholder="item"
-          onChange={({ target: { value } }) => handleChangeItem(index, value)}
+          onChange={({ target: { value } }) => handleChangeItem(item.id, value)}
         />
         <div>
           <Counter
-            value={item.quantity}
+            value={item?.quantity}
             onChange={({ target: { value } }) =>
-              handleChangeQuantity(index, value)
+              handleChangeQuantity(item.id, value)
             }
           />
         </div>

@@ -39,7 +39,7 @@
     "**/*.tsx",
     "**/*.js",
     "jsconfig.json"
-, "src/components/Modal/indexjs"  ],
+, "src/components/Modal/indexjs", "pages/espacios/[id]"  ],
   "exclude": [
     "node_modules"
   ]

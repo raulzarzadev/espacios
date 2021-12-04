@@ -2,7 +2,7 @@ import Icon from '@comps/Icon'
 import Button from '@comps/inputs/Button'
 import Counter from '@comps/inputs/Counter2'
 import Text from '@comps/inputs/Text'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -13,6 +13,7 @@ const schema = yup.object().shape({
 export default function FormArea({ espacio, area, handleAddArea }) {
   const [items, setItems] = useState(area?.items || [])
   const [itemName, setItemName] = useState('')
+  const [defaultValues, setDefaultValues] = useState(undefined)
 
   const {
     handleSubmit,
@@ -44,6 +45,10 @@ export default function FormArea({ espacio, area, handleAddArea }) {
     const id = new Date().getTime().toString()
     const newArea = { id, ...data, items }
     handleAddArea(newArea, { alreadyExist: !!area, id: area?.id || null })
+    if (!area) {
+      setItems([])
+      setValue('name', '')
+    }
   }
 
   const sortAreas = (a, b) => {

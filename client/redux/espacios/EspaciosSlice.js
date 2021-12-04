@@ -12,6 +12,9 @@ export const espaciosSlice = createSlice({
   name: 'espacios',
   initialState,
   reducers: {
+    setEspacioState: (state, { payload }) => {
+      state.espacio = payload
+    },
     newEspacio: (newEspacio) => {
       createEspacio(newEspacio)
         .then((res) => console.log(`res`, res))
@@ -22,7 +25,7 @@ export const espaciosSlice = createSlice({
     }
   }
 })
-export const { login, setEspaciosList } = espaciosSlice.actions
+export const { login, setEspaciosList, setEspacioState } = espaciosSlice.actions
 
 export default espaciosSlice.reducer
 

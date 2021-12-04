@@ -5,7 +5,6 @@ import Modal from '@comps/Modal'
 import { useState } from 'react'
 import FormArea from '../FormArea4'
 export default function AreasSection({ areas, setAreas, espacio }) {
- 
 
   const handleAddArea = (
     newArea,

@@ -1,11 +1,7 @@
-import { async } from '@firebase/util'
 import {
-  getFirestore,
   collection,
   addDoc,
-  setDoc,
   doc,
-  getDoc,
   onSnapshot,
   where,
   query,

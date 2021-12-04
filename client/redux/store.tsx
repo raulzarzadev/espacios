@@ -6,7 +6,8 @@ export const store = configureStore({
   reducer: {
     counter: counterReducer,
     user: userSlice,
-    espacios: EspaciosSlice
+    espacios: EspaciosSlice,
+    espacio:EspaciosSlice
   }
 })
 

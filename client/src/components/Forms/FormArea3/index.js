@@ -20,7 +20,7 @@ export default function FormArea({ espacio, area, handleAddArea }) {
     watch,
     formState: { isDirty, errors }
   } = useForm({ resolver: yupResolver(schema), defaultValues: area })
-  console.log(`watch()`, watch(),area)
+  console.log(`watch()`, watch(), area)
 
   const handleAddItem = () => {
     setItemName('')

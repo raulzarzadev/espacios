@@ -4,6 +4,8 @@ import AreasSection from './AreasSection'
 import DeleteEspacioModal from './DeleteEspacioModal'
 import FormSection from './FormSection'
 import InventorySection from './InventorySection'
+import InventoryAdminView from './InventoryViews/InventoryAdminView'
+import InventoryFastView from './InventoryViews/InventoryNewInventoryView.js'
 
 export default function AlreadyExistSection({
   espacio,
@@ -27,8 +29,8 @@ export default function AlreadyExistSection({
           setAreas={(areas: any) => handleChange('areas', areas)}
         />
       </FormSection>
-      <FormSection title="Inventarios" id="inventory">
-        <InventorySection areas={espacio?.areas} espacioId={espacio?.id} />
+      <FormSection title="Existencias" id="inventory">
+        <InventoryAdminView espacio={espacio} />
       </FormSection>
       <FormSection title="Servicios" id="services">
         {/*   <div className="w-full">

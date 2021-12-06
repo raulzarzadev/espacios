@@ -55,6 +55,21 @@ export const getInventoryByEspacio = async ({ espacioId }, callback) => {
   })
 }
 
+export const getLastItemCount = async ({ espacioId }, callback) => {
+  const q = query(
+    collection(db, 'inventories'),
+    where('espacioId', '==', espacioId),
+    orderBy('createdAt', 'desc')
+  )
+  onSnapshot(q, (querySnapshot) => {
+    let counts = []
+    querySnapshot.forEach((doc) => {
+      counts.push(normalizeDoc(doc))
+    })
+    callback(counts)
+  })
+}
+
 export const createInventory = async (adminId, newInventory) => {
   const docRef = await addDoc(collection(db, 'inventories'), {
     admin: { id: adminId },

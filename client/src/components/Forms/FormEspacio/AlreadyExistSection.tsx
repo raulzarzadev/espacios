@@ -1,5 +1,8 @@
 import { espacioType } from '@comps/Cards/EspacioCard'
+import Button from '@comps/inputs/Button'
 import DaysPicker from '@comps/inputs/DaysPicker'
+import { useRouter } from 'next/router'
+import ROUTES from 'src/CONSTANTS/ROUTES'
 import AreasSection from './AreasSection'
 import DeleteEspacioModal from './DeleteEspacioModal'
 import FormSection from './FormSection'
@@ -14,14 +17,15 @@ export default function AlreadyExistSection({
   espacio?: espacioType
   handleChange?: (field: string, value: any) => void
 }) {
+  const router = useRouter()
   return (
     <div>
-      <FormSection title="Dias de basura" id="basura">
+      {/* <FormSection title="Dias de basura" id="basura">
         <DaysPicker
           defaultDays={espacio?.trashDays}
           handleChange={handleChange}
         />
-      </FormSection>
+      </FormSection> */}
       <FormSection title="Areas" id="areas">
         <AreasSection
           espacio={espacio}
@@ -30,6 +34,16 @@ export default function AlreadyExistSection({
         />
       </FormSection>
       <FormSection title="Existencias" id="inventory">
+        <div className="text-center">
+          <Button
+            label="Inventarios"
+            variant="third"
+            size="xs"
+            onClick={() =>
+              router.push(ROUTES.espacios.inventories(espacio.id).index)
+            }
+          />
+        </div>
         <InventoryAdminView espacio={espacio} />
       </FormSection>
       <FormSection title="Servicios" id="services">

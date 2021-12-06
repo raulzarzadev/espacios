@@ -13,14 +13,7 @@ export default function InventoryAdminView({
 
   return (
     <div className="">
-      <div className="text-center">
-        <Button
-          label="Inventarios"
-          variant="third"
-          size="xs"
-          onClick={() => router.push(ROUTES.espacios.inventories(id).index)}
-        />
-      </div>
+     
       <div className="flex items-center">
         <div className="w-6/12 flex justify-center">Item</div>
         <div className="w-6/12 flex flex-col items-center justify-center">

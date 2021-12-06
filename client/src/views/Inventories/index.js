@@ -4,14 +4,19 @@ import ROUTES from 'src/CONSTANTS/ROUTES'
 import { useState, useEffect } from 'react'
 import { getInventoryByEspacio } from '@fb/inventaries'
 import { fromNow } from 'src/utils/dates'
+import InventoryAdminView from '@comps/Forms/FormEspacio/InventoryViews/InventoryAdminView'
+import { useSelector } from 'react-redux'
 
 export default function EspacioInventories() {
   const router = useRouter()
   const espacioId = router.query.id
-  const [inventories, setInventories] = useState(undefined)
+  const { espacio } = useSelector((state) => state.espacio)
+  console.log(`espacio`, espacio)
   useEffect(() => {
-    if (espacioId) getInventoryByEspacio({ espacioId }, setInventories)
-  }, [espacioId])
+    if (!espacio && espacioId) {
+      router.push(ROUTES.espacios.details(espacioId))
+    }
+  }, [espacio, espacioId, router])
   return (
     <div className="">
       <div className="text-center my-4">
@@ -23,24 +28,11 @@ export default function EspacioInventories() {
         />
       </div>
       <div className="text-center">
-        <h3 className="text-2xl ">Lista de inventarios</h3>
-        {!!!inventories?.length && 'Aun no hay inventarios'}
+        <h3 className="text-2xl ">Estado del inventario</h3>
       </div>
       <div className="flex flex-col max-w-lg mx-auto">
-        {inventories?.map((inventory, i) => (
-          <InventoryRow key={i} inventory={inventory} />
-        ))}
+        {espacio && <InventoryAdminView espacio={espacio} />}
       </div>
-    </div>
-  )
-}
-const InventoryRow = ({ inventory: { createdAt, item, area } }) => {
-  return (
-    <div className="border flex rounded-lg shadow-lg my-1  flex-wrap">
-      <div className="w-full">{area.name}</div>
-      <div className="w-1/3">{item.name}</div>
-      <div className="w-1/3">{item.quantity}</div>
-      <div className="w-1/3">{fromNow(createdAt)}</div>
     </div>
   )
 }

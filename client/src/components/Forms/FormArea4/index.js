@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import uid from 'src/utils/uid'
 const schema = yup.object().shape({
   name: yup.string().required()
 })
@@ -25,7 +26,7 @@ export default function FormArea({ espacio, area, handleAddArea }) {
 
   const handleAddItem = () => {
     setItemName('')
-    setItems([...items, { name: itemName, quantity: 1 }])
+    setItems([...items, { name: itemName, quantity: 1, id: `i-${uid()}` }])
   }
 
   const handleRemoveItem = (index) => {
@@ -42,7 +43,7 @@ export default function FormArea({ espacio, area, handleAddArea }) {
     setItemName(value)
   }
   const onSubmit = (data) => {
-    const id = new Date().getTime().toString()
+    const id = uid()
     const newArea = { id, ...data, items }
     handleAddArea(newArea, { alreadyExist: !!area, id: area?.id || null })
     if (!area) {

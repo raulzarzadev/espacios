@@ -4,8 +4,7 @@ import Counter from '@comps/inputs/Counter2'
 import Modal from '@comps/Modal'
 import { useState } from 'react'
 import FormArea from '../FormArea4'
-export default function AreasSection({ areas, setAreas, espacio }) {
-
+export default function AreasSection({ areas = [], setAreas, espacio }) {
   const handleAddArea = (
     newArea,
     options = { alreadyExist: false, id: null }
@@ -16,7 +15,7 @@ export default function AreasSection({ areas, setAreas, espacio }) {
   }
   const handleSetQuantity = (index, quantity) => {
     const oldItem = areas[index]
-    areas.splice(index, 1)
+    areas?.splice(index, 1)
     let res = { ...oldItem, quantity }
     if (parseInt(quantity) == 0) {
       setAreas([...areas])
@@ -40,7 +39,7 @@ export default function AreasSection({ areas, setAreas, espacio }) {
   return (
     <div className="w-full">
       <div>
-        {areas.sort(sortAreas).map((area, i) => (
+        {areas?.sort(sortAreas).map((area, i) => (
           <AreaRow
             area={area}
             key={i}

@@ -23,5 +23,5 @@ export default function useAuth() {
     logout()
   }
 
-  return { handleLogin, handleLogout, signupWithEmail, user: userState }
+  return { handleLogin, handleLogout, signupWithEmail, ...userState }
 }

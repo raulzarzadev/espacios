@@ -12,7 +12,7 @@ export default function RouteType({
 }) {
   const router = useRouter()
   const {
-    user: { isLoggedIn }
+     isLoggedIn 
   } = useAuth()
 
   useEffect(() => {

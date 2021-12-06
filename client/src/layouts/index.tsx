@@ -4,10 +4,7 @@ import Head from 'next/head'
 import useAuth from 'src/hooks/useAuth'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const {
-    user: { isLoggedIn },
-    handleLogout
-  } = useAuth()
+  const { isLoggedIn, handleLogout } = useAuth()
 
   return (
     <>
@@ -19,7 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             label="Salir"
             type="button"
             variant="link"
-            size='xs'
+            size="xs"
             onClick={handleLogout}
           />
         ) : (

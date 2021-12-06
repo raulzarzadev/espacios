@@ -29,9 +29,12 @@ export default function InventoryByEspacio() {
     <div className="">
       <div className="max-w-sm mx-auto">
         <FormTitleAndButton hiddeButton title={`${espacio.name}`} />
-        <h3 className="font-bold text-center my-2"> Nuevo inventario</h3>
+        <div className="text-center">
+          <h3 className="font-bold  my-2 "> Nuevo inventario</h3>
+          {!!!espacio?.areas?.length && 'Aun no hay areas. '}
+        </div>
         <div>
-          {espacio.areas.map((area, i) => (
+          {espacio?.areas?.map((area, i) => (
             <AreaRow area={area} key={i} espacio={espacio} />
           ))}
         </div>
@@ -50,7 +53,7 @@ const AreaRow = ({ area, espacio }) => {
             <span className=" text-sm font-thin"> x{area?.quantity}</span>{' '}
           </div>
           <div className="truncate w-1/4 flex justify-center items-center font-normal text-xs max-w-full  ">
-            <span className='truncate'>Última actualización</span>
+            <span className="truncate">Última actualización</span>
           </div>
           <div className="truncate w-1/3 flex justify-center items-center font-normal text-xs  ">
             Conteo

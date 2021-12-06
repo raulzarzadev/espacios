@@ -1,4 +1,3 @@
-import { async } from '@firebase/util'
 import {
   collection,
   addDoc,
@@ -45,7 +44,7 @@ export const getInventoryByEspacio = async ({ espacioId }, callback) => {
   const q = query(
     collection(db, 'inventories'),
     where('espacioId', '==', espacioId),
-    orderBy('createdAt', 'desc'),
+    orderBy('createdAt', 'desc')
   )
   onSnapshot(q, (querySnapshot) => {
     let counts = []
@@ -59,6 +58,7 @@ export const getInventoryByEspacio = async ({ espacioId }, callback) => {
 export const createInventory = async (adminId, newInventory) => {
   const docRef = await addDoc(collection(db, 'inventories'), {
     admin: { id: adminId },
+    createdBy: adminId,
     createdAt: Timestamp.now(),
     ...newInventory
   })

@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       <header className="h-[3rem] flex justify-evenly shadow items-center">
         <Link href="/home">Home</Link>
-        <Link href="/visual-guide">Guia viusal</Link>
+        <Link href="/visual-guide">Guía visual</Link>
         {isLoggedIn ? (
           <Button
             label="Salir"

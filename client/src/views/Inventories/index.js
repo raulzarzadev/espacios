@@ -12,7 +12,6 @@ export default function EspacioInventories() {
   useEffect(() => {
     if (espacioId) getInventoryByEspacio({ espacioId }, setInventories)
   }, [espacioId])
-  console.log(`inventories`, inventories)
   return (
     <div className="">
       <div className="text-center my-4">
@@ -23,13 +22,15 @@ export default function EspacioInventories() {
           }
         />
       </div>
-      Lista de inventarios
+      <div className="text-center">
+        <h3 className="text-2xl ">Lista de inventarios</h3>
+        {!!!inventories?.length && 'Aun no hay inventarios'}
+      </div>
       <div className="flex flex-col max-w-lg mx-auto">
-        {inventories.map((inventory, i) => (
+        {inventories?.map((inventory, i) => (
           <InventoryRow key={i} inventory={inventory} />
         ))}
       </div>
-      {` ${router.query.id} `}
     </div>
   )
 }

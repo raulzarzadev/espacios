@@ -30,7 +30,9 @@ func (s *Server) addMiddlewares() {
 }
 
 func (s *Server) addRoutesV1() {
-	v1 := s.router.Group("/v1")
+	apiVersion := "v1"
+	v1 := s.router.Group("/" + apiVersion)
 
-	routes.AddPing(v1)
+	routes.Ping(v1, apiVersion)
+
 }

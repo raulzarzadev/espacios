@@ -1,14 +1,18 @@
 package routes
 
 import (
-	"spaces/internal/handlers"
+	"spaces/internal/handlers/v1"
 
 	"github.com/gin-gonic/gin"
 )
 
-func AddPing(rg *gin.RouterGroup) {
+func Ping(rg *gin.RouterGroup, apiVersion string) {
 	group := rg.Group("/ping")
-
 	h := handlers.Ping{}
-	group.GET("/", h.Pong)
+
+	switch apiVersion {
+	case "v1":
+		group.GET("/", h.Pong)
+	}
+
 }

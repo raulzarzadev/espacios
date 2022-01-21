@@ -34,5 +34,5 @@ func (s *Server) addRoutesV1() {
 	v1 := s.router.Group("/" + apiVersion)
 
 	routes.Ping(v1, apiVersion)
-
+	routes.Space(v1, apiVersion)
 }

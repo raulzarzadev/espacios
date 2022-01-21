@@ -9,9 +9,11 @@ import (
 	_ "github.com/lib/pq"
 )
 
-type DB struct {
-	pool *sqlx.DB
+type db struct {
+	Pool *sqlx.DB
 }
+
+var DB db
 
 var (
 	dbHost     string
@@ -29,24 +31,25 @@ func init() {
 	dbUser = os.Getenv("DB_USER")
 }
 
-func Connect() (DB, error) {
+func Open() error {
 	dbInfo := fmt.Sprintf(
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		dbHost, dbPort, dbUser, dbPassword, dbName,
 	)
 	pool, err := sqlx.Connect("postgres", dbInfo)
 	if err != nil {
-		log.Fatalln(err)
+		return err
 	}
 
+	DB.Pool = pool
 	log.Printf(
 		"Database connection to %s:%s/%s established successfully!",
 		dbHost, dbPort, dbName,
 	)
 
-	return DB{pool}, nil
+	return nil
 }
 
-func (db *DB) Close() {
-	db.pool.Close()
+func Close() {
+	DB.Pool.Close()
 }

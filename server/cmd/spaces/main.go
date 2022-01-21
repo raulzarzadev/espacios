@@ -7,11 +7,11 @@ import (
 )
 
 func main() {
-	db, err := postgres.Connect()
+	err := postgres.Open()
 	if err != nil {
 		log.Fatalf("Unable to connect to DB: %s", err)
 	}
-	defer db.Close()
+	defer postgres.Close()
 
 	server := spaces.NewServer()
 	if err := server.Start(); err != nil {

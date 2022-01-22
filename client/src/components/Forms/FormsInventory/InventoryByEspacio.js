@@ -10,7 +10,9 @@ import Icon from '@comps/Icon'
 import { getLastInventory, newInventory } from '@fb/inventaries'
 import useAuth from 'src/hooks/useAuth'
 import { fromNow } from 'src/utils/dates'
-
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 export default function InventoryByEspacio() {
   const router = useRouter()
   const espacioId = router.query.id
@@ -22,9 +24,10 @@ export default function InventoryByEspacio() {
     } else {
       setEspacio(state.espacio)
     }
-  }, [state, espacioId])
+  }, [espacioId])
 
   if (espacio === undefined) return 'Cargando ...'
+  console.log(`espacio`, espacio)
   return (
     <div className="">
       <div className="max-w-sm mx-auto">
@@ -72,9 +75,12 @@ const AreaRow = ({ area, espacio }) => {
   )
 }
 
+const schema = yup.object().shape({
+  quantity: yup.number().required()
+})
+
 const ItemRow = ({ item, espacio, area }) => {
   const { user } = useAuth()
-  const [quantity, setQuantity] = useState(0)
   const handleSaveInventary = (item, quantity) => {
     const obj = {
       espacioId: espacio.id,
@@ -92,6 +98,7 @@ const ItemRow = ({ item, espacio, area }) => {
       .catch((err) => console.log(`err`, err))
   }
   const [lastUpdate, setLastUpdate] = useState(undefined)
+
   useEffect(() => {
     getLastInventory(
       {
@@ -101,7 +108,20 @@ const ItemRow = ({ item, espacio, area }) => {
       },
       setLastUpdate
     )
-  }, [area.id, espacio.id, item.id])
+  }, [])
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isDirty, isSubmitSuccessful, isValid }
+  } = useForm({ resolver: yupResolver(schema) })
+
+  const onSubmit = ({ quantity }) => {
+    handleSaveInventary(item, quantity)
+  }
+
+  console.log(`errors`, errors)
+  const [disabled, setDisabled] = useState(false)
   return (
     <div className=" flex justify-between ">
       <div className="pl-2 w-6/12 flex items-center  justify-start text-sm">
@@ -109,21 +129,19 @@ const ItemRow = ({ item, espacio, area }) => {
       </div>
       <div className="font-thing text-[.5rem] italic w-1/4 flex items-center justify-center">
         {lastUpdate
-          ? fromNow(lastUpdate?.createdAt, { addSuffix: true })
+          ? fromNow(lastUpdate?.createdAt, { addSuffix: false })
           : 'nunca'}
       </div>
       <div className="w-1/3  flex items-center justify-center">
-        <Counter
-          value={quantity}
-          onChange={({ target: { value } }) => setQuantity(value)}
-        />
+        <Counter {...register('quantity')} />
       </div>
       <div className="w-1/3 flex items-center justify-center">
         <Button
+          disabled={disabled}
           iconOnly
           icon={<Icon name="save" size="xs" />}
           size="xs"
-          onClick={() => handleSaveInventary(item, quantity)}
+          onClick={handleSubmit(onSubmit)}
         />
       </div>
     </div>

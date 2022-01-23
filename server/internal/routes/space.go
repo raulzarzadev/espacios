@@ -7,8 +7,9 @@ import (
 )
 
 func Space(rg *gin.RouterGroup, apiVersion string) {
-	group := rg.Group("/space")
+	group := rg.Group("/spaces")
 	h := handlers.Space{}
 
 	group.POST("/", h.Register)
+	group.POST("/:id/files/", h.UploadFiles)
 }

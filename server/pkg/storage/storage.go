@@ -3,7 +3,9 @@ package storage
 import (
 	"context"
 	"io"
+	"net/url"
 	"os"
+	"time"
 
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
@@ -27,6 +29,8 @@ var (
 	password string
 	bucket   string
 )
+
+const signedUrlExpiration = time.Duration(15 * time.Minute)
 
 func init() {
 	host = os.Getenv("MINIO_HOST")
@@ -70,4 +74,15 @@ func (c *MinioClient) UploadFile(file File) (UploadInfo, error) {
 	}
 
 	return UploadInfo(uploadInfo), nil
+}
+
+func (c *MinioClient) DownloadFile(name string) (string, error) {
+	url, err := c.client.PresignedGetObject(
+		context.TODO(), bucket, name, signedUrlExpiration, url.Values{},
+	)
+	if err != nil {
+		return "", err
+	}
+
+	return url.String(), nil
 }

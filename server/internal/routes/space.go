@@ -11,5 +11,6 @@ func Space(rg *gin.RouterGroup, apiVersion string) {
 	h := handlers.Space{}
 
 	group.POST("/", h.Register)
-	group.POST("/:id/files/", h.UploadFiles)
+	group.POST("/:id/files", h.UploadFiles)
+	group.GET("/:id/files/:name", h.DownloadFile)
 }

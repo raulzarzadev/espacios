@@ -67,7 +67,7 @@ func (Space) UploadFiles(ctx *gin.Context) {
 	dummyIdUser := "fcf938e4-463c-4cb2-86f4-4385b4fe21f7"
 	idSpace := ctx.Param("id")
 	filesLocation := fmt.Sprintf(
-		"/users/%s/spaces/%s/pictures/", dummyIdUser, idSpace,
+		"/users/%s/spaces/%s/", dummyIdUser, idSpace,
 	)
 	files := make([]storage.File, 0, len(form.File["files"]))
 	for _, formFile := range form.File["files"] {
@@ -102,4 +102,27 @@ func (Space) UploadFiles(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, uploadInfo)
+}
+
+func (Space) DownloadFile(ctx *gin.Context) {
+	minioClient, err := storage.OpenConnection()
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	// TODO: Get Id User from JWT...
+	dummyIdUser := "fcf938e4-463c-4cb2-86f4-4385b4fe21f7"
+	idSpace := ctx.Param("id")
+	filename := ctx.Param("name")
+	filename = fmt.Sprintf(
+		"/users/%s/spaces/%s/%s", dummyIdUser, idSpace, filename,
+	)
+	url, err := minioClient.DownloadFile(filename)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, url)
 }

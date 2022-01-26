@@ -1,10 +1,9 @@
 package handlers
 
 import (
-	"fmt"
-	"log"
 	"net/http"
 	"spaces/internal/models"
+	"spaces/pkg/storage"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -52,19 +51,46 @@ func (s Space) Register(ctx *gin.Context) {
 		return
 	}
 
-	fmt.Printf("Space: %v\n", space)
 	ctx.JSON(http.StatusOK, space)
 }
 
 func (Space) UploadFiles(ctx *gin.Context) {
-	// TODO: Move files to file storage...
-
-	form, _ := ctx.MultipartForm()
-	files := form.File["files"]
-
-	for _, file := range files {
-		log.Println(file.Filename)
+	// Parsing client request
+	form, err := ctx.MultipartForm()
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
-	ctx.JSON(http.StatusOK, "Uploaded...")
+	files := make([]storage.File, 0, len(form.File["files"]))
+	for _, formFile := range form.File["files"] {
+		data, err := formFile.Open()
+		if err != nil {
+			ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		files = append(files, storage.File{
+			Filename: formFile.Filename,
+			Size:     formFile.Size,
+			Data:     data,
+		})
+	}
+
+	// Uploading files to storage server
+	minioClient, err := storage.OpenConnection()
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	for _, f := range files {
+		err = minioClient.UploadFile(f)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+	}
+
+	ctx.JSON(http.StatusOK, nil)
 }

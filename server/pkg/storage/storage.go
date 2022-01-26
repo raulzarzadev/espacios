@@ -9,6 +9,8 @@ import (
 	"github.com/minio/minio-go/v7/pkg/credentials"
 )
 
+type UploadInfo minio.UploadInfo
+
 type File struct {
 	Filename string
 	Data     io.Reader
@@ -58,14 +60,14 @@ func OpenConnection() (MinioClient, error) {
 	return MinioClient{client: client}, nil
 }
 
-func (c *MinioClient) UploadFile(file File) error {
-	_, err := c.client.PutObject(
+func (c *MinioClient) UploadFile(file File) (UploadInfo, error) {
+	uploadInfo, err := c.client.PutObject(
 		context.TODO(), bucket, file.Filename, file.Data, file.Size,
 		minio.PutObjectOptions{},
 	)
 	if err != nil {
-		return err
+		return UploadInfo{}, err
 	}
 
-	return nil
+	return UploadInfo(uploadInfo), nil
 }

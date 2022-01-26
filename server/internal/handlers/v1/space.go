@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"spaces/internal/models"
 	"spaces/pkg/storage"
@@ -62,6 +63,12 @@ func (Space) UploadFiles(ctx *gin.Context) {
 		return
 	}
 
+	// TODO: Get Id User from JWT...
+	dummyIdUser := "fcf938e4-463c-4cb2-86f4-4385b4fe21f7"
+	idSpace := ctx.Param("id")
+	filesLocation := fmt.Sprintf(
+		"/users/%s/spaces/%s/pictures/", dummyIdUser, idSpace,
+	)
 	files := make([]storage.File, 0, len(form.File["files"]))
 	for _, formFile := range form.File["files"] {
 		data, err := formFile.Open()
@@ -71,7 +78,7 @@ func (Space) UploadFiles(ctx *gin.Context) {
 		}
 
 		files = append(files, storage.File{
-			Filename: formFile.Filename,
+			Filename: filesLocation + formFile.Filename,
 			Size:     formFile.Size,
 			Data:     data,
 		})
@@ -84,13 +91,15 @@ func (Space) UploadFiles(ctx *gin.Context) {
 		return
 	}
 
+	uploadInfo := make([]storage.UploadInfo, 0, len(files))
 	for _, f := range files {
-		err = minioClient.UploadFile(f)
+		info, err := minioClient.UploadFile(f)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
+		uploadInfo = append(uploadInfo, info)
 	}
 
-	ctx.JSON(http.StatusOK, nil)
+	ctx.JSON(http.StatusOK, uploadInfo)
 }

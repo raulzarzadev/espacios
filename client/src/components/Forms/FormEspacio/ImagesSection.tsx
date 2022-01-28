@@ -17,27 +17,23 @@ export default function ImagesSection({ espacioId = '', images }) {
     <section id="images" className="flex  max-w-[90vw] overflow-auto">
       <ModalNewImage espacioId={espacioId} />
       {images?.map((image: any, i: Key) => (
-        <ModalImage image={image} key={i} espacioId={espacioId} />
+        <ModalDetailsImage image={image} key={i} espacioId={espacioId} />
       ))}
     </section>
   )
 }
 
-const ModalImage = ({ image, espacioId }) => {
+const ModalDetailsImage = ({ image, espacioId }) => {
   const [modal, setModal] = useState(false)
   const handleOpenModal = () => setModal(!modal)
   const handleEdit = ({ form, espacioId }) => {
-    console.log('form', form)
+    console.log('editing', form)
   }
   const handleDeleteImage = async ({ espacioId, form }) => {
     await deleteImageFromEspacio(espacioId, form.image).then((res) =>
       console.log('res', res)
     )
     await fbDeleteImage(form.image).then((res) => console.log('res', res))
-    /* 
-    console.log('espacioId, form', espacioId, form)
-    console.log('remover imagen del storage ')
-    console.log('remover imagen de Espacio') */
   }
   return (
     <>
@@ -76,14 +72,12 @@ const ModalNewImage = ({ espacioId = '' }) => {
   const handleOpenModal = () => {
     setOpenModal(!openModal)
   }
-  const handleSave = ({ espacioId, form }) => {
-    addImageToEspacio(espacioId, form).then((res) => console.log('res', res))
+  const handleSave = async ({ espacioId, form }) => {
+    await addImageToEspacio(espacioId, form).then((res) => {})
   }
   const handleCancel = async ({ form }) => {
-    console.log('form', form)
-    form?.image &&
-      (await fbDeleteImage(form.image).then((res) => console.log('res', res)))
-    setOpenModal(false)
+    form?.image && (await fbDeleteImage(form.image).then((res) => {
+    }))
   }
 
   return (
@@ -124,7 +118,6 @@ const FormImage = ({
   const [_image, _setImage] = useState([])
   const [imageProgress, setImageProgress] = useState(0)
   const fileRef = useRef()
-  const [preview, setPreview] = useState(null)
   const handleChange = async ({ target }) => {
     if (target.files) {
       const file = target.files[0]
@@ -133,8 +126,6 @@ const FormImage = ({
       await fbUploadImage({ file, carpet: 'espacios' }, ({ progress }) => {
         setImageProgress(progress)
       }).then((res) => {
-        console.log('res', res)
-        setPreview(res.downloadURL)
         setForm({ ...form, image: res.downloadURL, title: fileName })
         return res
       })
@@ -160,24 +151,17 @@ const FormImage = ({
             </div>
           </div>
         )}
-        <div className="shrink-0 relative aspect-video   ">
-          {form?.image && (
+        {form?.image && (
+          <div className="shrink-0 relative aspect-video   ">
             <Image
               src={form?.image}
               objectFit="cover"
               layout="fill"
               alt="preview"
             />
-          )}
-          {preview && (
-            <Image
-              src={preview}
-              objectFit="contain"
-              layout="fill"
-              alt="preview"
-            />
-          )}
-        </div>
+          </div>
+        )}
+       
         <input
           ref={fileRef}
           type="file"
@@ -205,7 +189,7 @@ const FormImage = ({
             variant="secondary"
             onClick={() => {
               setForm({})
-              setPreview(null)
+              setImageProgress(0)
               handleCancel({ espacioId, form })
             }}
           />

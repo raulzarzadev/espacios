@@ -22,10 +22,10 @@ const schema = yup.object().shape({
 })
 
 export default function FormEspacio({
-  formTitle = 'espacios form',
   alreadyExist = false,
   espacio
 }: espacioForm) {
+
   const {
     handleSubmit,
     register,
@@ -39,6 +39,7 @@ export default function FormEspacio({
 
   const router = useRouter()
   const { user } = useSelector((state: RootState) => state.user)
+  
   const onSubmit = async (data: any) => {
     if (!data?.id) {
       createEspacio(user?.id, data)
@@ -84,7 +85,7 @@ export default function FormEspacio({
 
       {/* -----form images ----- */}
       <FormSection title="Imagenes" id="images">
-        <ImagesSection espacioId={espacio?.id} />
+        <ImagesSection espacioId={espacio?.id} images={espacio?.images} />
 
         {/* -----form espacios ----- */}
       </FormSection>

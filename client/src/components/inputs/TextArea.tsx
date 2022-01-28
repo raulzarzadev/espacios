@@ -25,6 +25,7 @@ const TextArea = React.forwardRef(
       <textarea
         ref={ref}
         rows={rows}
+        value={value}
         placeholder={placeholder}
         className={`
           ${styling[variant]} 

@@ -1,7 +1,7 @@
 import FormEspacio from '@comps/Forms/FormEspacio'
 import Head from '@comps/Head'
 import RouteType from '@comps/HOCS/RouteType'
-import { getAdminEspacio } from '@fb/espacios'
+import { listenEspacio } from '@fb/espacios'
 import { setEspacioState } from '@redux/espacios/EspaciosSlice'
 import { RootState } from '@redux/store'
 import { useRouter } from 'next/router'
@@ -19,11 +19,11 @@ export default function EspacioPage() {
   const [espacio, setEspacio] = useState(undefined)
   useEffect(() => {
     if (user?.id) {
-      getAdminEspacio(user?.id, id, setEspacio)
+      listenEspacio(id, setEspacio)
     }
   }, [id, user])
   const dispatch = useDispatch()
- 
+
   useEffect(() => {
     dispatch(setEspacioState(espacio))
   }, [dispatch, espacio])

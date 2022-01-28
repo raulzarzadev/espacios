@@ -1,5 +1,4 @@
 import { signInWithEmail, singupWithEmail } from '@fb/client'
-import { async } from '@firebase/util'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 /* const signup = createAsyncThunk('signup', async (args) => {

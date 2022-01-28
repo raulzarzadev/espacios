@@ -32,7 +32,9 @@ export default function Modal({
   return (
     <>
       <div className="cursor-pointer hover:scale-105">
-        {<OpenComponent {...openProps} onClick={handleOpen}></OpenComponent>}
+        {OpenComponent && (
+          <OpenComponent {...openProps} onClick={handleOpen}></OpenComponent>
+        )}
       </div>
       <div>
         <div

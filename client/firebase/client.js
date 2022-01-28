@@ -11,18 +11,16 @@ import { initializeApp } from 'firebase/app'
 import {
   getFirestore,
   collection,
-  addDoc,
   setDoc,
   doc,
   getDoc
 } from 'firebase/firestore'
 
 import {
-  datesToFirebaseFromat,
   formatResponse,
-  mapUserFromFirebase,
-  normalizeDoc
 } from './firebase-helpers'
+
+
 const firebaseConfig = JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_CONFIG)
 const app = initializeApp(firebaseConfig)
 export const db = getFirestore()
@@ -87,6 +85,7 @@ const createNewUser = async (user) => {
     .then((res) => formatResponse(true, 'USER_CREATED', res))
     .catch((err) => formatResponse(false, 'ERROR_USER_CREATED', err))
 }
+
 /* 
 export const updateUser = async (user) => {
   const eventRef = db.collection('users').doc(user.id)

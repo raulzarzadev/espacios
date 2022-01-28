@@ -24,10 +24,9 @@ export default function InventoryByEspacio() {
     } else {
       setEspacio(state.espacio)
     }
-  }, [espacioId])
+  }, [espacioId, state.espacio])
 
   if (espacio === undefined) return 'Cargando ...'
-  console.log(`espacio`, espacio)
   return (
     <div className="">
       <div className="max-w-sm mx-auto">
@@ -108,7 +107,7 @@ const ItemRow = ({ item, espacio, area }) => {
       },
       setLastUpdate
     )
-  }, [])
+  }, [area.id, espacio.id, item.id])
 
   const {
     handleSubmit,
@@ -120,7 +119,6 @@ const ItemRow = ({ item, espacio, area }) => {
     handleSaveInventary(item, quantity)
   }
 
-  console.log(`errors`, errors)
   const [disabled, setDisabled] = useState(false)
   return (
     <div className=" flex justify-between ">

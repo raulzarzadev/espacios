@@ -11,7 +11,6 @@ export default function EspacioInventories() {
   const router = useRouter()
   const espacioId = router.query.id
   const { espacio } = useSelector((state) => state.espacio)
-  console.log(`espacio`, espacio)
   useEffect(() => {
     if (!espacio && espacioId) {
       router.push(ROUTES.espacios.details(espacioId))

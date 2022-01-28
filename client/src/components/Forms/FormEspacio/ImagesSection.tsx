@@ -134,7 +134,6 @@ const FormImage = ({
     }
   }
 
-  console.log('form', form)
 
   return (
     <div>

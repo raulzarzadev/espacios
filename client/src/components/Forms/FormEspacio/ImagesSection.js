@@ -16,7 +16,7 @@ export default function ImagesSection({ espacioId = '', images }) {
   return (
     <section id="images" className="flex  max-w-[90vw] overflow-auto">
       <ModalNewImage espacioId={espacioId} />
-      {images?.map((image: any, i: Key) => (
+      {images?.map((image, i) => (
         <ModalDetailsImage image={image} key={i} espacioId={espacioId} />
       ))}
     </section>
@@ -76,8 +76,7 @@ const ModalNewImage = ({ espacioId = '' }) => {
     await addImageToEspacio(espacioId, form).then((res) => {})
   }
   const handleCancel = async ({ form }) => {
-    form?.image && (await fbDeleteImage(form.image).then((res) => {
-    }))
+    form?.image && (await fbDeleteImage(form.image).then((res) => {}))
   }
 
   return (
@@ -107,7 +106,7 @@ const FormImage = ({
   cancelLabel = 'Cancelar',
   handleCancel = ({ espacioId, form }) => {}
 }) => {
-  const [form, setForm] = useState({})
+  const [form, setForm] = useState({ image: '' })
 
   useEffect(() => {
     if (image) {
@@ -120,7 +119,7 @@ const FormImage = ({
   const fileRef = useRef()
   const handleChange = async ({ target }) => {
     if (target.files) {
-      const file = target.files[0]
+      const file = target?.files[0]
       const fileName = file?.name || 'new-image'
       setForm({ ...form, title: fileName })
       await fbUploadImage({ file, carpet: 'espacios' }, ({ progress }) => {
@@ -133,7 +132,6 @@ const FormImage = ({
       setForm({ ...form, [target.name]: target.value })
     }
   }
-
 
   return (
     <div>
@@ -160,7 +158,7 @@ const FormImage = ({
             />
           </div>
         )}
-       
+
         <input
           ref={fileRef}
           type="file"

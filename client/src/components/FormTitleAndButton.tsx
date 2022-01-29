@@ -11,8 +11,8 @@ export default function FormTitleAndButton({
 }) {
   return (
     <div className="">
-      <div className="flex w-full p-2 pb-0 items-center">
-        <h3 className="flex w-full text-3xl ">{title}</h3>
+      <div className="flex w-full p-1 pb-0 items-center">
+        <h3 className="flex w-full text-xl font-bold  ">{title}</h3>
         {!hiddeButton && (
           <Button
             disabled={disabled}

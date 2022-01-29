@@ -81,7 +81,11 @@ const ModalNewImage = ({ espacioId = '' }) => {
 
   return (
     <>
-      <AddSquare size="md" onClick={handleOpenModal} />
+      {!espacioId ? (
+        <div>Para agregar imagenes primero debes guardar este espacio</div>
+      ) : (
+        <AddSquare size="md" onClick={handleOpenModal} />
+      )}
       <Modal
         title="Agregar imagen"
         open={openModal}

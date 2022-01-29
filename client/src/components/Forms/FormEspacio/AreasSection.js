@@ -53,7 +53,6 @@ export default function AreasSection({ areas = [], setAreas, espacio }) {
       </div>
       <div className="text-center">
         <Button onClick={() => setOpenNewArea(true)} label="Agregar area" />
-
         <Modal open={openNewArea} handleClose={() => setOpenNewArea(false)}>
           <FormArea espacio={espacio} handleAddArea={handleAddArea} />
         </Modal>
@@ -77,13 +76,13 @@ const AreaRow = ({
   return (
     <div className="flex justify-between w-full items-center my-1">
       <div className=" flex items-center pr-2">
-        <Button
+        {/* <Button
           size="xs"
           variant="secondary"
           onClick={() => handleRemoveArea(area.id)}
           iconOnly
           icon={<Icon name="minus" />}
-        />
+        /> */}
       </div>
       <div className="w-3/4 truncate">{area?.name}</div>
       <div className="">
@@ -95,7 +94,13 @@ const AreaRow = ({
         />
       </div>
       <div className="flex items-center">
-        <Button
+        <button className='mx-1 text-danger' onClick={() => handleRemoveArea(area.id)}>
+          <Icon name="trash" />
+        </button>
+        <button className='mx-1 text-info-dark' id={area.name} onClick={handleOpenEditArea}>
+          <Icon name="edit" />
+        </button>
+        {/* <Button
           onClick={handleOpenEditArea}
           size="xs"
           variant="third"
@@ -106,7 +111,7 @@ const AreaRow = ({
               <Icon name="edit" />
             </div>
           }
-        />
+        /> */}
         {openEditArea && (
           <Modal
             title="Editar area"

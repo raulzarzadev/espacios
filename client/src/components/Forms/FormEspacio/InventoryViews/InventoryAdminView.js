@@ -13,9 +13,9 @@ export default function InventoryAdminView({
 
   return (
     <div className="">
-     
       <div className="flex items-center">
-        <div className="w-6/12 flex justify-center">Item</div>
+        <div className="w-2/12 flex justify-center">Area</div>
+        <div className="w-4/12 flex justify-end">Item</div>
         <div className="w-6/12 flex flex-col items-center justify-center">
           Cantidades
         </div>
@@ -28,12 +28,12 @@ export default function InventoryAdminView({
 }
 const AreaRow = ({ area, espacio }) => {
   return (
-    <div>
-      <div className=" flex ">
-        <div className="font-bold w-full  flex">
+    <div className="shadow-lg rounded-lg my-2 bg-prim-light p-1">
+      <div className=" flex  ">
+        <div className="font-semibold w-full  flex">
           <div className="w-full">
             {area?.name}
-            <span className=" text-sm">x{area?.quantity}</span>{' '}
+            <span className=" text-xs font-normal"> (x{area?.quantity})</span>
           </div>
           <div className=" font-normal text-center flex justify-between w-full text-xs items-center ">
             <div className="w-full  truncate ">ult. hace</div>
@@ -72,7 +72,7 @@ const ItemRow = ({ item, area, espacio }) => {
   const restToIdeal = idealCount - currentCount
   return (
     <div className=" flex justify-between ">
-      <div className="pl-2 w-8/12 flex items-center  justify-start text-sm">
+      <div className="pl-2 w-8/12 flex items-center  justify-end text-sm">
         {item?.name}
       </div>
       <div className="w-1/6  flex items-center justify-center font-normal italic text-xs">

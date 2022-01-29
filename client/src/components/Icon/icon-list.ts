@@ -11,6 +11,8 @@ import { TiPlusOutline } from '@react-icons/all-files/ti/TiPlusOutline'
 import { TiMinusOutline } from '@react-icons/all-files/ti/TiMinusOutline'
 import { TiInfoLarge } from '@react-icons/all-files/ti/TiInfoLarge'
 import { TiFilter } from '@react-icons/all-files/ti/TiFilter'
+import { TiEdit } from '@react-icons/all-files/ti/TiEdit'
+import { TiTrash } from '@react-icons/all-files/ti/TiTrash'
 
 import React from 'react'
 
@@ -26,6 +28,7 @@ const ICON_LIST: { [index: string]: React.ElementType } = {
   minus: TiMinusOutline,
   info: TiInfoLarge,
   filter: TiFilter,
-  edit: TiPlusOutline
+  edit: TiEdit,
+  trash:TiTrash
 }
 export default ICON_LIST

@@ -84,19 +84,3 @@ const createNewUser = async (user) => {
     .then((res) => formatResponse(true, 'USER_CREATED', res))
     .catch((err) => formatResponse(false, 'ERROR_USER_CREATED', err))
 }
-
-/* 
-export const updateUser = async (user) => {
-  const eventRef = db.collection('users').doc(user.id)
-  const datesInFirebaseFormat = datesToFirebaseFromat(user)
-  try {
-    const res = await eventRef.update({
-      ...user,
-      ...datesInFirebaseFormat
-    })
-    return formatResponse(true, 'USER_UPDATED', res)
-  } catch (err) {
-    return formatResponse(false, 'UPDATE_ERROR', err)
-  }
-}
- */

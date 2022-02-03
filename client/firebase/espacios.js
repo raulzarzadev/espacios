@@ -12,11 +12,17 @@ import {
   getDoc
 } from 'firebase/firestore'
 import { db } from './client'
-import { formatResponse, normalizeDoc } from './firebase-helpers'
+import {
+  deepFormatDocumentDates,
+  formatResponse,
+  normalizeDoc
+} from './firebase-helpers'
 export const createEspacio = async (adminId, newEspacio) => {
+  const formatedEspacio = deepFormatDocumentDates(newEspacio)
+  console.log('new formatedEspacio', formatedEspacio)
   const docRef = await addDoc(collection(db, 'espacios'), {
     admin: { id: adminId },
-    ...newEspacio
+    ...formatedEspacio
   })
   return formatResponse(true, 'ESPACIO_CREATED', { id: docRef.id })
 }
@@ -63,13 +69,15 @@ export const deleteImageFromEspacio = async (espacioId, imageUrl) => {
     images: newImages
   })
     .then((res) => formatResponse(true, 'IMAGE_ESPACIO_DELETED', res))
-    .catch((err) => formatResponse(false, 'IMAGE_ESPACIO_DELETED_ERROR', err)) 
+    .catch((err) => formatResponse(false, 'IMAGE_ESPACIO_DELETED_ERROR', err))
 }
 
 export const updateEspacio = async (espacioId, espacio) => {
   const espacioRef = doc(db, 'espacios', espacioId)
+  const formatedEspacio = deepFormatDocumentDates(espacio)
+  console.log('formatedEspacio', formatedEspacio)
   return updateDoc(espacioRef, {
-    ...espacio,
+    ...formatedEspacio,
     lastUpdate: Timestamp.now()
   })
     .then((res) => formatResponse(true, 'ESPACIO_UPDATED', res))

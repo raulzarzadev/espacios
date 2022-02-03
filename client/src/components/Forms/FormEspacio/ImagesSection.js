@@ -26,15 +26,7 @@ export default function ImagesSection({ espacioId = '', images }) {
 const ModalDetailsImage = ({ image, espacioId }) => {
   const [modal, setModal] = useState(false)
   const handleOpenModal = () => setModal(!modal)
-  const handleEdit = ({ form, espacioId }) => {
-    console.log('editing', form)
-  }
-  const handleDeleteImage = async ({ espacioId, form }) => {
-    await deleteImageFromEspacio(espacioId, form.image).then((res) =>
-      console.log('res', res)
-    )
-    await fbDeleteImage(form.image).then((res) => console.log('res', res))
-  }
+
   return (
     <>
       <button
@@ -54,14 +46,7 @@ const ModalDetailsImage = ({ image, espacioId }) => {
         open={modal}
         handleClose={handleOpenModal}
       >
-        <FormImage
-          espacioId={espacioId}
-          image={image}
-          saveLabel="Editar"
-          handleSave={handleEdit}
-          cancelLabel="Borrar"
-          handleCancel={handleDeleteImage}
-        />
+        <FormImage espacioId={espacioId} image={image} />
       </Modal>
     </>
   )
@@ -71,12 +56,6 @@ const ModalNewImage = ({ espacioId = '' }) => {
   const [openModal, setOpenModal] = useState(false)
   const handleOpenModal = () => {
     setOpenModal(!openModal)
-  }
-  const handleSave = async ({ espacioId, form }) => {
-    await addImageToEspacio(espacioId, form).then((res) => {})
-  }
-  const handleCancel = async ({ form }) => {
-    form?.image && (await fbDeleteImage(form.image).then((res) => {}))
   }
 
   return (
@@ -91,25 +70,14 @@ const ModalNewImage = ({ espacioId = '' }) => {
         open={openModal}
         handleClose={handleOpenModal}
       >
-        <FormImage
-          espacioId={espacioId}
-          image={null}
-          handleSave={handleSave}
-          handleCancel={handleCancel}
-        />
+        <FormImage espacioId={espacioId} image={null} />
       </Modal>
     </>
   )
 }
 
-const FormImage = ({
-  espacioId,
-  image,
-  handleSave,
-  saveLabel = 'Guardar',
-  cancelLabel = 'Cancelar',
-  handleCancel = ({ espacioId, form }) => {}
-}) => {
+const FormImage = ({ espacioId, image }) => {
+  const [status, setStatus] = useState('NEW')
   const [form, setForm] = useState({ image: '' })
 
   useEffect(() => {
@@ -117,6 +85,8 @@ const FormImage = ({
       setForm(image)
     }
   }, [image])
+
+  console.log(status)
 
   const [_image, _setImage] = useState([])
   const [imageProgress, setImageProgress] = useState(0)
@@ -129,11 +99,158 @@ const FormImage = ({
       await fbUploadImage({ file, carpet: 'espacios' }, ({ progress }) => {
         setImageProgress(progress)
       }).then((res) => {
+        setStatus('UPLOADED')
         setForm({ ...form, image: res.downloadURL, title: fileName })
         return res
       })
     } else {
       setForm({ ...form, [target.name]: target.value })
+
+    }
+  }
+
+  // ------ MAIN FUNCTIONS ------
+
+  const handleEditImage = async ({ form, espacioId }) => {
+    console.log('editing', form)
+  }
+  const handleDeleteImage = async ({ espacioId, form }) => {
+    await deleteImageFromEspacio(espacioId, form.image).then((res) =>
+      console.log('res', res)
+    )
+    await fbDeleteImage(form.image).then((res) => console.log('res', res))
+  }
+  const handleSaveImage = async ({ espacioId, form }) => {
+    await addImageToEspacio(espacioId, form).then((res) => {})
+  }
+
+  const resetForm = (restTime=500) => {
+    
+    setTimeout(() => {
+      setImageProgress(0)
+      setForm({ title: '', description: '' })
+    }, restTime)
+  }
+
+  // ------ MAIN FUNCTIONS ------
+
+  const BUTTONS_STATUS = {
+    DELETED: {
+      CANCEL: {
+        label: 'Eliminado',
+        onClick: () => {},
+        disabled: false,
+        variant: 'secondary'
+      },
+      SAVE: {
+        label: 'NUEVO',
+        onClick: () => {},
+        disabled: false,
+        variant: 'primary'
+      }
+    },
+    UPLOADED: {
+      CANCEL: {
+        label: 'Eliminar',
+        onClick: () => {
+          setStatus('DELETED')
+          handleDeleteImage({ espacioId, form }).then(() => {
+            resetForm()
+          })
+        },
+        disabled: false,
+        variant: 'secondary'
+      },
+      SAVE: {
+        label: 'Guardar',
+        onClick: () => {
+          setStatus('SAVING')
+          handleSaveImage({ espacioId, form }).then(() => {
+            setStatus('SAVED')
+          })
+        },
+        disabled: false,
+        variant: 'primary'
+      }
+    },
+    NEW: {
+      CANCEL: {
+        label: 'Eliminar',
+        onClick: () => {
+          setStatus('DELETED')
+          handleDeleteImage({ espacioId, form }).then(() => {
+            resetForm()
+          })
+        },
+        disabled: false,
+        variant: 'secondary'
+      },
+      SAVE: {
+        label: 'Guardar',
+        onClick: () => {
+          setStatus('SAVING')
+          handleSaveImage({ espacioId, form }).then(() => {
+            setStatus('SAVED')
+          })
+        },
+        disabled: true,
+        variant: 'primary'
+      }
+    },
+    SAVED: {
+      CANCEL: {
+        label: 'Eliminar',
+        onClick: () => {
+          setStatus('DELETING')
+          handleDeleteImage({ espacioId, form }).then(() => {
+            setStatus('DELETED')
+          })
+        },
+        disabled: false,
+        variant: 'secondary'
+      },
+      SAVE: {
+        label: 'Guardado',
+        onClick: () => {},
+        disabled: true,
+        variant: 'primary'
+      }
+    },
+    SAVING: {
+      CANCEL: {
+        label: 'Cancelar',
+        onClick: () => {},
+        disabled: true,
+        variant: 'secondary'
+      },
+      SAVE: {
+        label: 'Guardando...',
+        onClick: () => {},
+        disabled: true,
+        variant: 'primary'
+      }
+    },
+    EDIT: {
+      CANCEL: {
+        label: 'Canelar',
+        onClick: () => {
+          setForm({ ...(image || {}) })
+          setStatus('SAVED')
+        },
+        disabled: false,
+        variant: 'secondary'
+      },
+      SAVE: {
+        label: 'Editar',
+        onClick: () => {
+          setStatus('SAVING')
+          handleEditImage({ form, espacioId }).then(() => {
+            setStatus('SAVED')
+          })
+        },
+        disabled: false,
+        variant: 'primary'
+      }
     }
   }
 
@@ -186,17 +303,27 @@ const FormImage = ({
         />
         <div className="flex justify-evenly">
           <Button
-            label={cancelLabel}
+            onClick={BUTTONS_STATUS?.[status]?.CANCEL?.onClick}
+            label={BUTTONS_STATUS?.[status]?.CANCEL?.label}
+            disabled={BUTTONS_STATUS?.[status]?.CANCEL?.disabled}
+            variant={BUTTONS_STATUS?.[status]?.CANCEL?.variant}
+            /* // disabled={saveLabel === 'Guardado'}
+            /*  label={saveLabel === 'Guardado' ? 'Eliminar' : 'Cancelar'}
             variant="secondary"
             onClick={() => {
               setForm({})
               setImageProgress(0)
               handleCancel({ espacioId, form })
-            }}
+            }} */
           />
           <Button
+            onClick={BUTTONS_STATUS?.[status]?.SAVE?.onClick}
+            disabled={BUTTONS_STATUS?.[status]?.SAVE?.disabled}
+            label={BUTTONS_STATUS?.[status]?.SAVE?.label}
+            variant={BUTTONS_STATUS?.[status]?.SAVE?.variant}
+            /*  disabled={saveLabel === 'Guardado'}
             label={saveLabel}
-            onClick={() => handleSave({ espacioId, form })}
+            onClick={() => handleSave({ espacioId, form })} */
           />
         </div>
       </div>

@@ -1,8 +1,4 @@
-import Icon from '@comps/Icon'
-import Button from '@comps/inputs/Button'
-import Counter from '@comps/inputs/Counter'
 import { useRouter } from 'next/router'
-import ROUTES from 'src/CONSTANTS/ROUTES'
 import { useEffect, useState } from 'react'
 import { getLastInventory } from '@fb/inventaries'
 import { fromNow } from 'src/utils/dates'

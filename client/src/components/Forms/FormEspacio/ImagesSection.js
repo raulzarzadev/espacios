@@ -23,6 +23,8 @@ export default function ImagesSection({ espacioId = '', images = [] }) {
   )
 }
 
+// TODO looks like the modal is pointign white a index and not to the image
+
 const ModalDetailsImage = ({ image, espacioId }) => {
   const [modal, setModal] = useState(false)
   const handleOpenModal = () => setModal(!modal)

@@ -3,13 +3,10 @@ import Button from '@comps/inputs/Button'
 import Text from '@comps/inputs/Text'
 import TextArea from '@comps/inputs/TextArea'
 import Modal from '@comps/Modal'
-import {
-  addImageToEspacio,
-  deleteImageFromEspacio
-} from '@fb/espacios'
+import { addImageToEspacio, deleteImageFromEspacio } from '@fb/espacios'
 import { fbDeleteImage, fbUploadImage, fbUpdateEspacioImage } from '@fb/images'
 import Image from 'next/image'
-import { useState, useEffect, useRef,  } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 export default function ImagesSection({ espacioId = '', images = [] }) {
   const imagesSorted = [...images]?.sort((a, b) => b.lastUpdate - a.lastUpdate)
@@ -99,6 +96,7 @@ const FormImage = ({ espacioId, image }) => {
       const fileName = file?.name || 'new-image'
       setForm({ ...form, title: fileName })
       await fbUploadImage({ file, carpet: 'espacios' }, ({ progress }) => {
+        setStatus('UPLOADING')
         setImageProgress(progress)
       }).then((res) => {
         const newForm = { ...form, image: res.downloadURL, title: fileName }
@@ -138,6 +136,7 @@ const FormImage = ({ espacioId, image }) => {
     }, restTime)
   }
   // ------ MAIN FUNCTIONS ------
+  // TODO add cancel option when is uploading image
 
   const BUTTONS_STATUS = {
     NEW: {
@@ -159,6 +158,28 @@ const FormImage = ({ espacioId, image }) => {
           handleSaveImage({ espacioId, form }).then(() => {
             setStatus('SAVED')
           })
+        },
+        disabled: true,
+        variant: 'primary'
+      }
+    },
+    UPLOADING: {
+      CANCEL: {
+        label: 'Eliminar',
+        onClick: () => {
+          setStatus('DELETED')
+          handleDeleteImage({ espacioId, form }).then(() => {
+            resetForm()
+          })
+        },
+        disabled: true,
+        variant: 'secondary'
+      },
+      SAVE: {
+        label: 'Subiendo...',
+        onClick: () => {
+          setStatus('NEW')
+          console.log('form', form)
         },
         disabled: true,
         variant: 'primary'
@@ -290,12 +311,16 @@ const FormImage = ({ espacioId, image }) => {
           </div>
         )}
         {/* TODO disabled when an image exist */}
-        <input
-          ref={fileRef}
-          type="file"
-          name="images"
-          onChange={handleChange}
-        />
+        <label className="border shadow-lg hover:shadow-none rounded-md text-center px-1 ">
+          Seleccionar imagen
+          <input
+            className=" hidden"
+            ref={fileRef}
+            type="file"
+            name="images"
+            onChange={handleChange}
+          />
+        </label>
         <Text
           placeholder="Titulo (opcional)"
           fullWidth

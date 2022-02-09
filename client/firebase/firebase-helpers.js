@@ -52,8 +52,13 @@ export const deepFormatDocumentDates = (
   Object.keys(object).forEach((key) => {
     if (DATE_FIELDS.includes(key)) {
       const firebaseDate = object[key]
+      const transformDateToMs = (date) => {
+        if (typeof date === 'number') return date
+        if (date instanceof Date) return date.getTime()
+        return date?.toMillis()
+      }
       toFirebaseFormat
-        ? (AUX_OBJ[key] = firebaseDate.toMillis())
+        ? (AUX_OBJ[key] = transformDateToMs(firebaseDate))
         : (AUX_OBJ[key] = Timestamp.fromDate(new Date(object[key])))
     }
     if (typeof object[key] === 'object') {

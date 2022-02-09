@@ -1,81 +1,3 @@
-import AddSquare from '@comps/AddSquare'
-import Button from '@comps/inputs/Button'
-import Text from '@comps/inputs/Text'
-import TextArea from '@comps/inputs/TextArea'
-import Modal from '@comps/Modal'
-import {
-  addImageToEspacio,
-  deleteImageFromEspacio
-} from '@fb/espacios'
-import { fbDeleteImage, fbUploadImage, fbUpdateEspacioImage } from '@fb/images'
-import Image from 'next/image'
-import { useState, useEffect, useRef,  } from 'react'
-
-export default function ImagesSection({ espacioId = '', images = [] }) {
-  const imagesSorted = [...images]?.sort((a, b) => b.lastUpdate - a.lastUpdate)
-  return (
-    <section id="images" className="flex  max-w-[90vw] overflow-auto">
-      <ModalNewImage espacioId={espacioId} />
-      {imagesSorted?.map((image, i) => (
-        <ModalDetailsImage image={image} key={i} espacioId={espacioId} />
-      ))}
-    </section>
-  )
-}
-
-const ModalDetailsImage = ({ image, espacioId }) => {
-  const [modal, setModal] = useState(false)
-  const handleOpenModal = () => setModal(!modal)
-
-  return (
-    <>
-      <button
-        onClick={handleOpenModal}
-        className="relative w-16 min-w-[3rem] h-16 m-1 rounded-lg shadow-lg"
-      >
-        <Image
-          src={image?.image}
-          objectFit="cover"
-          layout="fill"
-          alt="image"
-          className="rounded-lg"
-        />
-      </button>
-      <Modal
-        title="Detalles de imagen"
-        open={modal}
-        handleClose={handleOpenModal}
-      >
-        <FormImage espacioId={espacioId} image={image} />
-      </Modal>
-    </>
-  )
-}
-
-const ModalNewImage = ({ espacioId = '' }) => {
-  const [openModal, setOpenModal] = useState(false)
-  const handleOpenModal = () => {
-    setOpenModal(!openModal)
-  }
-
-  return (
-    <>
-      {!espacioId ? (
-        <div>Para agregar imagenes primero debes guardar este espacio</div>
-      ) : (
-        <AddSquare size="md" onClick={handleOpenModal} />
-      )}
-      <Modal
-        title="Agregar imagen"
-        open={openModal}
-        handleClose={handleOpenModal}
-      >
-        <FormImage espacioId={espacioId} image={null} />
-      </Modal>
-    </>
-  )
-}
-
 const FormImage = ({ espacioId, image }) => {
   const [status, setStatus] = useState('NEW')
   const [form, setForm] = useState({ image: '' })
@@ -83,11 +5,11 @@ const FormImage = ({ espacioId, image }) => {
   useEffect(() => {
     if (image) {
       setForm(image)
-      setStatus('SAVED')
     }
   }, [image])
-  // console.log(status)
-  // console.log('image', image)
+
+  console.log(status)
+
   const [_image, _setImage] = useState([])
   const [imageProgress, setImageProgress] = useState(0)
   const fileRef = useRef()
@@ -99,17 +21,13 @@ const FormImage = ({ espacioId, image }) => {
       await fbUploadImage({ file, carpet: 'espacios' }, ({ progress }) => {
         setImageProgress(progress)
       }).then((res) => {
-        const newForm = { ...form, image: res.downloadURL, title: fileName }
-        handleSaveImage({ form: newForm, espacioId }).then((res) => {
-          setStatus('SAVED')
-          // resetForm(500)
-        })
-        setForm(newForm)
-
+        setStatus('UPLOADED')
+        setForm({ ...form, image: res.downloadURL, title: fileName })
         return res
       })
     } else {
       setForm({ ...form, [target.name]: target.value })
+
       setStatus('EDIT')
     }
   }
@@ -117,7 +35,7 @@ const FormImage = ({ espacioId, image }) => {
   // ------ MAIN FUNCTIONS ------
 
   const handleEditImage = async ({ form, espacioId }) => {
-    return await fbUpdateEspacioImage({ espacioId, image: form })
+    console.log('editing', form)
   }
   const handleDeleteImage = async ({ espacioId, form }) => {
     await deleteImageFromEspacio(espacioId, form.image).then((res) =>
@@ -135,30 +53,21 @@ const FormImage = ({ espacioId, image }) => {
       setForm({ title: '', description: '' })
     }, restTime)
   }
+
   // ------ MAIN FUNCTIONS ------
 
   const BUTTONS_STATUS = {
-    NEW: {
+    DELETED: {
       CANCEL: {
-        label: 'Cancelar',
-        onClick: () => {
-          setStatus('DELETED')
-          handleDeleteImage({ espacioId, form }).then(() => {
-            resetForm()
-          })
-        },
+        label: 'Eliminado',
+        onClick: () => {},
         disabled: false,
         variant: 'secondary'
       },
       SAVE: {
-        label: 'Guardar',
-        onClick: () => {
-          setStatus('SAVING')
-          handleSaveImage({ espacioId, form }).then(() => {
-            setStatus('SAVED')
-          })
-        },
-        disabled: true,
+        label: 'NUEVO',
+        onClick: () => {},
+        disabled: false,
         variant: 'primary'
       }
     },
@@ -186,17 +95,26 @@ const FormImage = ({ espacioId, image }) => {
         variant: 'primary'
       }
     },
-
-    SAVING: {
+    NEW: {
       CANCEL: {
-        label: 'Cancelar',
-        onClick: () => {},
-        disabled: true,
+        label: 'Eliminar',
+        onClick: () => {
+          setStatus('DELETED')
+          handleDeleteImage({ espacioId, form }).then(() => {
+            resetForm()
+          })
+        },
+        disabled: false,
         variant: 'secondary'
       },
       SAVE: {
-        label: 'Guardando...',
-        onClick: () => {},
+        label: 'Guardar',
+        onClick: () => {
+          setStatus('SAVING')
+          handleSaveImage({ espacioId, form }).then(() => {
+            setStatus('SAVED')
+          })
+        },
         disabled: true,
         variant: 'primary'
       }
@@ -220,11 +138,24 @@ const FormImage = ({ espacioId, image }) => {
         variant: 'primary'
       }
     },
+    SAVING: {
+      CANCEL: {
+        label: 'Cancelar',
+        onClick: () => {},
+        disabled: true,
+        variant: 'secondary'
+      },
+      SAVE: {
+        label: 'Guardando...',
+        onClick: () => {},
+        disabled: true,
+        variant: 'primary'
+      }
+    },
     EDIT: {
       CANCEL: {
         label: 'Canelar',
         onClick: () => {
-          image ? setForm(image) : resetForm()
           setForm({ ...(image || {}) })
           setStatus('SAVED')
         },
@@ -235,26 +166,9 @@ const FormImage = ({ espacioId, image }) => {
         label: 'Editar',
         onClick: () => {
           setStatus('SAVING')
-          handleEditImage({ form, espacioId }).then((res) => {
-            console.log('res', res)
+          handleEditImage({ form, espacioId }).then(() => {
             setStatus('SAVED')
           })
-        },
-        disabled: false,
-        variant: 'primary'
-      }
-    },
-    DELETED: {
-      CANCEL: {
-        label: 'Eliminado',
-        onClick: () => {},
-        disabled: false,
-        variant: 'secondary'
-      },
-      SAVE: {
-        label: 'NUEVO',
-        onClick: () => {
-          resetForm()
         },
         disabled: false,
         variant: 'primary'
@@ -287,7 +201,7 @@ const FormImage = ({ espacioId, image }) => {
             />
           </div>
         )}
-        {/* TODO disabled when an image exist */}
+
         <input
           ref={fileRef}
           type="file"

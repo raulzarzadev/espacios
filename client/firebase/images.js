@@ -1,6 +1,7 @@
 /* ------------------------------------------------------------------------------------------- */
 /*  ---------------------***---------    IMAGES MANAGE    ----------***-------------------------- */
 /* ------------------------------------------------------------------------------------------- */
+import { doc, getDoc, Timestamp, updateDoc } from 'firebase/firestore'
 import {
   deleteObject,
   getDownloadURL,
@@ -8,6 +9,7 @@ import {
   ref,
   uploadBytesResumable
 } from 'firebase/storage'
+import { db } from './client'
 import { formatResponse } from './firebase-helpers'
 
 export const fbUploadImage = (
@@ -42,7 +44,25 @@ export const fbUploadImage = (
 export const fbDeleteImage = async (url) => {
   const storage = getStorage()
   const imageRef = ref(storage, url)
-   return await deleteObject(imageRef)
+  return await deleteObject(imageRef)
     .then((res) => formatResponse(true, 'IMAGE_DELETED', res))
-    .catch((err) => formatResponse(false, 'IMAGE_DELETED_ERROR', err)) 
+    .catch((err) => formatResponse(false, 'IMAGE_DELETED_ERROR', err))
+}
+
+export const fbUpdateEspacioImage = async ({ espacioId, image: imageRef }) => {
+  // TODO update espacio image
+  const espacioRef = doc(db, 'espacios', espacioId)
+  const espacio = await getDoc(espacioRef)
+
+  if (espacio.exists()) {
+    const images = espacio?.data()?.images || []
+    const removedImage = images.filter(({ image }) => image !== imageRef.image)
+    const findImage = images.find(({ image }) => image === imageRef.image)
+    const newImage = { ...findImage, ...imageRef, lastUpdate: Timestamp.now() }
+    const newImages = [...removedImage, newImage]
+    return updateDoc(espacioRef, { images: newImages })
+  } else {
+    // doc.data() will be undefined in this case
+    console.log('No such document!')
+  }
 }

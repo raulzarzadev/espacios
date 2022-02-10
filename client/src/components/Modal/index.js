@@ -7,7 +7,8 @@ export default function Modal({
   title = 'Modal title',
   open,
   children,
-  handleClose
+  handleClose,
+  modalId
 }) {
   const [opacity, setOpacity] = useState(true)
   useEffect(() => {
@@ -28,7 +29,7 @@ export default function Modal({
           ${opacity ? 'opacity-100' : 'opacity-0'}
           ${open ? 'fixed' : 'hidden'}
           `}
-      id={`modal-${title}`}
+      id={`modal-${title}-${modalId}`}
       style={{ background: 'rgba(0, 0, 0, 0.7)' }}
     >
       <div

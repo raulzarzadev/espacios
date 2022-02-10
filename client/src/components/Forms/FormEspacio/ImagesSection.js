@@ -25,7 +25,7 @@ export default function ImagesSection({ espacioId = '', images = [] }) {
 const ModalDetailsImage = ({ image, espacioId }) => {
   const [modal, setModal] = useState(false)
   const handleOpenModal = () => setModal(!modal)
-
+  console.log('modal', modal)
   return (
     <>
       <button
@@ -41,7 +41,8 @@ const ModalDetailsImage = ({ image, espacioId }) => {
         />
       </button>
       <Modal
-        title="Detalles de imagen"
+        title={`Detalles de imagen`}
+        modalId={image?.image}
         open={modal}
         handleClose={handleOpenModal}
       >
@@ -101,7 +102,7 @@ const FormImage = ({ espacioId, image }) => {
       }).then((res) => {
         const newForm = { ...form, image: res.downloadURL, title: fileName }
         handleSaveImage({ form: newForm, espacioId }).then((res) => {
-          setStatus('SAVED')
+          setStatus('UPLOADED')
           // resetForm(500)
         })
         setForm(newForm)
@@ -166,21 +167,13 @@ const FormImage = ({ espacioId, image }) => {
     UPLOADING: {
       CANCEL: {
         label: 'Eliminar',
-        onClick: () => {
-          setStatus('DELETED')
-          handleDeleteImage({ espacioId, form }).then(() => {
-            resetForm()
-          })
-        },
+        onClick: () => {},
         disabled: true,
         variant: 'secondary'
       },
       SAVE: {
         label: 'Subiendo...',
-        onClick: () => {
-          setStatus('NEW')
-          console.log('form', form)
-        },
+        onClick: () => {},
         disabled: true,
         variant: 'primary'
       }
@@ -189,21 +182,19 @@ const FormImage = ({ espacioId, image }) => {
       CANCEL: {
         label: 'Eliminar',
         onClick: () => {
-          setStatus('DELETED')
+          setStatus('DELETING')
           handleDeleteImage({ espacioId, form }).then(() => {
-            resetForm()
+            setStatus('DELETED')
           })
         },
         disabled: false,
         variant: 'secondary'
       },
       SAVE: {
-        label: 'Guardar',
+        label: 'Nueva imagen',
         onClick: () => {
-          setStatus('SAVING')
-          handleSaveImage({ espacioId, form }).then(() => {
-            setStatus('SAVED')
-          })
+          setStatus('NEW')
+          resetForm()
         },
         disabled: false,
         variant: 'primary'
@@ -311,16 +302,18 @@ const FormImage = ({ espacioId, image }) => {
           </div>
         )}
         {/* TODO disabled when an image exist */}
-        <label className="border shadow-lg hover:shadow-none rounded-md text-center px-1 ">
-          Seleccionar imagen
-          <input
-            className=" hidden"
-            ref={fileRef}
-            type="file"
-            name="images"
-            onChange={handleChange}
-          />
-        </label>
+        {!form?.image && (
+          <label className="border shadow-lg hover:shadow-none rounded-md text-center px-1 ">
+            Seleccionar imagen
+            <input
+              className=" hidden"
+              ref={fileRef}
+              type="file"
+              name="images"
+              onChange={handleChange}
+            />
+          </label>
+        )}
         <Text
           placeholder="Titulo (opcional)"
           fullWidth
@@ -342,23 +335,12 @@ const FormImage = ({ espacioId, image }) => {
             label={BUTTONS_STATUS?.[status]?.CANCEL?.label}
             disabled={BUTTONS_STATUS?.[status]?.CANCEL?.disabled}
             variant={BUTTONS_STATUS?.[status]?.CANCEL?.variant}
-            /* // disabled={saveLabel === 'Guardado'}
-            /*  label={saveLabel === 'Guardado' ? 'Eliminar' : 'Cancelar'}
-            variant="secondary"
-            onClick={() => {
-              setForm({})
-              setImageProgress(0)
-              handleCancel({ espacioId, form })
-            }} */
           />
           <Button
             onClick={BUTTONS_STATUS?.[status]?.SAVE?.onClick}
             disabled={BUTTONS_STATUS?.[status]?.SAVE?.disabled}
             label={BUTTONS_STATUS?.[status]?.SAVE?.label}
             variant={BUTTONS_STATUS?.[status]?.SAVE?.variant}
-            /*  disabled={saveLabel === 'Guardado'}
-            label={saveLabel}
-            onClick={() => handleSave({ espacioId, form })} */
           />
         </div>
       </div>

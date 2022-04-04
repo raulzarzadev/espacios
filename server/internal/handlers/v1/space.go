@@ -55,6 +55,85 @@ func (s Space) Register(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, space)
 }
 
+func (s Space) Read(ctx *gin.Context) {
+	idSpace, err := uuid.Parse(ctx.Param("id"))
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	space := models.Space{
+		Id: idSpace,
+	}
+	space, err = space.Read()
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, space)
+}
+
+func (s Space) List(ctx *gin.Context) {
+	spaces, err := models.Space{}.ReadAll()
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, spaces)
+
+}
+
+func (s *Space) Update(ctx *gin.Context) {
+	err := ctx.BindJSON(&s)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	space := models.Space{
+		Id:             s.Id,
+		IdTeam:         s.IdTeam,
+		IdSpaceType:    s.IdSpaceType,
+		IdPropertyType: s.IdPropertyType,
+		IdAddress:      s.IdAddress,
+		Name:           s.Name,
+		Guests:         s.Guests,
+		SafeBoxCode:    s.SafeBoxCode,
+		Notes:          s.Notes,
+		Contract:       s.Contract,
+		Pictures:       s.Pictures,
+		Url:            s.Url,
+	}
+	space, err = space.Create()
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, space)
+}
+
+func (Space) Delete(ctx *gin.Context) {
+	idSpace, err := uuid.Parse(ctx.Param("id"))
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	space := models.Space{
+		Id: idSpace,
+	}
+	err = space.Delete()
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, "")
+}
+
 func (Space) UploadFiles(ctx *gin.Context) {
 	// Parsing client request
 	form, err := ctx.MultipartForm()

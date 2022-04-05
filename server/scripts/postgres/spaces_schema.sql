@@ -9,8 +9,8 @@
 -- 
 -- object: spaces | type: DATABASE --
 -- DROP DATABASE IF EXISTS spaces;
-CREATE DATABASE spaces
-	ENCODING = 'UTF8';
+-- CREATE DATABASE spaces
+--	ENCODING = 'UTF8';
 -- ddl-end --
 
 

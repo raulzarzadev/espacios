@@ -175,7 +175,7 @@ ALTER TABLE public.address OWNER TO postgres;
 -- ALTER TABLE public.space DROP CONSTRAINT IF EXISTS address_fk CASCADE;
 ALTER TABLE public.space ADD CONSTRAINT address_fk FOREIGN KEY (id_address)
 REFERENCES public.address (id) MATCH FULL
-ON DELETE RESTRICT ON UPDATE CASCADE;
+ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
 -- object: space_uq | type: CONSTRAINT --
@@ -272,3 +272,8 @@ ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
 
+-- SAMPLE DATA ---
+INSERT INTO public."user" VALUES ('fcf938e4-463c-4cb2-86f4-4385b4fe21f7','User', 'user@organization.com');
+INSERT INTO public.team VALUES ('4a590474-5b51-4fcb-a444-4ce1889f9033', 'fcf938e4-463c-4cb2-86f4-4385b4fe21f7', 'Admin Team');
+INSERT INTO public.space_type VALUES ('3229e908-7ef9-4d75-b864-1bd89b4b4609','A');
+INSERT INTO public.property_type VALUES ('1ae0458e-d2cd-40ee-bdfb-80b466244b0f','A');

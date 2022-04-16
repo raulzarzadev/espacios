@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"database/sql"
 	"fmt"
 	"net/http"
 	"spaces/internal/models"
@@ -38,13 +39,13 @@ func (s Space) Register(ctx *gin.Context) {
 		IdSpaceType:    s.IdSpaceType,
 		IdPropertyType: s.IdPropertyType,
 		IdAddress:      s.IdAddress,
-		Name:           s.Name,
-		Guests:         s.Guests,
-		SafeBoxCode:    s.SafeBoxCode,
-		Notes:          s.Notes,
-		Contract:       s.Contract,
+		Name:           sql.NullString{String: s.Name, Valid: true},
+		Guests:         sql.NullInt16{Int16: int16(s.Guests), Valid: true},
+		SafeBoxCode:    sql.NullString{String: s.SafeBoxCode, Valid: true},
+		Notes:          sql.NullString{String: s.Notes, Valid: true},
+		Contract:       sql.NullString{String: s.Contract, Valid: true},
 		Pictures:       s.Pictures,
-		Url:            s.Url,
+		Url:            sql.NullString{String: s.Url, Valid: true},
 	}
 	space, err = space.Create()
 	if err != nil {
@@ -52,7 +53,20 @@ func (s Space) Register(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, space)
+	ctx.JSON(http.StatusOK, Space{
+		Id:             space.Id,
+		IdTeam:         space.IdTeam,
+		IdSpaceType:    space.IdSpaceType,
+		IdPropertyType: space.IdPropertyType,
+		IdAddress:      space.IdAddress,
+		Name:           space.Name.String,
+		Guests:         int(space.Guests.Int16),
+		SafeBoxCode:    space.SafeBoxCode.String,
+		Notes:          space.Notes.String,
+		Contract:       space.Contract.String,
+		Pictures:       space.Pictures,
+		Url:            space.Url.String,
+	})
 }
 
 func (s Space) Read(ctx *gin.Context) {
@@ -71,14 +85,45 @@ func (s Space) Read(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, space)
+	ctx.JSON(http.StatusOK, Space{
+		Id:             space.Id,
+		IdTeam:         space.IdTeam,
+		IdSpaceType:    space.IdSpaceType,
+		IdPropertyType: space.IdPropertyType,
+		IdAddress:      space.IdAddress,
+		Name:           space.Name.String,
+		Guests:         int(space.Guests.Int16),
+		SafeBoxCode:    space.SafeBoxCode.String,
+		Notes:          space.Notes.String,
+		Contract:       space.Contract.String,
+		Pictures:       space.Pictures,
+		Url:            space.Url.String,
+	})
 }
 
 func (s Space) List(ctx *gin.Context) {
-	spaces, err := models.Space{}.ReadAll()
+	listSpaces, err := models.Space{}.ReadAll()
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
+	}
+
+	spaces := make([]Space, 0, len(listSpaces))
+	for _, space := range listSpaces {
+		spaces = append(spaces, Space{
+			Id:             space.Id,
+			IdTeam:         space.IdTeam,
+			IdSpaceType:    space.IdSpaceType,
+			IdPropertyType: space.IdPropertyType,
+			IdAddress:      space.IdAddress,
+			Name:           space.Name.String,
+			Guests:         int(space.Guests.Int16),
+			SafeBoxCode:    space.SafeBoxCode.String,
+			Notes:          space.Notes.String,
+			Contract:       space.Contract.String,
+			Pictures:       space.Pictures,
+			Url:            space.Url.String,
+		})
 	}
 
 	ctx.JSON(http.StatusOK, spaces)
@@ -98,21 +143,34 @@ func (s *Space) Update(ctx *gin.Context) {
 		IdSpaceType:    s.IdSpaceType,
 		IdPropertyType: s.IdPropertyType,
 		IdAddress:      s.IdAddress,
-		Name:           s.Name,
-		Guests:         s.Guests,
-		SafeBoxCode:    s.SafeBoxCode,
-		Notes:          s.Notes,
-		Contract:       s.Contract,
+		Name:           sql.NullString{String: s.Name, Valid: true},
+		Guests:         sql.NullInt16{Int16: int16(s.Guests), Valid: true},
+		SafeBoxCode:    sql.NullString{String: s.SafeBoxCode, Valid: true},
+		Notes:          sql.NullString{String: s.Notes, Valid: true},
+		Contract:       sql.NullString{String: s.Contract, Valid: true},
 		Pictures:       s.Pictures,
-		Url:            s.Url,
+		Url:            sql.NullString{String: s.Url, Valid: true},
 	}
-	space, err = space.Create()
+	space, err = space.Update()
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
-	ctx.JSON(http.StatusOK, space)
+	ctx.JSON(http.StatusOK, Space{
+		Id:             space.Id,
+		IdTeam:         space.IdTeam,
+		IdSpaceType:    space.IdSpaceType,
+		IdPropertyType: space.IdPropertyType,
+		IdAddress:      space.IdAddress,
+		Name:           space.Name.String,
+		Guests:         int(space.Guests.Int16),
+		SafeBoxCode:    space.SafeBoxCode.String,
+		Notes:          space.Notes.String,
+		Contract:       space.Contract.String,
+		Pictures:       space.Pictures,
+		Url:            space.Url.String,
+	})
 }
 
 func (Space) Delete(ctx *gin.Context) {
@@ -131,7 +189,7 @@ func (Space) Delete(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, "")
+	ctx.JSON(http.StatusOK, Space{})
 }
 
 func (Space) UploadFiles(ctx *gin.Context) {
@@ -152,7 +210,7 @@ func (Space) UploadFiles(ctx *gin.Context) {
 	for _, formFile := range form.File["files"] {
 		data, err := formFile.Open()
 		if err != nil {
-			ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 
@@ -166,7 +224,7 @@ func (Space) UploadFiles(ctx *gin.Context) {
 	// Uploading files to storage server
 	minioClient, err := storage.OpenConnection()
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 

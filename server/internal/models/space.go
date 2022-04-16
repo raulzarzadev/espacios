@@ -1,6 +1,7 @@
 package models
 
 import (
+	"database/sql"
 	"spaces/pkg/postgres"
 
 	"github.com/google/uuid"
@@ -13,13 +14,13 @@ type Space struct {
 	IdSpaceType    uuid.UUID      `db:"id_space_type"`
 	IdPropertyType uuid.UUID      `db:"id_property_type"`
 	IdAddress      uuid.UUID      `db:"id_address"`
-	Name           string         `db:"name"`
-	Guests         int            `db:"guests"`
-	SafeBoxCode    string         `db:"safe_box_code"`
-	Notes          string         `db:"notes"`
-	Contract       string         `db:"contract"`
+	Name           sql.NullString `db:"name"`
+	Guests         sql.NullInt16  `db:"guests"`
+	SafeBoxCode    sql.NullString `db:"safe_box_code"`
+	Notes          sql.NullString `db:"notes"`
+	Contract       sql.NullString `db:"contract"`
 	Pictures       pq.StringArray `db:"pictures"`
-	Url            string         `db:"url"`
+	Url            sql.NullString `db:"url"`
 }
 
 func (s *Space) Create() (Space, error) {
@@ -37,10 +38,10 @@ func (s *Space) Create() (Space, error) {
 
 func (s *Space) Read() (Space, error) {
 	db := postgres.DB
-	statement := "SELECT * FROM public.space WHERE id=:id"
-	row := db.Pool.QueryRow(statement, s)
+	statement := "SELECT * FROM public.space WHERE id=$1"
+	row := db.Pool.QueryRowx(statement, s.Id)
 
-	err := row.Scan(s)
+	err := row.StructScan(s)
 	if err != nil {
 		return Space{}, err
 	}
@@ -59,7 +60,7 @@ func (Space) ReadAll() ([]Space, error) {
 	spaces := make([]Space, 0)
 	for rows.Next() {
 		var s Space
-		err = rows.StructScan(s)
+		err = rows.StructScan(&s)
 		if err != nil {
 			return []Space{}, err
 		}
@@ -73,9 +74,9 @@ func (Space) ReadAll() ([]Space, error) {
 func (s *Space) Update() (Space, error) {
 	db := postgres.DB
 	statement := "UPDATE public.space SET " +
-		"id_team=:id_team, id_space_type=:id_space_type, " +
-		"id_property_type=:id_property_type, :id_address," +
-		"name=:name, guests=:guests, safe_box_code=:safe_box_code, notes=:notes, " +
+		"id_team=:id_team, id_space_type=:id_space_type," +
+		"id_property_type=:id_property_type, id_address=:id_address," +
+		"name=:name, guests=:guests, safe_box_code=:safe_box_code, notes=:notes," +
 		"contract=:contract, pictures=:pictures, url=:url WHERE id=:id"
 	_, err := db.Pool.NamedExec(statement, s)
 	if err != nil {

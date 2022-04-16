@@ -1,0 +1,974 @@
+{
+	"info": {
+		"_postman_id": "a5f92fc5-b037-4c90-b2b9-8c73c48d8ca1",
+		"name": "Espacios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/ping",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"ping"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Ping",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/ping",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"ping"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 24 Oct 2021 19:49:21 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "18"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"pong\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Upload Files",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": "/Users/irving/Pictures/apartment.jpeg"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/v1/spaces/:id/files/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"spaces",
+						":id",
+						"files",
+						""
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "",
+							"description": "UUID"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Upload Files",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/Users/irving/Pictures/apartment.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/v1/spaces/:id/files/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"spaces",
+								":id",
+								"files",
+								""
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "464150cd-d8a5-4be3-8ea5-9b386341ab4a",
+									"description": "UUID"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 16 Apr 2022 01:16:15 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "314"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"Bucket\": \"espacios\",\n        \"Key\": \"/users/fcf938e4-463c-4cb2-86f4-4385b4fe21f7/spaces/464150cd-d8a5-4be3-8ea5-9b386341ab4a/apartment.jpeg\",\n        \"ETag\": \"9860f956494ac996d78be9bfab0b6f18\",\n        \"Size\": 98727,\n        \"LastModified\": \"0001-01-01T00:00:00Z\",\n        \"Location\": \"\",\n        \"VersionID\": \"\",\n        \"Expiration\": \"0001-01-01T00:00:00Z\",\n        \"ExpirationRuleID\": \"\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "DownloadFile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/spaces/:id/files/:name",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"spaces",
+						":id",
+						"files",
+						":name"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": null,
+							"description": "UUID"
+						},
+						{
+							"key": "name",
+							"value": null,
+							"description": "String"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "DownloadFile",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/spaces/:id/files/:name",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"spaces",
+								":id",
+								"files",
+								":name"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "464150cd-d8a5-4be3-8ea5-9b386341ab4a",
+									"description": "UUID"
+								},
+								{
+									"key": "name",
+									"value": "apartment.jpeg",
+									"description": "String"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 16 Apr 2022 01:17:53 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "416"
+						}
+					],
+					"cookie": [],
+					"body": "\"http://localhost:9000/espacios//users/fcf938e4-463c-4cb2-86f4-4385b4fe21f7/spaces/464150cd-d8a5-4be3-8ea5-9b386341ab4a/apartment.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minioadmin%2F20220416%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220416T011753Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=227b8ca911b567a4a44892b445a4f00b187010c8b1d64b20ab73b71e22ac3f01\""
+				}
+			]
+		},
+		{
+			"name": "Create Space",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id_team\": \"4a590474-5b51-4fcb-a444-4ce1889f9033\",\n    \"id_space_type\": \"3229e908-7ef9-4d75-b864-1bd89b4b4609\",\n    \"id_property_type\": \"1ae0458e-d2cd-40ee-bdfb-80b466244b0f\",\n    \"id_address\": \"f50b536c-d752-402a-a570-106f891099f8\",\n    \"name\": \"Espacio 1\",\n    \"guests\": 4,\n    \"safe_box_code\": \"000\",\n    \"notes\": \"\",\n    \"contract\": \"\",\n    \"pictures\": [\"filename_1\"],\n    \"url\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/v1/spaces",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"spaces"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Space",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id_team\": \"4a590474-5b51-4fcb-a444-4ce1889f9033\",\n    \"id_space_type\": \"3229e908-7ef9-4d75-b864-1bd89b4b4609\",\n    \"id_property_type\": \"1ae0458e-d2cd-40ee-bdfb-80b466244b0f\",\n    \"id_address\": \"2e9ddb20-7fbf-4be3-98f3-7bfa6878ac0e\",\n    \"name\": \"Espacio 1\",\n    \"guests\": 4,\n    \"safe_box_code\": \"000\",\n    \"notes\": \"\",\n    \"contract\": \"\",\n    \"pictures\": [\"filename_1\"],\n    \"url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/spaces",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"spaces"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 16 Apr 2022 00:44:37 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "371"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"6691343f-686b-4654-b4f1-755880e99885\",\n    \"id_team\": \"4a590474-5b51-4fcb-a444-4ce1889f9033\",\n    \"id_space_type\": \"3229e908-7ef9-4d75-b864-1bd89b4b4609\",\n    \"id_property_type\": \"1ae0458e-d2cd-40ee-bdfb-80b466244b0f\",\n    \"id_address\": \"2e9ddb20-7fbf-4be3-98f3-7bfa6878ac0e\",\n    \"name\": \"Espacio 1\",\n    \"guests\": 4,\n    \"safe_box_code\": \"000\",\n    \"notes\": \"\",\n    \"contract\": \"\",\n    \"pictures\": [\n        \"filename_1\"\n    ],\n    \"url\": \"\"\n}"
+				}
+			]
+		},
+		{
+			"name": "List Space",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/spaces",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"spaces"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "List Space",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/spaces",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"spaces"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 16 Apr 2022 00:45:11 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1861"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"97910396-3180-4f50-99ce-2c3dec49481d\",\n        \"id_team\": \"4a590474-5b51-4fcb-a444-4ce1889f9033\",\n        \"id_space_type\": \"3229e908-7ef9-4d75-b864-1bd89b4b4609\",\n        \"id_property_type\": \"1ae0458e-d2cd-40ee-bdfb-80b466244b0f\",\n        \"id_address\": \"c653695d-52f6-4763-b6f9-0f525466d299\",\n        \"name\": \"Espacio 1\",\n        \"guests\": 0,\n        \"safe_box_code\": \"\",\n        \"notes\": \"\",\n        \"contract\": \"\",\n        \"pictures\": [\n            \"a.png\",\n            \"b.jpg\"\n        ],\n        \"url\": \"\"\n    },\n    {\n        \"id\": \"464150cd-d8a5-4be3-8ea5-9b386341ab4a\",\n        \"id_team\": \"4a590474-5b51-4fcb-a444-4ce1889f9033\",\n        \"id_space_type\": \"3229e908-7ef9-4d75-b864-1bd89b4b4609\",\n        \"id_property_type\": \"1ae0458e-d2cd-40ee-bdfb-80b466244b0f\",\n        \"id_address\": \"58517cad-1f1b-42b8-93f4-cc2c8b1c154c\",\n        \"name\": \"Espacio 1\",\n        \"guests\": 0,\n        \"safe_box_code\": \"\",\n        \"notes\": \"\",\n        \"contract\": \"\",\n        \"pictures\": [\n            \"a.png\",\n            \"b.jpg\"\n        ],\n        \"url\": \"\"\n    },\n    {\n        \"id\": \"e9e1892b-6afd-4e8d-8d78-7a2aa5951457\",\n        \"id_team\": \"4a590474-5b51-4fcb-a444-4ce1889f9033\",\n        \"id_space_type\": \"3229e908-7ef9-4d75-b864-1bd89b4b4609\",\n        \"id_property_type\": \"1ae0458e-d2cd-40ee-bdfb-80b466244b0f\",\n        \"id_address\": \"4a953f9a-27c4-4885-a34b-f32edf46b5c3\",\n        \"name\": \"Espacio 1\",\n        \"guests\": 5,\n        \"safe_box_code\": \"111\",\n        \"notes\": \"\",\n        \"contract\": \"\",\n        \"pictures\": [\n            \"filename_1\"\n        ],\n        \"url\": \"\"\n    },\n    {\n        \"id\": \"00000000-0000-0000-0000-000000000000\",\n        \"id_team\": \"4a590474-5b51-4fcb-a444-4ce1889f9033\",\n        \"id_space_type\": \"3229e908-7ef9-4d75-b864-1bd89b4b4609\",\n        \"id_property_type\": \"1ae0458e-d2cd-40ee-bdfb-80b466244b0f\",\n        \"id_address\": \"9c85591d-ed68-4033-ba2d-bdfb4bbcc40e\",\n        \"name\": \"Espacio 1\",\n        \"guests\": 4,\n        \"safe_box_code\": \"000\",\n        \"notes\": \"\",\n        \"contract\": \"\",\n        \"pictures\": [\n            \"filename_1\"\n        ],\n        \"url\": \"\"\n    },\n    {\n        \"id\": \"6691343f-686b-4654-b4f1-755880e99885\",\n        \"id_team\": \"4a590474-5b51-4fcb-a444-4ce1889f9033\",\n        \"id_space_type\": \"3229e908-7ef9-4d75-b864-1bd89b4b4609\",\n        \"id_property_type\": \"1ae0458e-d2cd-40ee-bdfb-80b466244b0f\",\n        \"id_address\": \"2e9ddb20-7fbf-4be3-98f3-7bfa6878ac0e\",\n        \"name\": \"Espacio 1\",\n        \"guests\": 4,\n        \"safe_box_code\": \"000\",\n        \"notes\": \"\",\n        \"contract\": \"\",\n        \"pictures\": [\n            \"filename_1\"\n        ],\n        \"url\": \"\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Read Space",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/spaces/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"spaces",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "",
+							"description": "UUID"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Read Space",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/spaces/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"spaces",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "e9e1892b-6afd-4e8d-8d78-7a2aa5951457"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 16 Apr 2022 00:45:23 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "371"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"e9e1892b-6afd-4e8d-8d78-7a2aa5951457\",\n    \"id_team\": \"4a590474-5b51-4fcb-a444-4ce1889f9033\",\n    \"id_space_type\": \"3229e908-7ef9-4d75-b864-1bd89b4b4609\",\n    \"id_property_type\": \"1ae0458e-d2cd-40ee-bdfb-80b466244b0f\",\n    \"id_address\": \"4a953f9a-27c4-4885-a34b-f32edf46b5c3\",\n    \"name\": \"Espacio 1\",\n    \"guests\": 5,\n    \"safe_box_code\": \"111\",\n    \"notes\": \"\",\n    \"contract\": \"\",\n    \"pictures\": [\n        \"filename_1\"\n    ],\n    \"url\": \"\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Space",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"e9e1892b-6afd-4e8d-8d78-7a2aa5951457\",\n    \"id_team\": \"4a590474-5b51-4fcb-a444-4ce1889f9033\",\n    \"id_space_type\": \"3229e908-7ef9-4d75-b864-1bd89b4b4609\",\n    \"id_property_type\": \"1ae0458e-d2cd-40ee-bdfb-80b466244b0f\",\n    \"id_address\": \"4a953f9a-27c4-4885-a34b-f32edf46b5c3\",\n    \"name\": \"Espacio 1\",\n    \"guests\": 5,\n    \"safe_box_code\": \"111\",\n    \"notes\": \"\",\n    \"contract\": \"\",\n    \"pictures\": [\"filename_1\"],\n    \"url\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/v1/spaces",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"spaces"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update Space",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"e9e1892b-6afd-4e8d-8d78-7a2aa5951457\",\n    \"id_team\": \"4a590474-5b51-4fcb-a444-4ce1889f9033\",\n    \"id_space_type\": \"3229e908-7ef9-4d75-b864-1bd89b4b4609\",\n    \"id_property_type\": \"1ae0458e-d2cd-40ee-bdfb-80b466244b0f\",\n    \"id_address\": \"4a953f9a-27c4-4885-a34b-f32edf46b5c3\",\n    \"name\": \"Espacio 1\",\n    \"guests\": 5,\n    \"safe_box_code\": \"111\",\n    \"notes\": \"\",\n    \"contract\": \"\",\n    \"pictures\": [\"filename_1\"],\n    \"url\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/spaces",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"spaces"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 16 Apr 2022 00:45:39 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "371"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"e9e1892b-6afd-4e8d-8d78-7a2aa5951457\",\n    \"id_team\": \"4a590474-5b51-4fcb-a444-4ce1889f9033\",\n    \"id_space_type\": \"3229e908-7ef9-4d75-b864-1bd89b4b4609\",\n    \"id_property_type\": \"1ae0458e-d2cd-40ee-bdfb-80b466244b0f\",\n    \"id_address\": \"4a953f9a-27c4-4885-a34b-f32edf46b5c3\",\n    \"name\": \"Espacio 1\",\n    \"guests\": 5,\n    \"safe_box_code\": \"111\",\n    \"notes\": \"\",\n    \"contract\": \"\",\n    \"pictures\": [\n        \"filename_1\"\n    ],\n    \"url\": \"\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Space",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/spaces/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"spaces",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "",
+							"description": "UUID"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete Space",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/spaces/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"spaces",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "97910396-3180-4f50-99ce-2c3dec49481d"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 16 Apr 2022 00:48:49 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "349"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"00000000-0000-0000-0000-000000000000\",\n    \"id_team\": \"00000000-0000-0000-0000-000000000000\",\n    \"id_space_type\": \"00000000-0000-0000-0000-000000000000\",\n    \"id_property_type\": \"00000000-0000-0000-0000-000000000000\",\n    \"id_address\": \"00000000-0000-0000-0000-000000000000\",\n    \"name\": \"\",\n    \"guests\": 0,\n    \"safe_box_code\": \"\",\n    \"notes\": \"\",\n    \"contract\": \"\",\n    \"pictures\": null,\n    \"url\": \"\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Address",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"unit_no\": \"\",\n    \"street\": \"\",\n    \"city\": \"\",\n    \"state\": \"\",\n    \"country\": \"\",\n    \"zip_code\": \"\",\n    \"latitude\": 0.0,\n    \"longitude\": 0.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/v1/adresses",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"adresses"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Address",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"unit_no\": \"1\",\n    \"street\": \"\",\n    \"city\": \"\",\n    \"state\": \"\",\n    \"country\": \"\",\n    \"zip_code\": \"\",\n    \"latitude\": 0.0,\n    \"longitude\": 0.0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/adresses",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"adresses"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 15 Apr 2022 00:47:15 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "146"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"82704d58-2059-489c-9541-4f8522a78ed4\",\n    \"unit_no\": \"1\",\n    \"street\": \"\",\n    \"city\": \"\",\n    \"state\": \"\",\n    \"country\": \"\",\n    \"zip_code\": \"\",\n    \"latitude\": 0,\n    \"longitude\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "List Address",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/adresses",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"adresses"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "List Address",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/adresses",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"adresses"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 15 Apr 2022 00:47:55 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "148"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"82704d58-2059-489c-9541-4f8522a78ed4\",\n        \"unit_no\": \"1\",\n        \"street\": \"\",\n        \"city\": \"\",\n        \"state\": \"\",\n        \"country\": \"\",\n        \"zip_code\": \"\",\n        \"latitude\": 0,\n        \"longitude\": 0\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Read Address",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/adresses/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"adresses",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "",
+							"description": "UUID"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Read Address",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/adresses/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"adresses",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "82704d58-2059-489c-9541-4f8522a78ed4"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 15 Apr 2022 00:49:06 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "146"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"82704d58-2059-489c-9541-4f8522a78ed4\",\n    \"unit_no\": \"1\",\n    \"street\": \"\",\n    \"city\": \"\",\n    \"state\": \"\",\n    \"country\": \"\",\n    \"zip_code\": \"\",\n    \"latitude\": 1,\n    \"longitude\": 1\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Address",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"\",\n    \"unit_no\": \"\",\n    \"street\": \"\",\n    \"city\": \"\",\n    \"state\": \"\",\n    \"country\": \"\",\n    \"zip_code\": \"\",\n    \"latitude\": 0.0,\n    \"longitude\": 0.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/v1/adresses/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"adresses",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update Address",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"82704d58-2059-489c-9541-4f8522a78ed4\",\n    \"unit_no\": \"1\",\n    \"street\": \"\",\n    \"city\": \"\",\n    \"state\": \"\",\n    \"country\": \"\",\n    \"zip_code\": \"\",\n    \"latitude\": 1.0,\n    \"longitude\": 1.0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/adresses/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"adresses",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 15 Apr 2022 00:48:37 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "146"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"82704d58-2059-489c-9541-4f8522a78ed4\",\n    \"unit_no\": \"1\",\n    \"street\": \"\",\n    \"city\": \"\",\n    \"state\": \"\",\n    \"country\": \"\",\n    \"zip_code\": \"\",\n    \"latitude\": 1,\n    \"longitude\": 1\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Address",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/adresses/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"adresses",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "",
+							"description": "UUID"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete Address",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/v1/adresses/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"adresses",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "82704d58-2059-489c-9541-4f8522a78ed4"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 15 Apr 2022 00:49:21 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "145"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"00000000-0000-0000-0000-000000000000\",\n    \"unit_no\": \"\",\n    \"street\": \"\",\n    \"city\": \"\",\n    \"state\": \"\",\n    \"country\": \"\",\n    \"zip_code\": \"\",\n    \"latitude\": 0,\n    \"longitude\": 0\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -8,7 +8,7 @@ const HomePage: NextPage = () => {
   return (
     <>
       <RouteType type="public">
-        <Head title="Home" />
+        <Head title="Espacios App" />
         <h3>Hola, bienvenido a espacios</h3>
         <div>
           Ahora estamos trabajando en los componentes, puedes verlos aqui

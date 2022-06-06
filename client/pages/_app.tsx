@@ -13,6 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <title>
        Espacios App
       </title>
+      <link rel='icon' href='/espacios.png'></link>
       <meta name='description' content=' Espacios App is a platform for the management of spaces to conserve the best environment for your guest and the owners'/>
     </Head>
       <Provider store={store}>
